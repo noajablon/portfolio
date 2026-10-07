@@ -69,7 +69,9 @@ MEDIA = {
     "mazor": {"441:1536": ("video", "mazor-website"), "561:5736": ("poster", "mazor-phone")},
     "mnemo": {"462:1261": ("poster", "mnemo-film")},
     "stil": {"650:15125": ("poster", "stil-film"), "name:Artifact 2 2": ("poster", "stil-artifact"),
-             "name:Artifact 2 3": ("poster", "stil-artifact")},
+             "name:Artifact 2 3": ("poster", "stil-artifact"), "650:15993": ("poster", "stil-screen1"),
+             "650:18218": ("poster", "stil-screen2"), "650:18568": ("poster", "stil-screen3"),
+             "650:18573": ("poster", "stil-screen4")},
     "lifta": {"462:2146": ("poster", "lifta-motion")},
     "unmask-qatar": {"414:2503": ("poster", "unmask-film")},
     "voices-from-the-desert": {"462:3407": ("poster", "voices-film1"), "462:3437": ("poster", "voices-film2")},
@@ -88,7 +90,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.style.setProperty('--z', Math.max(document.documentElement.clientWidth || innerWidth, 320) / 1480);document.documentElement.classList.add('js');</script>
+<script>document.documentElement.style.setProperty('--z', Math.max(document.documentElement.clientWidth || innerWidth, 320) / 1480);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 </head>
 <body class="page-{slug}" data-page="{slug}">
 """
@@ -104,12 +106,41 @@ def find_id(soup, nid):
     return soup.find_all(attrs={"data-node-id": nid})
 
 
+FRAME_H = [0]
+
+
+def single_line(p):
+    """True when the Figma text box is only one line tall (so the web font must not wrap it)."""
+    if p.find("br") or "\n" in p.get_text().strip():
+        return False
+    cls = " ".join(p.get("class", []))
+    h = re.search(r"(?:^| )h-\[([\d.]+)px\]", cls)
+    fs = re.search(r"text-\[([\d.]+)px\]", cls)
+    lh = re.search(r"leading-\[([\d.]+)(px)?\]", cls)
+    if not h or not fs:
+        return False
+    line = float(fs.group(1)) * 1.25
+    if lh:
+        line = float(lh.group(1)) if lh.group(2) else float(lh.group(1)) * float(fs.group(1))
+    return float(h.group(1)) < line * 1.6
+
+
 def mark_fixed(el):
     if "contents" in el.get("class", []):
         for c in el.find_all(recursive=False):
             mark_fixed(c)
-    else:
-        cls_add(el, "fx")
+        return
+    cls_add(el, "fx")
+    # Percentage insets refer to the page frame; a fixed element would resolve them
+    # against the window, so turn them into the pixel box they describe.
+    for c in list(el.get("class", [])):
+        m = re.fullmatch(r"inset-\[([\d.]+)%_([\d.]+)%_([\d.]+)%_([\d.]+)%\]", c)
+        if m and el.parent is not None and "frame" in el.parent.get("class", []) + ["frame"]:
+            t, r, b, l = (float(x) / 100 for x in m.groups())
+            H = FRAME_H[0]
+            el["class"].remove(c)
+            el["style"] = (f"top:{t*H:.2f}px;left:{l*1480:.2f}px;width:{(1-l-r)*1480:.2f}px;"
+                           f"height:{(1-t-b)*H:.2f}px;" + el.get("style", ""))
 
 
 def retag(el, name, **attrs):
@@ -148,6 +179,12 @@ def build(page):
     root = soup.find("div")
     root["class"] = [c for c in root["class"] if c != "size-full"] + ["frame"]
     root["style"] = f"height:{height}px"
+    FRAME_H[0] = height
+    # Never split a word across lines; single words stay on one line.
+    for p in soup.find_all("p"):
+        p["class"] = [c for c in p.get("class", []) if c != "[word-break:break-word]"]
+        if len(p.get_text(strip=True).split()) == 1 or p.get_text(strip=True) == "TO TOP" or single_line(p):
+            cls_add(p, "whitespace-nowrap")
 
     # Shared marquee: About and Sorora were transcribed with an empty placeholder.
     mq = soup.find(attrs={"data-name": "Marquee"})
@@ -357,8 +394,19 @@ def add_home_previews(soup):
         frame.append(l)
 
 
+def assets():
+    import shutil
+    import subprocess
+    os.makedirs(os.path.join(ROOT, "assets", "js"), exist_ok=True)
+    shutil.copy(os.path.join(ROOT, "src", "js", "site.js"), os.path.join(ROOT, "assets", "js", "site.js"))
+    tw = os.environ.get("TAILWIND", os.path.expanduser("~/bin/tailwindcss"))
+    subprocess.run([tw, "-i", os.path.join(ROOT, "src", "input.css"), "-o",
+                    os.path.join(ROOT, "assets", "css", "site.css"), "--minify"], check=True, cwd=ROOT)
+
+
 if __name__ == "__main__":
     only = sys.argv[1:]
     for p in PAGES:
         if not only or p[0] in only or p[1] in only:
             build(p)
+    assets()

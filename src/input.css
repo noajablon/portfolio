@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @source "../src/fragments";
 @source "../src/js";
+@source "../tools/build.py";
 
 :root { --ink: #363636; --paper: #f5f3f1; --z: 1; --fade: 1.2s; --soft: cubic-bezier(0.45, 0, 0.2, 1); }
 
@@ -15,7 +16,11 @@ body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 /* The 1480px Figma frame, scaled to the window width. */
 .stage { width: 1480px; zoom: var(--z); position: relative; overflow: hidden; overflow: clip; }
 .frame { width: 1480px; }
-.fx { position: fixed !important; z-index: 40; }
+.fx { position: fixed !important; z-index: 40; pointer-events: none; }
+/* Decorative Figma layers overlap the page; only real controls take the pointer. */
+.frame, .frame * { pointer-events: none; }
+.frame a, .frame a *, .frame button, .frame button *, .frame input, .frame textarea, .frame p { pointer-events: auto; }
+.frame .neg { pointer-events: none; }
 .marquee { z-index: 60; }
 .marquee [data-name="Track"] { animation: marquee 16.1s linear infinite; will-change: transform; }
 @keyframes marquee { to { transform: translateX(-883px); } }
