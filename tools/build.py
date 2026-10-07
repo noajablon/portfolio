@@ -258,6 +258,17 @@ def build(page):
         if host is not None:
             cls_add(host, "neg-host")
 
+    # Circle buttons: Figma's own drawing (outlined Gilroy text), so labels sit exactly as designed.
+    art = {"Next Design": "btn-next", "Previous Design": "btn-prev",
+           "To Top · End": "btn-totop-end", "To Top · Floating": "btn-totop-float"}
+    for dn, name in art.items():
+        for el in soup.find_all(attrs={"data-name": dn}):
+            for c in el.find_all(recursive=False):
+                if "neg" not in c.get("class", []):
+                    c.decompose()
+            el.insert(0, soup.new_tag("img", attrs={"src": f"assets/img/{name}.svg", "alt": "",
+                                                    "class": "absolute block inset-0 max-w-none size-full"}))
+
     # Contact form
     fields = {"Hit field name": ("input", "name", "text", "Name and Surname"),
               "Hit field email": ("input", "email", "email", "Email"),

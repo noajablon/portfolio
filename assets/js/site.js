@@ -65,6 +65,44 @@
     });
   }
 
+  // ---------- Fit text: the web font runs a little wider than Gilroy ----------
+  // Single-line labels shrink to their Figma width; paragraphs shrink (a little) to their Figma height.
+  function fitText() {
+    $$(".frame p").forEach((p) => {
+      if (p.closest(".row")) return;
+      const cs = getComputedStyle(p);
+      if (cs.display === "none" || p.dataset.fitBase === undefined && !(p.dataset.fitBase = cs.fontSize)) return;
+      const base = parseFloat(p.dataset.fitBase);
+      p.style.fontSize = "";
+      const single = cs.whiteSpace === "nowrap";
+      const hasH = /(^| )h-\[/.test(p.className);
+      for (let k = 1, i = 0; i < 14; i++) {
+        const over = single ? p.scrollWidth > p.clientWidth + 1 && p.clientWidth > 0
+          : hasH && p.scrollHeight > p.clientHeight + 2 && p.clientHeight > 0;
+        if (!over || k <= (single ? 0.75 : 0.86)) break;
+        k -= 0.02;
+        p.style.fontSize = (base * k).toFixed(2) + "px";
+      }
+    });
+  }
+  // Multi-paragraph text boxes: shrink size and line height together until they fit the Figma box.
+  function fitBlocks() {
+    $$(".frame div").forEach((box) => {
+      if (!/(^| )h-\[/.test(box.className) || !box.querySelector(":scope > p") || box.closest(".row")) return;
+      const ps = $$(":scope > p", box);
+      ps.forEach((p) => { if (!p.dataset.fs) { const c = getComputedStyle(p); p.dataset.fs = c.fontSize; p.dataset.lh = c.lineHeight; } p.style.fontSize = p.style.lineHeight = ""; });
+      for (let k = 1, i = 0; i < 10 && box.scrollHeight > box.clientHeight + 2 && k > 0.9; i++) {
+        k -= 0.02;
+        ps.forEach((p) => {
+          p.style.fontSize = (parseFloat(p.dataset.fs) * k).toFixed(2) + "px";
+          if (p.dataset.lh !== "normal") p.style.lineHeight = (parseFloat(p.dataset.lh) * k).toFixed(2) + "px";
+        });
+      }
+    });
+  }
+  const fitAll = () => { fitText(); fitBlocks(); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll); else addEventListener("load", fitAll);
+
   // ---------- Pin an absolutely positioned element to explicit top/left ----------
   function pin(el) {
     if (el.dataset.pinned) return;
@@ -415,17 +453,12 @@
     hint.className = "scroll-hint";
     hint.textContent = "SCROLL";
     body.appendChild(hint);
-    const size = () => { scrolly.style.height = `${innerHeight * 7}px`; };
+    const size = () => { scrolly.style.height = `${innerHeight * 8}px`; };
     size();
     addEventListener("resize", size);
-    let last = -1;
-    return () => {
-      const max = scrolly.offsetHeight - innerHeight;
-      const prog = Math.min(1, Math.max(0, scrollY / max));
-      const p = reduce ? 100 : START + prog * (100 - START);
-      hint.classList.toggle("gone", prog > 0.02);
-      if (p === last) return;
-      last = p;
+    // Scrolling sets a target; the timeline glides toward it each frame, so wheel steps never jump.
+    let cur = -1, target = 0, raf = 0;
+    const render = (p) => {
       for (const [el, tr] of els) {
         const o = tr.o ? at(tr.o, p) : null;
         const x = tr.x ? at(tr.x, p) : 0, y = tr.y ? at(tr.y, p) : 0, s = tr.s ? at(tr.s, p) : 1;
@@ -441,6 +474,20 @@
         }
         if (o !== null) el.style.pointerEvents = o < 0.5 ? "none" : "";
       }
+    };
+    const tick = () => {
+      raf = 0;
+      const d = target - cur;
+      cur = Math.abs(d) < 0.02 || cur < 0 ? target : cur + d * 0.075;
+      render(cur);
+      if (cur !== target) raf = requestAnimationFrame(tick);
+    };
+    return () => {
+      const max = scrolly.offsetHeight - innerHeight;
+      const prog = Math.min(1, Math.max(0, scrollY / max));
+      target = reduce ? 100 : START + prog * (100 - START);
+      hint.classList.toggle("gone", prog > 0.02);
+      if (!raf) raf = requestAnimationFrame(tick);
     };
   }
 })();
