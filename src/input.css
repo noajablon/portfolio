@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@source "../src/fragments";
+@source "../src/js";
+
+:root { --ink: #363636; --paper: #f5f3f1; --z: 1; --fade: 1.2s; --soft: cubic-bezier(0.45, 0, 0.2, 1); }
+
+.ff-gilroy, .ff-brandon-grotesque, .ff-google-sans { font-family: "Outfit", "Helvetica Neue", Arial, sans-serif; }
+.ff-kulim-park { font-family: "Kulim Park", "Outfit", sans-serif; }
+.ff-ezer-experimenta-trial-only, .ff-sixty-seven-trial { font-family: "Outfit", serif; }
+
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+html { overflow-x: hidden; scroll-behavior: auto; }
+body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* The 1480px Figma frame, scaled to the window width. */
+.stage { width: 1480px; zoom: var(--z); position: relative; overflow: hidden; overflow: clip; }
+.frame { width: 1480px; }
+.fx { position: fixed !important; z-index: 40; }
+.marquee { z-index: 60; }
+.marquee [data-name="Track"] { animation: marquee 16.1s linear infinite; will-change: transform; }
+@keyframes marquee { to { transform: translateX(-883px); } }
+
+a { color: inherit; text-decoration: none; }
+a, button { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+img { user-select: none; -webkit-user-drag: none; }
+
+/* Media dropped into the Figma video slots */
+.media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; max-width: none; }
+.media-missing { background: var(--ink); }
+.has-media { overflow: hidden; }
+
+/* Negative hover: an inverted disc, as in the Figma "Negative" variants. */
+.neg { background: #fff; border-radius: 50%; mix-blend-mode: difference; opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease-in-out; }
+.neg-host:hover .neg, .neg-host:focus-visible .neg { opacity: 1; }
+[data-node-id="647:1856"] .neg { transition-duration: 0.35s; }
+.see-work { transition: filter 0.4s ease-in-out; }
+.see-work:hover { filter: invert(1) contrast(0.9); }
+
+/* Header */
+.hdr p, .hdr [data-name="Untitled-3 1"], .hdr [data-name="shape 2 2"], .hdr [data-name^="ChatGPT"] {
+  transition: opacity 0.3s ease-in-out, letter-spacing 0.45s ease-in-out, transform 0.45s ease-in-out; }
+.hdr a { z-index: 2; }
+
+/* Home rows */
+.row p, .row div { transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out, font-size 0.8s ease-in-out,
+  letter-spacing 0.8s ease-in-out, line-height 0.8s ease-in-out, width 0.8s ease-in-out, font-weight 0.8s ease-in-out,
+  left 0.8s ease-in-out, top 0.8s ease-in-out; }
+.reel .slide, .pv { position: absolute; inset: 0; overflow: hidden; opacity: 0; transition: opacity 0.7s ease-in-out; }
+.reel .slide.on, .pv.on { opacity: 1; }
+.pv { z-index: 2; transition-duration: 0.5s; }
+[data-node-id="635:870"] { z-index: 1; }
+
+/* Contact form */
+.contact-form { display: contents; }
+.field { background: transparent; border: 0; outline: 0; padding: 9px 9px; box-sizing: border-box; resize: none;
+  font: 400 13px/1.3 "Outfit", sans-serif; color: var(--ink); z-index: 41; }
+textarea.field { padding-top: 10px; }
+.field:focus-visible { box-shadow: inset 0 0 0 1px var(--ink); }
+.send { position: absolute; z-index: 42; display: flex; align-items: flex-end; justify-content: flex-end; padding: 0 9px 8px 0;
+  font: 500 10px/1 "Outfit", sans-serif; letter-spacing: 3px; color: var(--ink); cursor: pointer; pointer-events: none;
+  opacity: 0; transition: opacity 0.4s ease-in-out; }
+.send span { padding: 6px 0 0 10px; }
+.contact-form.ready .send { opacity: 1; }
+.contact-form.ready .send span { pointer-events: auto; }
+.form-status { display: none; }
+.hide-ph { opacity: 0 !important; transition: opacity 0.2s; }
+
+/* To Top */
+.totop-float { opacity: 0; pointer-events: none; transition: opacity 0.6s ease-in-out; }
+.totop-float.show { opacity: 1; pointer-events: auto; }
+.totop-float.docked { opacity: 0 !important; pointer-events: none; }
+
+/* Scroll reveal for images */
+.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1.1s var(--soft), transform 1.1s var(--soft); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* Entrance: the frame stays put while scrolling drives the timeline. */
+#scrolly { position: relative; }
+.stage.sticky { position: sticky; top: 0; height: calc(100vh / var(--z)); }
+.entrance [data-node-id] { will-change: auto; }
+.scroll-hint { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 50; font: 400 11px/1 "Outfit", sans-serif;
+  letter-spacing: 4px; color: var(--ink); opacity: 0.55; transition: opacity 0.8s ease; pointer-events: none; }
+.scroll-hint.gone { opacity: 0; }
+
+/* Page transitions: a slow, soft dissolve between every page. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--fade); animation-timing-function: var(--soft); }
+html.js body { opacity: 0; transition: opacity var(--fade) var(--soft); }
+html.js body.ready { opacity: 1; }
+html.js.vt body { opacity: 1; transition: none; }
+html.js body.leaving { opacity: 0; transition-duration: 0.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee [data-name="Track"] { animation-duration: 60s; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  html.js body { transition: none; opacity: 1; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  .row p, .row div, .hdr p { transition-duration: 0.01s !important; }
+}
