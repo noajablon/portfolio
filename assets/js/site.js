@@ -433,9 +433,10 @@
           if (o !== null) t.style.opacity = o.toFixed(3);
           if (tr.x || tr.y || tr.s) t.style.transform = `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) scale(${s.toFixed(4)})`;
           if (tr.trim) {
-            const v = at(tr.trim, p);
+            // The line's own box is 0px wide, so clip the drawn stroke inside it.
+            const v = at(tr.trim, p), line = t.firstElementChild || t;
             t.style.visibility = p < 22.302 ? "hidden" : "visible";
-            t.style.clipPath = `inset(0 0 ${((1 - v) * 100).toFixed(2)}% 0)`;
+            line.style.clipPath = `inset(0 0 ${((1 - v) * 100).toFixed(2)}% 0)`;
           }
         }
         if (o !== null) el.style.pointerEvents = o < 0.5 ? "none" : "";

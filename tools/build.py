@@ -183,7 +183,9 @@ def build(page):
     # Never split a word across lines; single words stay on one line.
     for p in soup.find_all("p"):
         p["class"] = [c for c in p.get("class", []) if c != "[word-break:break-word]"]
-        if len(p.get_text(strip=True).split()) == 1 or p.get_text(strip=True) == "TO TOP" or single_line(p):
+        tracked = re.search(r"tracking-\[([\d.]+)px\]", " ".join(p.get("class", [])))
+        if (len(p.get_text(strip=True).split()) == 1 or p.get_text(strip=True) == "TO TOP" or single_line(p)
+                or (tracked and float(tracked.group(1)) >= 3 and len(p.get_text(strip=True).split()) <= 3)):
             cls_add(p, "whitespace-nowrap")
 
     # Shared marquee: About and Sorora were transcribed with an empty placeholder.
@@ -305,6 +307,13 @@ def build(page):
             slot.append(media_html(soup, kind, name))
             cls_add(el, "has-media")
 
+    # Figma served these fills as 32px placeholders; use renders of the layers instead.
+    for nid, name in {"462:2894": "unmask-img5105", "462:2920": "unmask-img5063", "462:4735": "miansi-packaging3"}.items():
+        for el in soup.find_all(attrs={"data-node-id": nid}):
+            for img in el.find_all("img"):
+                img["src"] = "assets/img/" + name + ".webp"
+                img["class"] = [c for c in img["class"] if c != "object-bottom"] + ["object-cover"]
+
     # Images
     for img in soup.find_all("img"):
         img["src"] = img_url(img["src"])
@@ -337,7 +346,7 @@ def crop_style(m):
 
 
 PREVIEWS = {
-    "297:304": [("box", "background:#363636")],
+    "297:304": [("img", P + "maskit-journal.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:319": [("img", "assets/img/preview-mazor.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:345": [("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "683:1767": [("box", "background:#000"),
