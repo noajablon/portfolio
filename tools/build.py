@@ -79,7 +79,7 @@ MEDIA = {
 }
 
 HEAD = """<!doctype html>
-<html lang="en">
+<html lang="en"{fit}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,7 +90,7 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.style.setProperty('--z', Math.max(document.documentElement.clientWidth || innerWidth, 320) / 1480);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<script>(function(d){{var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);}})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 </head>
 <body class="page-{slug}" data-page="{slug}">
 """
@@ -199,7 +199,7 @@ def build(page):
             mq = new
         if mq is not None:
             # On artwork pages the bar scrolls away with the page; elsewhere it stays put.
-            if slug not in ARTWORKS:
+            if slug not in ARTWORKS and slug != "about-me":
                 mark_fixed(mq)
             cls_add(mq, "marquee")
     for nid in fixed:
@@ -236,6 +236,11 @@ def build(page):
         retag(el, "a", href="portfolio.html")
         el["aria-label"] = "See my work"
         cls_add(el, "neg-host", "see-work")
+        # Negative hover on the circle, like the other round buttons.
+        disc = "left:238.1px;top:0.6px;width:86.8px;height:86.8px"
+        # The intro animates this button in its own layer, so give the blend a paper backdrop to work against.
+        el.insert(0, soup.new_tag("div", attrs={"class": "absolute rounded-full bg-[#f5f3f1]", "style": disc}))
+        el.append(soup.new_tag("div", attrs={"class": "neg absolute", "style": disc}))
 
     # Home rows
     for nid, target in ROWS.items():
@@ -359,12 +364,16 @@ def build(page):
 
     if slug == "home-main2":
         add_home_previews(soup)
+        # Sorora is the tenth artwork; Figma's row repeats Miansi's "09".
+        for el in find_id(soup, "I386:1324;408:484"):
+            el.string = "10"
     if slug == "entrance-main":
         root["style"] = f"height:{height}px"
         cls_add(root, "entrance")
 
     body = str(soup)
-    out = HEAD.format(title=("Noa Jablon · " + title) if title != "Noa Jablon" else "Noa Jablon · Designer", slug=slug)
+    out = HEAD.format(title=("Noa Jablon · " + title) if title != "Noa Jablon" else "Noa Jablon · Designer", slug=slug,
+                      fit=' data-fit="772"' if slug == "about-me" else "")  # About shows down to its last rule
     if slug == "entrance-main":
         out += '<div id="scrolly"><div id="stage" class="stage sticky">' + body + "</div></div>\n"
     else:
