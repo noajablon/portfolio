@@ -56,12 +56,15 @@
         if (ti) {
           ti.style.opacity = key === k ? "1" : "0";
           if (key === k) {
-            // Letters open out from 0 spacing to their full spacing.
+            // Letters open out from the middle: spacing grows from 0 while the word slides left by half the growth.
+            const grow = (ti.textContent.trim().length - 1) * parseFloat(shownSpacing[key]);
             ti.style.transition = "none";
             ti.style.letterSpacing = "0px";
+            ti.style.transform = `translateX(${grow / 2}px)`;
             void ti.offsetWidth;
             ti.style.transition = "";
             ti.style.letterSpacing = shownSpacing[key];
+            ti.style.transform = "translateX(0)";
           }
         }
       }
@@ -117,14 +120,14 @@
   // ---------- Pin an absolutely positioned element to explicit top/left ----------
   function pin(el) {
     if (el.dataset.pinned) return;
-    const cs = getComputedStyle(el);
-    if (cs.position !== "absolute") { el.dataset.pinned = "1"; return; }
+    if (getComputedStyle(el).position !== "absolute") { el.dataset.pinned = "1"; return; }
+    // offset* are in the page's own (unzoomed) pixels in every browser, unlike computed top/left under CSS zoom.
     const cl = el.classList;
-    let top = parseFloat(cs.top), left = parseFloat(cs.left);
-    if (cl.contains("translate-y-full")) top += parseFloat(cs.height);
-    if (cl.contains("translate-x-full")) left += parseFloat(cs.width);
-    if (cl.contains("-translate-y-1/2")) top -= parseFloat(cs.height) / 2;
-    if (cl.contains("-translate-x-1/2")) left -= parseFloat(cs.width) / 2;
+    let top = el.offsetTop, left = el.offsetLeft;
+    if (cl.contains("translate-y-full")) top += el.offsetHeight;
+    if (cl.contains("translate-x-full")) left += el.offsetWidth;
+    if (cl.contains("-translate-y-1/2")) top -= el.offsetHeight / 2;
+    if (cl.contains("-translate-x-1/2")) left -= el.offsetWidth / 2;
     el.style.top = top + "px"; el.style.left = left + "px";
     el.style.bottom = "auto"; el.style.right = "auto"; el.style.translate = "none";
     el.dataset.pinned = "1";
@@ -223,17 +226,17 @@
     if (!cfg) return;
     const q = (id) => byId(id, row);
     const items = [];
-    const add = (el, fn) => { if (el) items.push([el, fn]); };
-    add(q(cfg.n), (s) => { s.transform = "translate(-10px,-11px)"; s.fontSize = "38px"; s.letterSpacing = "11.78px"; s.width = "120px"; });
+    const add = (el, fn, fixPos = false) => { if (el) items.push([el, fn, fixPos]); };
+    add(q(cfg.n), (s) => { s.transform = "translate(-10px,-11px)"; s.fontSize = "38px"; s.letterSpacing = "11.78px"; s.width = "120px"; }, true);
     add(q(cfg.t), (s) => {
       s.transform = `translateY(${cfg.ty[1] - cfg.ty[0]}px)`; s.fontSize = "38.73px"; s.letterSpacing = "12px";
       if (!cfg.regular) s.fontWeight = "700";
       s.width = (cfg.tw || 400) + "px";
       if (cfg.tlh) s.lineHeight = cfg.tlh + "px";
-    });
+    }, true);
     add(q(cfg.d), (s) => {
       s.transform = `translateY(${cfg.dy[1] - cfg.dy[0] - (cfg.shift || 0)}px)`; s.fontSize = (cfg.hfs || 18) + "px"; s.lineHeight = "1.2"; s.width = "395px";
-    });
+    }, true);
     cfg.g.forEach((id) => add(q(id), (s) => { s.opacity = "0"; }));
     const moved = cfg.m.map(q).filter(Boolean);
     moved.filter((el) => !moved.some((o) => o !== el && o.contains(el))).forEach((el) => {
@@ -244,9 +247,9 @@
     const saved = items.map(([el]) => [el, null]);
     const preview = $(`.pv[data-for="${row.dataset.row}"]`);
     const enter = () => {
-      items.forEach(([el, fn], i) => {
+      items.forEach(([el, fn, fixPos], i) => {
         if (el.classList.contains("contents")) return;
-        if (saved[i][1] === null) { pin(el); saved[i][1] = el.getAttribute("style") || ""; }
+        if (saved[i][1] === null) { if (fixPos) pin(el); saved[i][1] = el.getAttribute("style") || ""; }
         fn(el.style);
       });
       hovering++;

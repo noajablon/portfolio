@@ -46,6 +46,7 @@ img { user-select: none; -webkit-user-drag: none; }
 /* Header */
 .hdr p, .hdr [data-name="Untitled-3 1"], .hdr [data-name="shape 2 2"], .hdr [data-name^="ChatGPT"] {
   transition: opacity 0.3s ease-in-out, letter-spacing 0.6s var(--soft), transform 0.45s ease-in-out; }
+.hdr p { transition: opacity 0.3s ease-in-out, letter-spacing 0.6s var(--soft), transform 0.6s var(--soft); }
 .hdr a { z-index: 2; }
 
 /* Home rows */
