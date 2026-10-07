@@ -30,7 +30,7 @@ PAGES = [
         "580:11880", "580:11881", "580:11882", "580:11883", "580:11889", "580:11895", "580:11901",
         "580:11907", "580:11913", "580:11919", "580:11925", "580:11926", "580:11927", "647:1856",
         "623:879", "623:881", "623:883"]),
-    ("work-with-me.html", "work-with-me", "Work With Me", 1111, []),
+    ("work-with-me.html", "work-with-me", "Work With Me", 1083, []),
     ("maskit.html", "maskit", "Maskit", 6165, ["462:878"]),
     ("mazor.html", "mazor", "Mazor", 4081, ["462:982"]),
     ("mnemo.html", "mnemo", "Mnemo", 4081, []),
@@ -68,7 +68,7 @@ MEDIA = {
     "maskit": {"414:2087": ("missing", ""), "414:2090": ("missing", ""), "414:2092": ("poster", "maskit-journal")},
     "mazor": {"441:1536": ("video", "mazor-website"), "561:5736": ("poster", "mazor-phone")},
     "mnemo": {"462:1261": ("poster", "mnemo-film")},
-    "stil": {"650:15125": ("poster", "stil-film"), "name:Artifact 2 2": ("poster", "stil-artifact"),
+    "stil": {"650:15125": ("poster", "stil-film"),
              "name:Artifact 2 3": ("poster", "stil-artifact"), "650:15993": ("poster", "stil-screen1"),
              "650:18218": ("poster", "stil-screen2"), "650:18568": ("poster", "stil-screen3"),
              "650:18573": ("poster", "stil-screen4")},
@@ -198,7 +198,9 @@ def build(page):
             mq.replace_with(new)
             mq = new
         if mq is not None:
-            mark_fixed(mq)
+            # On artwork pages the bar scrolls away with the page; elsewhere it stays put.
+            if slug not in ARTWORKS:
+                mark_fixed(mq)
             cls_add(mq, "marquee")
     for nid in fixed:
         for el in find_id(soup, nid):
@@ -222,6 +224,10 @@ def build(page):
             for el in soup.find_all(attrs={"data-name": name}):
                 retag(el, "a", href=ARTWORKS[j % len(ARTWORKS)] + ".html")
                 el["aria-label"] = name
+        # The arrow at the top right also goes to the next artwork.
+        for el in find_id(soup, "651:888"):
+            retag(el, "a", href=ARTWORKS[(i + 1) % len(ARTWORKS)] + ".html")
+            el["aria-label"] = "Next artwork"
     for el in soup.find_all(attrs={"data-name": re.compile(r"^To Top")}):
         retag(el, "button", type="button")
         el["aria-label"] = "Back to top"
@@ -324,6 +330,25 @@ def build(page):
             for img in el.find_all("img"):
                 img["src"] = "assets/img/" + name + ".webp"
                 img["class"] = [c for c in img["class"] if c != "object-bottom"] + ["object-cover"]
+
+    # Greeting: Figma's own lettering, split as "HI." / "IM NOA." / the rest so each part arrives on its own.
+    for nid, part in (("338:380", "hi"), ("338:376", "name"), ("338:378", "rest")):
+        for el in find_id(soup, nid):
+            el.clear()
+            el["class"] = ["absolute", "left-0", "top-0", "w-[281px]", "h-[280px]"]
+            el.append(soup.new_tag("img", attrs={"src": f"assets/img/greet-{part}.svg", "alt": "",
+                                                 "class": "absolute block inset-0 max-w-none size-full"}))
+    greet = find_id(soup, "338:375")
+    if greet:
+        greet[0]["aria-label"] = "Hi. I'm Noa. Nice to meet you"
+
+    # Explainer title: the Hebrew display face isn't a web font, so use Figma's render of it.
+    for el in find_id(soup, "462:5220"):
+        title_img = soup.new_tag("img", attrs={
+            "src": "assets/img/explainer-title.webp", "alt": el.get_text(strip=True),
+            "class": "absolute block max-w-none", "data-node-id": "462:5220",
+            "style": "left:217.66px;top:307.32px;width:570.2px;height:112.04px"})
+        el.replace_with(title_img)
 
     # Images
     for img in soup.find_all("img"):

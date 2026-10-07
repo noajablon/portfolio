@@ -1,64 +1,40 @@
-const imgRing = "https://www.figma.com/api/mcp/asset/d5aa9ac5-2dc2-4ece-b86c-bde3568c2fbc.svg";
-const imgSpeaker = "https://www.figma.com/api/mcp/asset/4f8a0750-5cbc-41d0-abfc-04ac6c08a408.svg";
-const imgMuteX = "https://www.figma.com/api/mcp/asset/848c9c3f-5638-4c9f-80a1-0f986d13beeb.svg";
-const imgGroup34 = "https://www.figma.com/api/mcp/asset/2c4022c1-57d0-44cb-8af2-ef5a7621784e.svg";
-const imgNegative = "https://www.figma.com/api/mcp/asset/cd465365-b0b5-4bb7-a842-799bdec8c0a1.svg";
+const imgGroup34 = "https://www.figma.com/api/mcp/asset/3a769862-f013-434f-a863-6ff94d2a2fad.svg";
+const imgNegative = "https://www.figma.com/api/mcp/asset/d0051b94-9210-46fc-b219-c51294948135.svg";
+const imgRing = "https://www.figma.com/api/mcp/asset/26fba2ac-74af-4242-93b7-3c26b4cdca7b.svg";
+const imgSpeaker = "https://www.figma.com/api/mcp/asset/d7e288b0-3f1c-4cd1-bf78-79f323cf5775.svg";
+const imgMuteX = "https://www.figma.com/api/mcp/asset/d232c0c9-e0ab-4d13-896f-d4e035768225.svg";
 import { motion } from "motion/react";
-const imgBrandPosters = "https://www.figma.com/api/mcp/asset/469bf166-de68-4ceb-bb41-adffeb1587d6.png";
-const imgUntitled31 = "https://www.figma.com/api/mcp/asset/c07a3b15-7735-4396-86d9-c1acee2e8a14.png";
-const imgShape22 = "https://www.figma.com/api/mcp/asset/6ea71598-4df1-43fb-82ab-3d9ecce844c2.png";
-const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/3c24d950-e266-48de-9015-23b4edc967b2.png";
-const imgImage2 = "https://www.figma.com/api/mcp/asset/962d0cc9-56d7-4d4f-bdca-6dc2735474b3.png";
-const imgDsc010826 = "https://www.figma.com/api/mcp/asset/8f9d0b99-9bab-45a7-86f8-7a3db112ac32.png";
-const imgProduct21 = "https://www.figma.com/api/mcp/asset/4a284ace-735e-4313-b7e4-21b3eed3ee1e.png";
-const imgRectangle38 = "https://www.figma.com/api/mcp/asset/ac5534bc-2258-4323-ae84-e0c8d46b4352.svg";
-const imgEllipse21 = "https://www.figma.com/api/mcp/asset/c114340b-5fa7-4db4-a440-18f71c7e0dcf.svg";
-const imgGroup10 = "https://www.figma.com/api/mcp/asset/e7fabfa1-7144-4707-8cc9-260df1d1c617.svg";
-const imgNegative1 = "https://www.figma.com/api/mcp/asset/0f48dd87-25ae-4850-8846-affa0b335637.svg";
-const imgEllipse22 = "https://www.figma.com/api/mcp/asset/daa344c9-6b82-4bd2-85fb-0a8dce402b98.svg";
-const imgGroup9 = "https://www.figma.com/api/mcp/asset/cf065c16-54a5-4d12-89be-7ac1c8b052ee.svg";
-const imgNegative2 = "https://www.figma.com/api/mcp/asset/3f061033-8404-49fc-a39c-5b0681fd91f9.svg";
-const imgVector120 = "https://www.figma.com/api/mcp/asset/bf39dd28-3e60-4f38-84a4-96d649e8a1b0.svg";
-const imgVector111 = "https://www.figma.com/api/mcp/asset/45ebabbb-192e-4b41-8403-516274b4430a.svg";
-const imgVector110 = "https://www.figma.com/api/mcp/asset/6e9d751a-70b4-4157-9b4f-a5cb3ca2d73c.svg";
-const imgVector112 = "https://www.figma.com/api/mcp/asset/33a077e1-e6dd-4454-906f-698daf736370.svg";
-const imgGoBackButton = "https://www.figma.com/api/mcp/asset/a64d4689-8be4-420c-b56f-c059bd1436a2.svg";
-const imgGoBackButton1 = "https://www.figma.com/api/mcp/asset/13a6a4af-a60d-4c3b-8a52-c56bda58f612.svg";
-const imgVector218 = "https://www.figma.com/api/mcp/asset/9ddf47b3-d7c0-4d5f-a854-37b75e77745f.svg";
-const imgGroup11 = "https://www.figma.com/api/mcp/asset/bcf31b09-390a-4d7f-8918-302be83eb71b.svg";
-const imgVector39 = "https://www.figma.com/api/mcp/asset/b73cd258-1e35-4867-b248-43fa726573e0.svg";
-const imgLine2 = "https://www.figma.com/api/mcp/asset/392d068a-fcb7-45d9-a6a2-dc7804e814f8.svg";
-const imgVector222 = "https://www.figma.com/api/mcp/asset/80528b6c-0a0a-45b0-ab82-e6d5e5dff1ab.svg";
-const imgVector176 = "https://www.figma.com/api/mcp/asset/994cdd03-47d4-4fe3-9eaf-337c7c05a386.svg";
-const imgVector127 = "https://www.figma.com/api/mcp/asset/1ccfc178-6012-4a08-8030-ee466462c961.svg";
-const imgVector223 = "https://www.figma.com/api/mcp/asset/96df33c4-8adc-4419-bad8-1bdd35d98813.svg";
-const imgEllipse23 = "https://www.figma.com/api/mcp/asset/58fc99bb-8e3f-4a22-86ba-0c7acbc7671f.svg";
-const imgGroup12 = "https://www.figma.com/api/mcp/asset/e341c713-8dec-4af9-999c-39a71a852611.svg";
-const imgNegative3 = "https://www.figma.com/api/mcp/asset/e7d51027-62b7-426c-aa06-29c59208cd1b.svg";
-
-type SoundButtonProps = {
-  className?: string;
-  sound?: boolean;
-};
-
-function SoundButton({ className, sound = false }: SoundButtonProps) {
-  return (
-    <div className={className || "relative size-[40px]"} data-node-id="593:1148">
-      <div className="absolute left-[0.5px] size-[39px] top-[0.5px]" data-node-id="593:1149" data-name="Ring">
-        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgRing} />
-      </div>
-      <div className="absolute h-[14px] left-[11px] top-[13px] w-[9px]" data-node-id="593:1150" data-name="Speaker">
-        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgSpeaker} />
-      </div>
-      <div className="absolute left-[23px] size-[7px] top-[16.5px]" data-node-id="593:1151" data-name="Mute X">
-        <div className="absolute inset-[-10%]">
-          <img alt="" className="block max-w-none size-full" src={imgMuteX} />
-        </div>
-      </div>
-      <div className="absolute bg-[rgba(255,255,255,0)] cursor-pointer left-0 size-[40px] top-0" data-node-id="593:1152" data-name="Hit" />
-    </div>
-  );
-}
+const imgBrandPosters = "https://www.figma.com/api/mcp/asset/3e371103-3413-4b86-b8ad-e87f8b381bc1.png";
+const imgUntitled31 = "https://www.figma.com/api/mcp/asset/21b4bf2c-20bb-4e4d-ab11-81708f58e962.png";
+const imgShape22 = "https://www.figma.com/api/mcp/asset/7d7759fd-ef26-4984-8b7f-ffc94a7996de.png";
+const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/af3f678a-d491-4c59-bc72-744f3be8ec27.png";
+const imgImage2 = "https://www.figma.com/api/mcp/asset/93235f2c-e611-4ec4-a459-36afc61270dc.png";
+const imgDsc010826 = "https://www.figma.com/api/mcp/asset/9f9e76ba-d70d-4fe4-b080-7dd85d7a958d.png";
+const imgProduct21 = "https://www.figma.com/api/mcp/asset/35401dde-97ac-4aa2-a1e2-904a73697d21.png";
+const imgRectangle38 = "https://www.figma.com/api/mcp/asset/2d9fc83e-9362-4632-a282-a98d565cad71.svg";
+const imgEllipse21 = "https://www.figma.com/api/mcp/asset/24123a12-83b5-45be-ab0b-3f1ecc7fc998.svg";
+const imgGroup10 = "https://www.figma.com/api/mcp/asset/0ee169ca-7e2c-464c-adcd-1fd5f4d0a04d.svg";
+const imgNegative1 = "https://www.figma.com/api/mcp/asset/140ec060-5dd9-4a46-8c29-77309a17d5c7.svg";
+const imgEllipse22 = "https://www.figma.com/api/mcp/asset/3aaf8728-237f-466f-9112-30e4dc068cca.svg";
+const imgGroup9 = "https://www.figma.com/api/mcp/asset/33de2459-c1b3-4afb-b981-0ffa8b57c46e.svg";
+const imgNegative2 = "https://www.figma.com/api/mcp/asset/9f5cbef6-4748-4695-9222-7bdab4803f3f.svg";
+const imgVector120 = "https://www.figma.com/api/mcp/asset/28de94a3-dab3-422f-b11e-88a920b15015.svg";
+const imgVector111 = "https://www.figma.com/api/mcp/asset/bee4e0d1-a0e0-4d8d-9e52-ee8228e918a8.svg";
+const imgVector110 = "https://www.figma.com/api/mcp/asset/36b92d6b-c2db-4ca6-837b-be10b215285b.svg";
+const imgVector112 = "https://www.figma.com/api/mcp/asset/f850b22f-0339-4061-980b-bd697c26d789.svg";
+const imgGoBackButton = "https://www.figma.com/api/mcp/asset/91b388fe-be11-4ed4-8eaa-55b84efb8491.svg";
+const imgGoBackButton1 = "https://www.figma.com/api/mcp/asset/a366214c-4749-4cb8-8e8b-3b8698ef3a3b.svg";
+const imgVector218 = "https://www.figma.com/api/mcp/asset/3c3d37ee-5704-4b68-83ed-f31e2a608ab1.svg";
+const imgGroup11 = "https://www.figma.com/api/mcp/asset/8d67a476-b1da-4339-a7ca-3248b28c4e8d.svg";
+const imgVector39 = "https://www.figma.com/api/mcp/asset/ecb871bd-fc79-4a41-a0fe-e7ecb6f7248a.svg";
+const imgLine2 = "https://www.figma.com/api/mcp/asset/4abffb77-8c1f-4d3e-a8bb-9afbd438b464.svg";
+const imgVector222 = "https://www.figma.com/api/mcp/asset/4fca06c4-5913-414a-b7e7-12f626221f1f.svg";
+const imgVector176 = "https://www.figma.com/api/mcp/asset/d16cb9f9-0089-4fdc-adbb-c8f81a67054f.svg";
+const imgVector127 = "https://www.figma.com/api/mcp/asset/b10d99d8-7704-4fcc-9f88-e65b74e3e4a5.svg";
+const imgVector223 = "https://www.figma.com/api/mcp/asset/536b714b-6310-4625-bd3b-c21e301ef895.svg";
+const imgEllipse23 = "https://www.figma.com/api/mcp/asset/57955687-e455-4108-9f97-913f7f11e90c.svg";
+const imgGroup12 = "https://www.figma.com/api/mcp/asset/f36158d5-fb6d-43fc-a856-e5d60c7414d5.svg";
+const imgNegative3 = "https://www.figma.com/api/mcp/asset/2bffbd3b-66e0-4601-bf2a-fb284c2094b3.svg";
 
 type NextArtworkButtonProps = {
   className?: string;
@@ -82,6 +58,30 @@ function NextArtworkButton({ className, state = "Default" }: NextArtworkButtonPr
       <div className="absolute h-[50px] left-0 mix-blend-difference top-[7px] w-[49.565px]" data-node-id="651:896" data-name="Negative">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgNegative} />
       </div>
+    </div>
+  );
+}
+
+type SoundButtonProps = {
+  className?: string;
+  sound?: boolean;
+};
+
+function SoundButton({ className, sound = false }: SoundButtonProps) {
+  return (
+    <div className={className || "relative size-[40px]"} data-node-id="593:1148">
+      <div className="absolute left-[0.5px] size-[39px] top-[0.5px]" data-node-id="593:1149" data-name="Ring">
+        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgRing} />
+      </div>
+      <div className="absolute h-[14px] left-[11px] top-[13px] w-[9px]" data-node-id="593:1150" data-name="Speaker">
+        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgSpeaker} />
+      </div>
+      <div className="absolute left-[23px] size-[7px] top-[16.5px]" data-node-id="593:1151" data-name="Mute X">
+        <div className="absolute inset-[-10%]">
+          <img alt="" className="block max-w-none size-full" src={imgMuteX} />
+        </div>
+      </div>
+      <div className="absolute bg-[rgba(255,255,255,0)] cursor-pointer left-0 size-[40px] top-0" data-node-id="593:1152" data-name="Hit" />
     </div>
   );
 }
@@ -321,7 +321,6 @@ export default function Mazor() {
       <div className="absolute h-[482.908px] left-[calc(75%+39px)] top-[193.09px] w-[228px]" data-node-id="561:5736" data-name="סרטון רץ עמוד ראשון">
         <div className="absolute inset-0 overflow-hidden" />
       </div>
-      <SoundButton className="absolute block cursor-pointer left-[calc(87.5%+27px)] size-[40px] top-[616px]" />
       <div className="absolute contents left-[219px] top-[273px]" data-node-id="608:12676">
         <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[47px] leading-[normal] left-[219px] not-italic opacity-37 text-[#363636] text-[20px] top-[273px] tracking-[6.2px] w-[192.148px]" dir="auto" data-node-id="608:12677">
           02/ MAZOR

@@ -1,60 +1,61 @@
-const imgGroup34 = "https://www.figma.com/api/mcp/asset/524dc2fa-b9fc-4769-a489-55423fd2ec58.svg";
-const imgNegative = "https://www.figma.com/api/mcp/asset/023fe4e9-e9dd-492e-9993-d7dfeea20204.svg";
-const imgRing = "https://www.figma.com/api/mcp/asset/9f7b64ac-0d67-4a6d-9f47-c3a769fa00e1.svg";
-const imgSpeaker = "https://www.figma.com/api/mcp/asset/bd990f5e-41fc-4f06-ada2-74387b910f0e.svg";
-const imgMuteX = "https://www.figma.com/api/mcp/asset/5d75fe99-87d6-4c8a-90ef-ee9dc6c5da83.svg";
+const imgGroup34 = "https://www.figma.com/api/mcp/asset/5d56b037-b441-4872-9406-9b270ffe61dd.svg";
+const imgNegative = "https://www.figma.com/api/mcp/asset/fd9bc0b3-8604-4c07-96b5-8cf1052f81db.svg";
+const imgRing = "https://www.figma.com/api/mcp/asset/f19d30f1-0aa2-4410-a73b-b78df134acad.svg";
+const imgSpeaker = "https://www.figma.com/api/mcp/asset/e7f76f15-db58-4a41-8255-070f4a894f47.svg";
+const imgMuteX = "https://www.figma.com/api/mcp/asset/fcbe71bc-31f9-4325-94a1-50e230a7f5cd.svg";
 import { motion } from "motion/react";
-const imgChatGptImageAug22026023504Pm21 = "https://www.figma.com/api/mcp/asset/55dcdfc4-7cdf-4ae1-b14d-2a33b856475b.png";
-const imgChatGptImageJul182026044523Pm2 = "https://www.figma.com/api/mcp/asset/4f1877fb-3eaa-443f-aa4a-db7fa21f8e1d.png";
-const imgUntitled31 = "https://www.figma.com/api/mcp/asset/86fff374-5937-4246-bf5e-81a7f1739718.png";
-const imgShape22 = "https://www.figma.com/api/mcp/asset/24862421-d44f-4124-9002-0c50e3bf5eea.png";
-const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/b1e2e0b1-4fce-4f41-ad55-74609fae7538.png";
-const imgImage8 = "https://www.figma.com/api/mcp/asset/7d39689b-0391-4d3a-8cda-4c0404e6e4d7.png";
-const imgChatGptImageJul182026040001Pm2 = "https://www.figma.com/api/mcp/asset/b1967b18-8fc1-4652-bd3f-5d97e19ae5bd.png";
-const imgRectangle38 = "https://www.figma.com/api/mcp/asset/c02bf59a-40a0-42ad-b688-35ebc7944c61.svg";
-const imgGoBackButton = "https://www.figma.com/api/mcp/asset/ddc0ba24-57bc-48de-8c82-13ed90cc38f8.svg";
-const imgEllipse21 = "https://www.figma.com/api/mcp/asset/4a0b4390-2978-423e-b1bd-df32cf9781d1.svg";
-const imgGroup10 = "https://www.figma.com/api/mcp/asset/14080246-6ab5-4e7e-944f-8657644da4a9.svg";
-const imgNegative1 = "https://www.figma.com/api/mcp/asset/86c45394-d264-4567-b747-b7d6ffe17573.svg";
-const imgGroup11 = "https://www.figma.com/api/mcp/asset/fd82518c-c550-4b41-ab38-a7ed6e5f7829.svg";
-const imgEllipse22 = "https://www.figma.com/api/mcp/asset/13ad26c9-005d-4499-acdf-64bc4194b9be.svg";
-const imgGroup9 = "https://www.figma.com/api/mcp/asset/9adb2ac6-fd9f-4ea4-aa27-9924ede9ec3d.svg";
-const imgNegative2 = "https://www.figma.com/api/mcp/asset/0e283db1-f35f-44c8-b9d8-f944d2acd6d5.svg";
-const imgLayer1 = "https://www.figma.com/api/mcp/asset/041b2dc5-53a1-4232-ab8d-7d3727baaba2.svg";
-const imgLayer2 = "https://www.figma.com/api/mcp/asset/6a4aba9c-ac1f-4520-8696-ec96955661b7.svg";
-const imgGroup = "https://www.figma.com/api/mcp/asset/1a5d3a87-25a7-4e42-9673-75e5fe7abdd7.svg";
-const imgGroup1 = "https://www.figma.com/api/mcp/asset/821ba333-aca4-48c1-b56f-8cf87664909f.svg";
-const imgGroup2 = "https://www.figma.com/api/mcp/asset/52e60c68-2668-4689-8532-7674961a1198.svg";
-const imgGroup20 = "https://www.figma.com/api/mcp/asset/6bacbc20-72d6-4f0f-976a-0e33c7793269.svg";
-const imgVector120 = "https://www.figma.com/api/mcp/asset/989fd5df-c2f3-474f-a75e-424f6c4e073c.svg";
-const imgVector224 = "https://www.figma.com/api/mcp/asset/22f8ef17-5094-4852-bf6c-40d0294be4c7.svg";
-const imgVector111 = "https://www.figma.com/api/mcp/asset/cefbc9dc-8f0b-404e-832b-a3c5aba2a3cd.svg";
-const imgVector39 = "https://www.figma.com/api/mcp/asset/008dd3ea-c803-4e41-8b11-90c9b4ab4ddd.svg";
-const imgLine2 = "https://www.figma.com/api/mcp/asset/dfcf1474-1cd5-49fd-933a-15128a43d6d9.svg";
-const imgVector112 = "https://www.figma.com/api/mcp/asset/847985a0-1fa0-4b16-880f-f05d430b4254.svg";
-const imgVector220 = "https://www.figma.com/api/mcp/asset/c486a988-e5c7-4b78-a4a4-2b2649bb8dcb.svg";
-const imgVector223 = "https://www.figma.com/api/mcp/asset/d682d947-3670-4933-a98c-48c0c7fe947b.svg";
-const imgLine4 = "https://www.figma.com/api/mcp/asset/10bff1ab-ab1a-4e99-8488-a4f8584aa012.svg";
-const imgLayer3 = "https://www.figma.com/api/mcp/asset/83ab9129-e121-4549-a0b0-302d6f62915f.svg";
-const imgLayer4 = "https://www.figma.com/api/mcp/asset/45fe49fb-83ee-4b7e-82b9-fc90e0ec39bd.svg";
-const imgGroup3 = "https://www.figma.com/api/mcp/asset/08073152-dd62-4e11-8b9e-6cd9f104aa02.svg";
-const imgGroup4 = "https://www.figma.com/api/mcp/asset/0a3f6c59-84a1-4ff1-9041-cd6a6534b123.svg";
-const imgVector = "https://www.figma.com/api/mcp/asset/3600da78-adc0-477d-9e5d-ce359d2f1123.svg";
-const imgVector1 = "https://www.figma.com/api/mcp/asset/f32e4615-012a-4918-98e0-becce98366cf.svg";
-const imgVector2 = "https://www.figma.com/api/mcp/asset/8deb3e50-9f64-4327-8e9a-78556a7b5438.svg";
-const imgVector3 = "https://www.figma.com/api/mcp/asset/67f0fe82-d533-4a07-8851-d1da8c239125.svg";
-const imgVector4 = "https://www.figma.com/api/mcp/asset/47047adb-3c68-492e-b82d-4dc414df1542.svg";
-const imgGroup42 = "https://www.figma.com/api/mcp/asset/f39d12c1-5c6d-4b9b-9b12-3cababbbf721.svg";
-const imgLayer5 = "https://www.figma.com/api/mcp/asset/99996e3a-55ca-4748-aa02-05bbf5f67ed6.svg";
-const imgLine5 = "https://www.figma.com/api/mcp/asset/387e18dc-77d0-4485-9e27-fbb42e22e41f.svg";
-const imgLine12 = "https://www.figma.com/api/mcp/asset/126d5c97-9c8e-44c3-b737-316ce8925531.svg";
-const imgVector5 = "https://www.figma.com/api/mcp/asset/572f832b-030b-4136-882d-b8f242d9aa08.svg";
-const imgVector6 = "https://www.figma.com/api/mcp/asset/0c21e387-c7a3-4e42-831b-9d60dc9b5dab.svg";
-const imgVector218 = "https://www.figma.com/api/mcp/asset/77bb2e70-de7d-4b6d-a93f-707180c65f30.svg";
-const imgVector129 = "https://www.figma.com/api/mcp/asset/05c56c49-e17f-4575-ae9e-7dae4aa483e7.svg";
-const imgEllipse23 = "https://www.figma.com/api/mcp/asset/ebb5cfb3-e5e1-478c-95b2-c8d57111c7db.svg";
-const imgGroup12 = "https://www.figma.com/api/mcp/asset/ac8669f8-fa10-4330-baf7-de3a4be81455.svg";
-const imgNegative3 = "https://www.figma.com/api/mcp/asset/cbcf7669-ab8c-47da-94f1-ed61471097f8.svg";
+const imgChatGptImageAug22026023504Pm21 = "https://www.figma.com/api/mcp/asset/f4d8444b-97b6-447d-b424-e004251b7ee4.png";
+const imgChatGptImageJul182026044523Pm2 = "https://www.figma.com/api/mcp/asset/59b45209-82ce-4cc5-b020-34f421f28b31.png";
+const imgUntitled31 = "https://www.figma.com/api/mcp/asset/c665ebf9-28d3-445e-8a72-cd4baa7a6772.png";
+const imgShape22 = "https://www.figma.com/api/mcp/asset/d8a0d9c6-36fe-4d20-a81a-576835d2a401.png";
+const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/c94db582-1103-4415-9cec-f011c43db5d4.png";
+const imgImage8 = "https://www.figma.com/api/mcp/asset/a6016983-647d-4430-9279-1e21b5b78e17.png";
+const imgChatGptImageJul182026040001Pm2 = "https://www.figma.com/api/mcp/asset/e8b84fb9-f4a2-40de-9cb6-a064f7dbb684.png";
+const imgRectangle38 = "https://www.figma.com/api/mcp/asset/4974c153-5088-4f4f-80df-45c61032d7dc.svg";
+const imgVector228 = "https://www.figma.com/api/mcp/asset/cb505c86-42c5-449f-b163-4d64f6a07214.svg";
+const imgGoBackButton = "https://www.figma.com/api/mcp/asset/95fc7962-5987-4203-b479-49971aee13e7.svg";
+const imgEllipse21 = "https://www.figma.com/api/mcp/asset/5de7db97-bb84-45bf-a9d4-73bdad5cae62.svg";
+const imgGroup10 = "https://www.figma.com/api/mcp/asset/75088ab7-d773-4ce2-b997-f29e37e00601.svg";
+const imgNegative1 = "https://www.figma.com/api/mcp/asset/323a7854-c7ac-4832-a157-6d7d7e427a51.svg";
+const imgGroup11 = "https://www.figma.com/api/mcp/asset/7b43a782-7df9-46be-89fa-1f7031861420.svg";
+const imgEllipse22 = "https://www.figma.com/api/mcp/asset/e8e116ea-07e3-430b-8349-5bfa53d42e92.svg";
+const imgGroup9 = "https://www.figma.com/api/mcp/asset/e5873f2e-ffe9-49c9-b508-c9cb223ff487.svg";
+const imgNegative2 = "https://www.figma.com/api/mcp/asset/9074a156-fbd1-47f2-ba12-8586a6c9a16e.svg";
+const imgLayer1 = "https://www.figma.com/api/mcp/asset/591cf7df-e13d-4d6b-b0b4-00474fbb1483.svg";
+const imgLayer2 = "https://www.figma.com/api/mcp/asset/c400b33a-f8f0-4027-9473-a8b97b26d768.svg";
+const imgGroup = "https://www.figma.com/api/mcp/asset/c608dc03-0a3b-49a1-aabf-5c15b1ca863d.svg";
+const imgGroup1 = "https://www.figma.com/api/mcp/asset/dcef9bf3-25ef-4192-a955-fa74f9ab2021.svg";
+const imgGroup2 = "https://www.figma.com/api/mcp/asset/c1f90c01-55ed-4e13-82f8-2a31f69b4cc7.svg";
+const imgGroup20 = "https://www.figma.com/api/mcp/asset/5910c149-ff6c-40c4-908d-f1173eefb40d.svg";
+const imgVector120 = "https://www.figma.com/api/mcp/asset/ce6d70f9-28f6-45c7-97bf-5137427ca7ad.svg";
+const imgVector224 = "https://www.figma.com/api/mcp/asset/444a19b4-cfca-40e5-b85a-9f85b46f2dd5.svg";
+const imgVector111 = "https://www.figma.com/api/mcp/asset/086f84d2-ebc5-4185-9642-e7e319df9cdf.svg";
+const imgVector39 = "https://www.figma.com/api/mcp/asset/ae00f76f-fed3-47e2-baf8-12527e86a3c6.svg";
+const imgLine2 = "https://www.figma.com/api/mcp/asset/93b2284b-815a-4cea-baf8-a0b54c40d501.svg";
+const imgVector112 = "https://www.figma.com/api/mcp/asset/c59f9200-4ac5-408d-b69d-783f10b46803.svg";
+const imgVector220 = "https://www.figma.com/api/mcp/asset/0ac92081-9754-4570-86c4-5ba4ad334ee7.svg";
+const imgVector223 = "https://www.figma.com/api/mcp/asset/2558748b-9f62-45e8-81fa-05c845ef7696.svg";
+const imgLine4 = "https://www.figma.com/api/mcp/asset/92815199-def8-43c2-b5fc-89c0a1d7eb3a.svg";
+const imgLayer3 = "https://www.figma.com/api/mcp/asset/f46f13ad-87d9-4a62-a60a-5a26b3c6bbf7.svg";
+const imgLayer4 = "https://www.figma.com/api/mcp/asset/77a241f2-cfda-496d-814d-c5ec269738c8.svg";
+const imgGroup3 = "https://www.figma.com/api/mcp/asset/300f5931-2c4f-4139-8dc0-b1dd5d7b4da3.svg";
+const imgGroup4 = "https://www.figma.com/api/mcp/asset/80072cbd-a700-46e0-8cd6-68eb96072aca.svg";
+const imgVector = "https://www.figma.com/api/mcp/asset/e9bd7f9b-1be9-4a2c-93b7-e1ebe24ad2cf.svg";
+const imgVector1 = "https://www.figma.com/api/mcp/asset/511286e3-46da-4e26-9c66-5ef5619fcbb4.svg";
+const imgVector2 = "https://www.figma.com/api/mcp/asset/d53a84ca-7305-4f4e-bed3-bacb16060077.svg";
+const imgVector3 = "https://www.figma.com/api/mcp/asset/d71e0b5a-6819-4d59-801a-7bc7ff157822.svg";
+const imgVector4 = "https://www.figma.com/api/mcp/asset/b3788a8e-0f1c-46bc-8a90-10d8398ec625.svg";
+const imgGroup42 = "https://www.figma.com/api/mcp/asset/43eb8e6b-0b6c-4ab4-8ee4-630072c4344b.svg";
+const imgLayer5 = "https://www.figma.com/api/mcp/asset/bfc5da73-5bb7-4d4e-b94d-8994230a295d.svg";
+const imgLine5 = "https://www.figma.com/api/mcp/asset/5dbe7862-d20e-4bf2-8926-d0e6bd3c09cd.svg";
+const imgLine12 = "https://www.figma.com/api/mcp/asset/b290f7d9-beb3-4df7-a3c9-e9f353ca449d.svg";
+const imgVector5 = "https://www.figma.com/api/mcp/asset/7eb797c1-c4e6-44d6-b072-f4620b4fa778.svg";
+const imgVector6 = "https://www.figma.com/api/mcp/asset/50cd272d-2020-40a5-b2dd-d0aeef76cd50.svg";
+const imgVector218 = "https://www.figma.com/api/mcp/asset/f7d3bdb4-2531-47a2-8e7c-510ae0c2e25c.svg";
+const imgVector129 = "https://www.figma.com/api/mcp/asset/0cfd510f-29af-4410-9339-8fba5c9d7760.svg";
+const imgEllipse23 = "https://www.figma.com/api/mcp/asset/d64aef01-e96c-45ba-a83b-febe765e51bb.svg";
+const imgGroup12 = "https://www.figma.com/api/mcp/asset/427edfcd-9e96-4060-ad9d-5d45cdedef8b.svg";
+const imgNegative3 = "https://www.figma.com/api/mcp/asset/4051e99c-dc27-4b15-b1e0-fdcdab376be2.svg";
 
 type NextArtworkButtonProps = {
   className?: string;
@@ -117,6 +118,11 @@ export default function Maskit() {
       </p>
       <div className="-translate-x-1/2 absolute h-[834px] left-[calc(43.75%+15.94px)] top-[4341px] w-[1120.875px]" data-node-id="414:2089" data-name="ChatGPT Image Aug 2, 2026, 02_35_04 PM-2 1">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgChatGptImageAug22026023504Pm21} />
+      </div>
+      <div className="absolute h-[1498.5px] left-[calc(75%+113px)] top-[4344.5px] w-0" data-node-id="707:21307">
+        <div className="absolute inset-[0_-0.5px]">
+          <img alt="" className="block max-w-none size-full" src={imgVector228} />
+        </div>
       </div>
       <div className="-translate-x-1/2 absolute h-[621px] left-[calc(43.75%+16.94px)] top-[2479px] w-[1122.875px]" data-node-id="414:2090" data-name="brand book finishd 3" />
       <SoundButton className="absolute block cursor-pointer left-[calc(75%+59.88px)] size-[40px] top-[3037px]" />
@@ -372,9 +378,9 @@ export default function Maskit() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-[610px] items-center justify-center left-[calc(87.5%-68px)] top-[3113px] w-0" data-node-id="680:18771">
+      <div className="absolute flex h-[613px] items-center justify-center left-[calc(87.5%-68px)] top-[3113px] w-0" data-node-id="680:18771">
         <div className="flex-none rotate-180">
-          <div className="h-[610px] relative w-0">
+          <div className="h-[613px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
               <img alt="" className="block max-w-none size-full" src={imgVector224} />
             </div>
@@ -489,10 +495,10 @@ export default function Maskit() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-[614px] items-center justify-center left-[calc(87.5%+34px)] top-[3114px] w-0" data-node-id="556:5584">
+      <div className="absolute flex h-[612px] items-center justify-center left-[calc(87.5%+34.6px)] top-[3114px] w-0" data-node-id="556:5584">
         <div className="flex-none rotate-90">
-          <div className="h-0 relative w-[614px]">
-            <div className="absolute inset-[-1.2px_0_0_0]">
+          <div className="h-0 relative w-[612px]">
+            <div className="absolute inset-[-0.6px_0]">
               <img alt="" className="block max-w-none size-full" src={imgLine4} />
             </div>
           </div>
@@ -651,15 +657,6 @@ export default function Maskit() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-0 items-center justify-center left-0 top-[5175px] w-[1503px]" data-node-id="414:2121">
-        <div className="flex-none rotate-90">
-          <div className="h-[1503px] relative w-0">
-            <div className="absolute inset-[0_-0.6px]">
-              <img alt="" className="block max-w-none size-full" src={imgVector120} />
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="absolute flex h-0 items-center justify-center left-0 top-[2479px] w-[1503px]" data-node-id="437:3133">
         <div className="flex-none rotate-90">
           <div className="h-[1503px] relative w-0">
@@ -678,7 +675,7 @@ export default function Maskit() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-0 items-center justify-center left-0 top-[5188px] w-[1503px]" data-node-id="414:2122">
+      <div className="absolute flex h-0 items-center justify-center left-0 top-[3739px] w-[1503px]" data-node-id="414:2078">
         <div className="flex-none rotate-90">
           <div className="h-[1503px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -687,7 +684,7 @@ export default function Maskit() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-0 items-center justify-center left-0 top-[3739px] w-[1503px]" data-node-id="414:2078">
+      <div className="absolute flex h-0 items-center justify-center left-0 top-[5175px] w-[1503px]" data-node-id="414:2121">
         <div className="flex-none rotate-90">
           <div className="h-[1503px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -714,6 +711,15 @@ export default function Maskit() {
           </div>
         </div>
       </div>
+      <div className="absolute flex h-0 items-center justify-center left-0 top-[5188px] w-[1503px]" data-node-id="414:2122">
+        <div className="flex-none rotate-90">
+          <div className="h-[1503px] relative w-0">
+            <div className="absolute inset-[0_-0.6px]">
+              <img alt="" className="block max-w-none size-full" src={imgVector120} />
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="absolute flex h-0 items-center justify-center left-0 top-[2466px] w-[1503px]" data-node-id="437:3132">
         <div className="flex-none rotate-90">
           <div className="h-[1503px] relative w-0">
@@ -726,7 +732,7 @@ export default function Maskit() {
       <div className="absolute contents left-[87px] top-[127px]" data-node-id="664:1172" data-name="Joints">
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3110px]" data-node-id="493:719" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[686px]" data-node-id="493:720" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3767px]" data-node-id="493:722" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3736px]" data-node-id="493:722" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[2476px]" data-node-id="493:724" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[4338px]" data-node-id="493:726" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[88px] rounded-[1.6px] size-[6px] top-[5185px]" data-node-id="493:728" data-name="Joint" />
@@ -735,7 +741,7 @@ export default function Maskit() {
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[127px]" data-node-id="493:731" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3110px]" data-node-id="493:734" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[686px]" data-node-id="493:735" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3767px]" data-node-id="493:737" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3736px]" data-node-id="493:737" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[2476px]" data-node-id="493:739" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[4338px]" data-node-id="493:741" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[101px] rounded-[1.6px] size-[6px] top-[5185px]" data-node-id="493:743" data-name="Joint" />
@@ -753,13 +759,13 @@ export default function Maskit() {
         <div className="absolute bg-[#363636] left-[calc(87.5%+79px)] rounded-[1.6px] size-[6px] top-[686px]" data-node-id="654:960" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[calc(87.5%+92px)] rounded-[1.6px] size-[6px] top-[686px]" data-node-id="654:961" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[calc(37.5%+175.5px)] rounded-[1.6px] size-[6px] top-[438px]" data-node-id="617:872" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3754px]" data-node-id="663:950" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3723px]" data-node-id="663:950" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[3097px]" data-node-id="663:951" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[673px]" data-node-id="663:952" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[2463px]" data-node-id="663:953" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[4325px]" data-node-id="663:954" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[88px] rounded-[1.6px] size-[6px] top-[5172px]" data-node-id="663:955" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3754px]" data-node-id="663:956" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3723px]" data-node-id="663:956" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[3097px]" data-node-id="663:957" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[673px]" data-node-id="663:958" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[100px] rounded-[1.6px] size-[6px] top-[2463px]" data-node-id="663:959" data-name="Joint" />
@@ -879,6 +885,9 @@ export default function Maskit() {
           </div>
         </motion.div>
       </div>
+      <div className="absolute bg-[#363636] left-[calc(75%+111px)] rounded-[1.6px] size-[6px] top-[4338px]" data-node-id="707:21297" data-name="Joint" />
+      <div className="absolute bg-[#363636] left-[calc(75%+111px)] rounded-[1.6px] size-[6px] top-[5185px]" data-node-id="707:21303" data-name="Joint" />
+      <div className="absolute bg-[#363636] left-[calc(75%+111px)] rounded-[1.6px] size-[6px] top-[5172px]" data-node-id="707:21304" data-name="Joint" />
     </div>
   );
 }

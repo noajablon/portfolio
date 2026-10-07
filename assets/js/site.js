@@ -33,7 +33,7 @@
     setTimeout(() => { location.href = url.href; }, 800);
   });
 
-  // ---------- Header: hover shows that page's title, icon lifts ----------
+  // ---------- Header: hover shows that page's title, icon grows in place ----------
   const hdr = $(".hdr");
   if (hdr) {
     const icons = { L: $('[data-name="Untitled-3 1"]', hdr), M: $('[data-name="shape 2 2"]', hdr), R: $('[data-name^="ChatGPT"]', hdr) };
@@ -51,7 +51,7 @@
     const show = (k) => {
       for (const key of ["L", "M", "R"]) {
         const ic = icons[key], ti = titles[key];
-        if (ic) { ic.style.opacity = key === k ? "1" : "0.25"; ic.style.transform = key === k ? "translate(-3.6px,-3.6px)" : ""; }
+        if (ic) { ic.style.opacity = key === k ? "1" : "0.25"; ic.style.transform = key === k ? "scale(1.15)" : ""; }
         if (ti) { ti.style.opacity = key === k ? "1" : "0"; if (key === k) ti.style.letterSpacing = shownSpacing[key]; }
       }
     };
@@ -294,7 +294,7 @@
   // ---------- Work with Me: the image strip scrolls continuously ----------
   const strip = $('[data-name="Strip"]');
   if (strip && !reduce) {
-    const cycle = 2287.3;
+    const cycle = 1603; // one "Part" of the strip; Part 2 repeats it
     strip.animate([{ transform: "translateY(0)" }, { transform: `translateY(${-cycle}px)` }],
       { duration: (cycle / 30) * 1000, iterations: Infinity });
   }
@@ -407,9 +407,9 @@
       "331:1385": word(48.921, 53.957, 75.899, 78.777, 80.216, 82.734),
       "331:1387": word(51.079, 56.115, 83.813, 86.691, 88.129, 90.647),
       "331:1377": { trim: [[0, 0], [22.302, 0], [34.173, 0.353, V1], [39.568, 0.353], [44.604, 0.557, EIN], [46.763, 0.643], [48.921, 0.733], [51.079, 0.814, EOUT], [90.647, 0.814], [93.525, 1, B]] },
-      "338:376": { o: inOut(14.388, 20.144, 0, 1), y: inOut(14.388, 20.144, 20, 0) },
-      "338:378": { o: inOut(14.388, 20.144, 0, 1), y: inOut(14.388, 20.144, 20, 0) },
-      "338:380": { o: inOut(7.194, 12.95, 0, 1), y: inOut(7.194, 12.95, 20, 0) },
+      "338:376": { o: inOut(11.8, 16.4, 0, 1), y: inOut(11.8, 16.4, 20, 0) },
+      "338:378": { o: inOut(15.6, 20.6, 0, 1), y: inOut(15.6, 20.6, 20, 0) },
+      "338:380": { o: inOut(7, 11.6, 0, 1), y: inOut(7, 11.6, 20, 0) },
       "338:393": { o: inOut(93.525, 97.122, 0, 1), x: inOut(93.525, 97.122, -20, 0) },
       "331:1383": { o: inOut(21.583, 23.381, 0, 1), s: [[0, 0.3], [21.583, 0.3], [24.101, 1, A]] },
       "331:1384": dot(46.763, 48.561, 49.281),
@@ -453,7 +453,7 @@
     hint.className = "scroll-hint";
     hint.textContent = "SCROLL";
     body.appendChild(hint);
-    const size = () => { scrolly.style.height = `${innerHeight * 8}px`; };
+    const size = () => { scrolly.style.height = `${innerHeight * 13}px`; };
     size();
     addEventListener("resize", size);
     // Scrolling sets a target; the timeline glides toward it each frame, so wheel steps never jump.
@@ -478,7 +478,7 @@
     const tick = () => {
       raf = 0;
       const d = target - cur;
-      cur = Math.abs(d) < 0.02 || cur < 0 ? target : cur + d * 0.075;
+      cur = Math.abs(d) < 0.02 || cur < 0 ? target : cur + d * 0.05;
       render(cur);
       if (cur !== target) raf = requestAnimationFrame(tick);
     };

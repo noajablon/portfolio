@@ -1,34 +1,40 @@
-const imgNegative = "https://www.figma.com/api/mcp/asset/d484fce2-a56b-44ca-b74e-8948e4fc5543.svg";
-const imgUntitled31 = "https://www.figma.com/api/mcp/asset/9424ba2f-2f15-40ae-a7a1-2a1ac501532e.png";
-const imgShape22 = "https://www.figma.com/api/mcp/asset/e61c0356-0983-4362-b65f-f1dcd041a7e0.png";
-const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/aea6f812-5063-459c-b448-9b0bce41b9f9.png";
-const imgWomanBesideMazorPostersInGallery2 = "https://www.figma.com/api/mcp/asset/1ebac695-d4dc-40dc-af75-c1cb58447be9.png";
-const imgImage1 = "https://www.figma.com/api/mcp/asset/f5cba608-323a-4876-a55f-1b79c66289d1.png";
-const imgRectangle38 = "https://www.figma.com/api/mcp/asset/6b37d0b7-be89-4b04-b09b-32997b5e9e96.svg";
-const imgVector111 = "https://www.figma.com/api/mcp/asset/b03b926c-6f59-4f31-8b8b-880df0ff7910.svg";
-const imgVector127 = "https://www.figma.com/api/mcp/asset/82ee36cf-cb5c-4798-aab8-c6fbadaa65ce.svg";
-const imgVector39 = "https://www.figma.com/api/mcp/asset/be0d4385-af9d-4015-ad4a-c035c9ea04c0.svg";
-const imgVector124 = "https://www.figma.com/api/mcp/asset/eb953550-f693-4adc-9d96-69ca2ebc8c5f.svg";
-const imgLine3 = "https://www.figma.com/api/mcp/asset/7833287e-1c64-4570-a844-efa633b7ff83.svg";
-const imgVector112 = "https://www.figma.com/api/mcp/asset/24790ff8-5193-4c6c-a646-47c5d62d7f6c.svg";
-const imgGroup34 = "https://www.figma.com/api/mcp/asset/828b1923-d61d-4c78-8147-48ee53a90b7c.svg";
-const imgNegative1 = "https://www.figma.com/api/mcp/asset/9dc9ad64-5f69-4375-9166-5ece2a4cf084.svg";
-const imgVector178 = "https://www.figma.com/api/mcp/asset/415179be-99f7-4445-a970-7d3f6db5e263.svg";
-const imgVector176 = "https://www.figma.com/api/mcp/asset/c07f712e-59b3-42d3-8654-dd0481dc7e7d.svg";
-const imgVector132 = "https://www.figma.com/api/mcp/asset/83ad601c-936e-46db-842d-c3b42143aceb.svg";
-const imgGroup16 = "https://www.figma.com/api/mcp/asset/31f59ba1-8b47-4388-adc8-d8b9b6f17db5.svg";
-const imgLayer1 = "https://www.figma.com/api/mcp/asset/bd1b57a9-d05b-4895-be5e-706d3b1a6216.svg";
-const imgLayer2 = "https://www.figma.com/api/mcp/asset/eed9f470-3e62-4511-83bd-7a18985e873a.svg";
-const imgEllipse18 = "https://www.figma.com/api/mcp/asset/1acb2c9c-eb49-415a-8129-0b8efb68945f.svg";
-const imgGroup20 = "https://www.figma.com/api/mcp/asset/0563e861-23a6-45f5-ab44-7e72d8681aec.svg";
-const imgGroup21 = "https://www.figma.com/api/mcp/asset/a4637428-6518-4610-a3f0-6848c33d4507.svg";
-const imgGroup22 = "https://www.figma.com/api/mcp/asset/ab3b1a9a-2309-4891-acb8-389e308576e6.svg";
-const imgGroup23 = "https://www.figma.com/api/mcp/asset/170232ac-01f0-4679-aa3f-2a46fc37a70f.svg";
-const imgGroup24 = "https://www.figma.com/api/mcp/asset/8ed4fba6-82fa-4c83-a681-9fcbc42f8a29.svg";
-const imgVector103 = "https://www.figma.com/api/mcp/asset/52b5231a-5e81-4a31-bbfb-dd2bd528800c.svg";
-const imgVector171 = "https://www.figma.com/api/mcp/asset/9d0ac204-b3d8-4846-a127-a77ba609bb9b.svg";
+const imgNegative = "https://www.figma.com/api/mcp/asset/a835bfb8-cfbc-4233-adc5-d497ab5f5a6f.svg";
+import { motion } from "motion/react";
+const imgUntitled31 = "https://www.figma.com/api/mcp/asset/f0ce2b72-5bd4-449c-acb8-e9ac3ffaa777.png";
+const imgShape22 = "https://www.figma.com/api/mcp/asset/833c7b09-cb16-421e-8e2d-1a761e9eea60.png";
+const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/8eabd295-3c99-4c61-921f-c6f7a832548d.png";
+const imgWomanBesideMazorPostersInGallery2 = "https://www.figma.com/api/mcp/asset/7c1a619b-df26-4ac6-94e0-898d8bd14f38.png";
+const imgImage1 = "https://www.figma.com/api/mcp/asset/6c547f09-ca11-42c5-9074-78c37b7ff2e7.png";
+const imgRectangle38 = "https://www.figma.com/api/mcp/asset/0aa680f9-01fe-4627-9c53-d26dc65c6704.svg";
+const imgVector111 = "https://www.figma.com/api/mcp/asset/044b7c32-5bcf-47e8-97f2-06b21007d791.svg";
+const imgVector127 = "https://www.figma.com/api/mcp/asset/c678de4a-2ca9-436c-84c3-0766f9613f29.svg";
+const imgVector39 = "https://www.figma.com/api/mcp/asset/d87b3f51-1253-47c9-96a5-5eb096e0cf88.svg";
+const imgVector124 = "https://www.figma.com/api/mcp/asset/0b597f97-9312-4069-b8a8-82a8cb267391.svg";
+const imgLine3 = "https://www.figma.com/api/mcp/asset/bfac6537-80a5-4966-b5d9-c981d9a98e5a.svg";
+const imgVector112 = "https://www.figma.com/api/mcp/asset/a03531b4-715c-40ab-8373-bc3e5e53baa0.svg";
+const imgGroup34 = "https://www.figma.com/api/mcp/asset/0f356e7d-8034-4eda-bb91-e42a98559db8.svg";
+const imgNegative1 = "https://www.figma.com/api/mcp/asset/5ba4b47c-dc39-4c2a-a352-2c769e462c73.svg";
+const imgVector178 = "https://www.figma.com/api/mcp/asset/26925924-ff9d-421a-a15c-73253627e60b.svg";
+const imgVector176 = "https://www.figma.com/api/mcp/asset/e57c58e9-fe3e-4d09-a517-ca57feb2f39c.svg";
+const imgVector132 = "https://www.figma.com/api/mcp/asset/b2033faf-4c0c-4300-9aec-f7870502c268.svg";
+const imgGroup16 = "https://www.figma.com/api/mcp/asset/35edfb91-e92e-487e-9b25-219da02ea83c.svg";
+const imgLayer1 = "https://www.figma.com/api/mcp/asset/0f22bdef-a989-44d1-a83f-3aa4a93363df.svg";
+const imgLayer2 = "https://www.figma.com/api/mcp/asset/a442dd58-9974-4ec0-8d84-192b865a9a81.svg";
+const imgEllipse18 = "https://www.figma.com/api/mcp/asset/a28c95d6-6472-4bbe-a678-081d2f8e627c.svg";
+const imgGroup20 = "https://www.figma.com/api/mcp/asset/801bd04d-433f-466e-aa4b-783e87ca76c0.svg";
+const imgGroup21 = "https://www.figma.com/api/mcp/asset/a906fc09-ad36-47f1-8c24-11ab77b203cb.svg";
+const imgGroup22 = "https://www.figma.com/api/mcp/asset/113ffb1e-e22b-4d3b-8631-99f988987b98.svg";
+const imgGroup23 = "https://www.figma.com/api/mcp/asset/4a3725bf-3118-4de5-b81b-ba91bf5af278.svg";
+const imgGroup24 = "https://www.figma.com/api/mcp/asset/5de343cf-41c6-401d-8fe2-4fffc008580e.svg";
+const imgVector103 = "https://www.figma.com/api/mcp/asset/4a45dbfe-a09e-4a7e-b0eb-7dc4143a9fb9.svg";
+const imgVector171 = "https://www.figma.com/api/mcp/asset/4b82f46c-20af-4f44-afe7-01de0348c70e.svg";
 
-function ContactNegative({ className, state = false }) {
+type ContactNegativeProps = {
+  className?: string;
+  state?: boolean;
+};
+
+function ContactNegative({ className, state = false }: ContactNegativeProps) {
   return (
     <div className={className || "relative size-[44px]"} data-node-id="647:1856">
       <div className="absolute left-px mix-blend-difference size-[42px] top-px" data-node-id="647:1857" data-name="Negative">
@@ -44,7 +50,16 @@ export default function AboutMe() {
       <div className="absolute right-[calc(12.5%+155px)] size-[7.832px] top-[184.67px]" data-node-id="570:9385">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgRectangle38} />
       </div>
+      <p className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[74px] leading-[normal] left-[24px] not-italic text-[#363636] text-[20px] top-[2392px] tracking-[6.2px] w-[65.778px]" data-node-id="570:9513">
+        2.3
+      </p>
+      <p className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[74px] leading-[normal] left-[24px] not-italic text-[#363636] text-[20px] top-[3167px] tracking-[6.2px] w-[65.778px]" data-node-id="570:9514">
+        2.3
+      </p>
       <div className="absolute bg-[#f5f3f1] h-[140px] left-0 top-[53px] w-[1480px]" data-node-id="570:9520" />
+      <p className="[word-break:break-word] absolute bottom-[-3301.67px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[-116.8px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="570:9560">
+        BRANDING
+      </p>
       <div className="absolute bottom-[-5403px] flex h-[6201px] items-center justify-center right-[calc(87.5%+95px)] w-0" data-node-id="570:9578">
         <div className="flex-none rotate-180">
           <div className="h-[6201px] relative w-0">
@@ -169,7 +184,7 @@ export default function AboutMe() {
       </div>
       <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[353.565px] leading-[0] left-[186px] not-italic text-[#363636] text-[18px] top-[342px] w-[543px] whitespace-pre-wrap" data-node-id="573:10478">
         <p className="leading-[30.073px] mb-0">{`I'm a graphic designer studying Visual Communication at Bezalel. `}</p>
-        <p className="leading-[30.073px] mb-0">{`My work is influenced by international visual culture, with a focus on contemporary Asian design. I value thoughtful collaboration and clear communication, creating visual branding and UX/UI design that is intuitive, personal, and refined. `}</p>
+        <p className="leading-[30.073px] mb-0">{`My work is influenced by international visual culture, with a focus on contemporary Asian design. I value thoughtful collaboration and clear communication, creating visual branding and UX/UI design that is intuitive, personal, and refined. `}</p>
         <p className="leading-[30.073px] mb-0">​</p>
         <p className="leading-[30.073px] mb-0">My goal is to create design that connects, communicates, and resonates, translating complex ideas into distinctive visual identities and digital experiences that feel natural to engage with.</p>
         <p className="leading-[30.073px]">​</p>
@@ -388,7 +403,76 @@ export default function AboutMe() {
       <button className="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[37px] left-[calc(87.5%-48.13px)] top-[353px] w-[207.125px]" data-node-id="623:879" data-name="Hit field name" />
       <button className="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[37px] left-[calc(87.5%-48.13px)] top-[409px] w-[207.125px]" data-node-id="623:881" data-name="Hit field email" />
       <button className="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[113px] left-[calc(87.5%-48.13px)] top-[463px] w-[207.125px]" data-node-id="623:883" data-name="Hit field message" />
-      <div className="absolute bg-[#363636] h-[58px] left-0 overflow-clip top-0 w-[1480px]" data-node-id="629:13633" data-name="Marquee" />
+      <div className="absolute bg-[#363636] h-[58px] left-0 overflow-clip top-0 w-[1480px]" data-node-id="629:13633" data-name="Marquee">
+        <motion.div className="absolute content-stretch flex items-start left-[16px] overflow-clip top-0" data-node-id="629:13634" data-name="Track">
+          <div className="h-[58px] relative shrink-0 w-[883px]" data-node-id="629:13635" data-name="Sequence">
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px]" dir="auto" data-node-id="629:13636">
+              MULTIDISCIPLINARY DESIGNER
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13637" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13638">
+              BRANDING
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13639" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13640">
+              UX/UI
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13641" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px]" dir="auto" data-node-id="629:13642">
+              TYPOGRAPHY
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13643" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px]" dir="auto" data-node-id="629:13644">
+              ILLUSTRATION
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13645" />
+          </div>
+          <div className="h-[58px] relative shrink-0 w-[883px]" data-node-id="629:13646" data-name="Sequence">
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px]" dir="auto" data-node-id="629:13647">
+              MULTIDISCIPLINARY DESIGNER
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13648" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13649">
+              BRANDING
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13650" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13651">
+              UX/UI
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13652" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px]" dir="auto" data-node-id="629:13653">
+              TYPOGRAPHY
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13654" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px]" dir="auto" data-node-id="629:13655">
+              ILLUSTRATION
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13656" />
+          </div>
+          <div className="h-[58px] relative shrink-0 w-[883px]" data-node-id="629:13657" data-name="Sequence">
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px]" dir="auto" data-node-id="629:13658">
+              MULTIDICIPLINARY DESIGNER
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13659" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13660">
+              BRANDING
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13661" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="629:13662">
+              UX/UI
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13663" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px]" dir="auto" data-node-id="629:13664">
+              TYPOGRAPHY
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13665" />
+            <p className="[word-break:break-word] absolute bottom-[45.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px]" dir="auto" data-node-id="629:13666">
+              ILLUSTRATION
+            </p>
+            <div className="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="629:13667" />
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }

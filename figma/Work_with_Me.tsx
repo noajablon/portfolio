@@ -1,38 +1,32 @@
-const imgNegative = "https://www.figma.com/api/mcp/asset/02ae1f30-9d14-4b0f-8f56-5abcc7a1bb90.svg";
-const imgCoffeeCupMockup1 = "https://www.figma.com/api/mcp/asset/0c02c30a-e97f-41f4-8101-88bfeeffe3b4.png";
-const imgFreeVinylMockup11 = "https://www.figma.com/api/mcp/asset/765a42c1-a01c-4620-9cda-bf965c7cddbf.png";
-const imgPosterWallMockup1 = "https://www.figma.com/api/mcp/asset/c040d292-c733-461b-a4cd-dedeb020dd3a.png";
-const imgChatGptImageJul122026062343Pm1 = "https://www.figma.com/api/mcp/asset/6b261680-25e2-4133-ae1e-2895d47216b3.png";
-const imgCenteredBlueAlbumWithVinyl1 = "https://www.figma.com/api/mcp/asset/4c8fcedb-70be-4931-b87c-2a69f2ecc8ac.png";
-const imgScreenshot20261006At1654471 = "https://www.figma.com/api/mcp/asset/1e16bbfa-306e-47dd-a6d1-c6270986e281.png";
-const imgWhatsAppImage20260911At1225351 = "https://www.figma.com/api/mcp/asset/00453416-7f4b-4524-84db-85da90d54d8c.png";
-const imgCenteredSmartphoneWithColorfulInstagramPoster1 = "https://www.figma.com/api/mcp/asset/7192a099-df85-45e5-84bb-8faa6b167df9.png";
+const imgNegative = "https://www.figma.com/api/mcp/asset/04e992bd-867e-4e72-b9e8-32689f9143e4.svg";
+const imgPart1 = "https://www.figma.com/api/mcp/asset/62227581-0488-42f5-b190-54517ef14ecb.png";
+const imgPart2 = "https://www.figma.com/api/mcp/asset/ac4c60a6-8636-4170-b5d3-1af4fc00adb1.png";
 import { motion } from "motion/react";
-const imgUntitled32 = "https://www.figma.com/api/mcp/asset/b0e9f6ba-d723-47b0-b0e6-41743beec013.png";
-const imgShape22 = "https://www.figma.com/api/mcp/asset/36ab0800-4cf3-4a1c-a8d5-d22c6d76bd9d.png";
-const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/becaf1a3-bf92-4441-b605-6f10649603ed.png";
-const imgImage1 = "https://www.figma.com/api/mcp/asset/eea0cf52-ace5-4eef-8193-1f738f469bc0.png";
-const imgRectangle38 = "https://www.figma.com/api/mcp/asset/3bf2a1a2-4438-43bc-94e1-c08777ea0411.svg";
-const imgVector111 = "https://www.figma.com/api/mcp/asset/a22bf216-6023-47aa-b5ed-e58fbcd0b392.svg";
-const imgVector39 = "https://www.figma.com/api/mcp/asset/68988274-221b-462a-a567-ab894576f862.svg";
-const imgVector124 = "https://www.figma.com/api/mcp/asset/27b5efbd-5b7f-464b-a777-d759813f47bf.svg";
-const imgLine3 = "https://www.figma.com/api/mcp/asset/26801aff-e53d-42aa-81e8-b6fa769ca68a.svg";
-const imgVector112 = "https://www.figma.com/api/mcp/asset/e95e7ca1-d0a8-4b3e-825a-a685c394762a.svg";
-const imgGroup34 = "https://www.figma.com/api/mcp/asset/4c2870ce-20a1-4da7-963d-1245f1554634.svg";
-const imgNegative1 = "https://www.figma.com/api/mcp/asset/840ad67e-68a0-466e-bf61-a8534378417f.svg";
-const imgVector127 = "https://www.figma.com/api/mcp/asset/793eeacb-8cc4-47e0-9354-63f4fd32a2d7.svg";
-const imgGroup16 = "https://www.figma.com/api/mcp/asset/63bef9e3-22c1-4b31-a016-ef9ea2fd0630.svg";
-const imgLayer1 = "https://www.figma.com/api/mcp/asset/f44d745a-3e61-452d-9167-b6a04d8d1479.svg";
-const imgLayer2 = "https://www.figma.com/api/mcp/asset/5e0c5546-f181-4647-8bc0-a789716173d2.svg";
-const imgEllipse18 = "https://www.figma.com/api/mcp/asset/1d0f35c1-cfd2-4d83-b9fe-3dff1a52a368.svg";
-const imgGroup20 = "https://www.figma.com/api/mcp/asset/6554ea47-a2bc-4985-8916-775fe3d351c5.svg";
-const imgGroup21 = "https://www.figma.com/api/mcp/asset/d9929bdc-2e30-4f52-82b6-6528fd175a89.svg";
-const imgGroup22 = "https://www.figma.com/api/mcp/asset/6d4d15ee-61b9-43e0-8bed-744ef9add362.svg";
-const imgGroup23 = "https://www.figma.com/api/mcp/asset/203fdc00-e9d0-4a11-a33b-53ca1770fcdd.svg";
-const imgGroup24 = "https://www.figma.com/api/mcp/asset/774f6640-6f8a-40e5-9e9d-5fd8db0a542a.svg";
-const imgVector103 = "https://www.figma.com/api/mcp/asset/b3f21816-453f-4ae5-b21e-d379ced44fc3.svg";
-const imgVector171 = "https://www.figma.com/api/mcp/asset/643ceffc-2c92-4422-93ca-e575df89232b.svg";
-const imgVector176 = "https://www.figma.com/api/mcp/asset/c15d51d6-c072-4bcf-898b-59130eedaea8.svg";
+const imgUntitled32 = "https://www.figma.com/api/mcp/asset/f143a0af-5773-42b4-bfcd-9eaf99f7db09.png";
+const imgShape22 = "https://www.figma.com/api/mcp/asset/d4a1349d-480c-452a-9892-8758ac419a48.png";
+const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/8236b4ea-ac17-41f3-95fd-2905e302b570.png";
+const imgImage1 = "https://www.figma.com/api/mcp/asset/9d330624-b575-44d5-8d1c-b2dcefae076b.png";
+const imgRectangle38 = "https://www.figma.com/api/mcp/asset/6ce3e111-0d8e-41eb-9ce9-179efe3b3a6d.svg";
+const imgVector111 = "https://www.figma.com/api/mcp/asset/73609fcc-5c3d-4d1c-bc09-67156a3f9eaa.svg";
+const imgVector39 = "https://www.figma.com/api/mcp/asset/59d5f31a-a915-4edd-8a7a-22a74b1a7df3.svg";
+const imgVector124 = "https://www.figma.com/api/mcp/asset/073da650-52d8-453e-8393-6c239b9c4ddd.svg";
+const imgLine3 = "https://www.figma.com/api/mcp/asset/d2a7d18d-93d4-4aa8-8bb9-2d91d73cd3f7.svg";
+const imgVector112 = "https://www.figma.com/api/mcp/asset/d0897823-bf87-4d69-82b9-c53ed2ccbe76.svg";
+const imgGroup34 = "https://www.figma.com/api/mcp/asset/8630de24-1e1f-425d-b31c-2995d713056a.svg";
+const imgNegative1 = "https://www.figma.com/api/mcp/asset/0230856d-265a-43a9-ab03-ca976a14ea67.svg";
+const imgVector127 = "https://www.figma.com/api/mcp/asset/a790f6a5-2961-4ab6-9500-d56fe38263d7.svg";
+const imgGroup16 = "https://www.figma.com/api/mcp/asset/af3179cb-ab5c-4456-9f85-36a6507b6b16.svg";
+const imgLayer1 = "https://www.figma.com/api/mcp/asset/7c0d8b83-d0b9-4228-9ef3-04521e080893.svg";
+const imgLayer2 = "https://www.figma.com/api/mcp/asset/ffb6279b-c20c-4c95-a833-d168b3d05290.svg";
+const imgEllipse18 = "https://www.figma.com/api/mcp/asset/e748c8d2-2dc3-4162-a152-6e88fe937b83.svg";
+const imgGroup20 = "https://www.figma.com/api/mcp/asset/993e80bd-c78f-4f6c-8136-5552605601bd.svg";
+const imgGroup21 = "https://www.figma.com/api/mcp/asset/945441c9-ecdd-4ca9-8709-2bb4b254769b.svg";
+const imgGroup22 = "https://www.figma.com/api/mcp/asset/74d1b6c3-4140-40d5-b786-6309100db61f.svg";
+const imgGroup23 = "https://www.figma.com/api/mcp/asset/7452a27b-cdd3-424f-a786-3af2352bab28.svg";
+const imgGroup24 = "https://www.figma.com/api/mcp/asset/6abc9231-ba6f-4a8f-8216-dcc0a3383aa3.svg";
+const imgVector103 = "https://www.figma.com/api/mcp/asset/4609b779-0765-4e7b-8704-2af8abf81ad0.svg";
+const imgVector171 = "https://www.figma.com/api/mcp/asset/0a486474-8cc9-4875-a454-86ea6d15b30b.svg";
+const imgVector176 = "https://www.figma.com/api/mcp/asset/a709e418-07e2-4c36-9ef5-c3e848679915.svg";
 
 type ContactNegativeProps = {
   className?: string;
@@ -49,255 +43,21 @@ function ContactNegative({ className, state = false }: ContactNegativeProps) {
   );
 }
 
-type WorkStripAutoscrollProps = {
+type WorkStripLoopProps = {
   className?: string;
   step?: "0";
 };
 
-function WorkStripAutoscroll({ className, step = "0" }: WorkStripAutoscrollProps) {
+function WorkStripLoop({ className, step = "0" }: WorkStripLoopProps) {
   return (
-    <div className={className || "h-[918px] overflow-clip relative w-[306px]"} data-node-id="585:790">
-      <div className="absolute h-[6861.9px] left-0 top-0 w-[306px]" data-node-id="696:2629" data-name="Strip">
-        <div className="absolute h-[219.5px] left-[7px] top-0 w-[293px]" data-node-id="696:2630" data-name="Coffee Cup Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[-1.15%] max-w-none size-[101.95%] top-0" src={imgCoffeeCupMockup1} />
-          </div>
+    <div className={className || "h-[918px] overflow-clip relative w-[306px]"} data-node-id="711:3529">
+      <div className="absolute h-[3206px] left-0 top-0 w-[306px]" data-node-id="711:3530" data-name="Strip">
+        <div className="absolute h-[1603px] left-0 top-0 w-[306px]" data-node-id="711:3531" data-name="Part 1">
+          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgPart1} />
         </div>
-        <div className="absolute h-[198.2px] left-[7px] top-[232.5px] w-[293px]" data-node-id="696:2637" data-name="Free_Vinyl_Mockup_1 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130%] left-[-13.93%] max-w-none top-[-15%] w-[117.51%]" src={imgFreeVinylMockup11} />
-          </div>
+        <div className="absolute h-[1603px] left-0 top-[1603px] w-[306px]" data-node-id="711:3532" data-name="Part 2">
+          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgPart2} />
         </div>
-        <div className="absolute h-[314.5px] left-[7px] top-[443.7px] w-[293px]" data-node-id="696:2644" data-name="Poster_Wall_Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130.99%] left-[-83.27%] max-w-none top-[-7.84%] w-[209.86%]" src={imgPosterWallMockup1} />
-          </div>
-        </div>
-        <div className="absolute h-[376.4px] left-[7px] top-[771.2px] w-[293px]" data-node-id="696:2651" data-name="ChatGPT Image Jul 12, 2026, 06_23_43 PM 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgChatGptImageJul122026062343Pm1} />
-        </div>
-        <div className="absolute h-[194.6px] left-[7px] top-[1160.6px] w-[293px]" data-node-id="696:2658" data-name="Centered blue album with vinyl 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgCenteredBlueAlbumWithVinyl1} />
-        </div>
-        <div className="absolute h-[196.4px] left-[7px] top-[1368.2px] w-[293px]" data-node-id="696:2665" data-name="Screenshot 2026-10-06 at 16.54.47 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgScreenshot20261006At1654471} />
-        </div>
-        <div className="absolute h-[389.6px] left-[7px] top-[1577.6px] w-[293px]" data-node-id="696:2672" data-name="WhatsApp Image 2026-09-11 at 12.25.35 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgWhatsAppImage20260911At1225351} />
-        </div>
-        <div className="absolute h-[294.1px] left-[7px] top-[1980.2px] w-[293px]" data-node-id="696:2679" data-name="Centered smartphone with colorful Instagram poster 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-full left-[-40.38%] max-w-none top-0 w-[178.96%]" src={imgCenteredSmartphoneWithColorfulInstagramPoster1} />
-          </div>
-        </div>
-        <div className="absolute h-[219.5px] left-[7px] top-[2287.3px] w-[293px]" data-node-id="696:2686" data-name="Coffee Cup Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[-1.15%] max-w-none size-[101.95%] top-0" src={imgCoffeeCupMockup1} />
-          </div>
-        </div>
-        <div className="absolute h-[198.2px] left-[7px] top-[2519.8px] w-[293px]" data-node-id="696:2693" data-name="Free_Vinyl_Mockup_1 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130%] left-[-13.93%] max-w-none top-[-15%] w-[117.51%]" src={imgFreeVinylMockup11} />
-          </div>
-        </div>
-        <div className="absolute h-[314.5px] left-[7px] top-[2731px] w-[293px]" data-node-id="696:2700" data-name="Poster_Wall_Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130.99%] left-[-83.27%] max-w-none top-[-7.84%] w-[209.86%]" src={imgPosterWallMockup1} />
-          </div>
-        </div>
-        <div className="absolute h-[376.4px] left-[7px] top-[3058.5px] w-[293px]" data-node-id="696:2707" data-name="ChatGPT Image Jul 12, 2026, 06_23_43 PM 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgChatGptImageJul122026062343Pm1} />
-        </div>
-        <div className="absolute h-[194.6px] left-[7px] top-[3447.9px] w-[293px]" data-node-id="696:2714" data-name="Centered blue album with vinyl 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgCenteredBlueAlbumWithVinyl1} />
-        </div>
-        <div className="absolute h-[196.4px] left-[7px] top-[3655.5px] w-[293px]" data-node-id="696:2721" data-name="Screenshot 2026-10-06 at 16.54.47 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgScreenshot20261006At1654471} />
-        </div>
-        <div className="absolute h-[389.6px] left-[7px] top-[3864.9px] w-[293px]" data-node-id="696:2728" data-name="WhatsApp Image 2026-09-11 at 12.25.35 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgWhatsAppImage20260911At1225351} />
-        </div>
-        <div className="absolute h-[294.1px] left-[7px] top-[4267.5px] w-[293px]" data-node-id="696:2735" data-name="Centered smartphone with colorful Instagram poster 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-full left-[-40.38%] max-w-none top-0 w-[178.96%]" src={imgCenteredSmartphoneWithColorfulInstagramPoster1} />
-          </div>
-        </div>
-        <div className="absolute h-[219.5px] left-[7px] top-[4574.6px] w-[293px]" data-node-id="696:2742" data-name="Coffee Cup Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[-1.15%] max-w-none size-[101.95%] top-0" src={imgCoffeeCupMockup1} />
-          </div>
-        </div>
-        <div className="absolute h-[198.2px] left-[7px] top-[4807.1px] w-[293px]" data-node-id="696:2749" data-name="Free_Vinyl_Mockup_1 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130%] left-[-13.93%] max-w-none top-[-15%] w-[117.51%]" src={imgFreeVinylMockup11} />
-          </div>
-        </div>
-        <div className="absolute h-[314.5px] left-[7px] top-[5018.3px] w-[293px]" data-node-id="696:2756" data-name="Poster_Wall_Mockup 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[130.99%] left-[-83.27%] max-w-none top-[-7.84%] w-[209.86%]" src={imgPosterWallMockup1} />
-          </div>
-        </div>
-        <div className="absolute h-[376.4px] left-[7px] top-[5345.8px] w-[293px]" data-node-id="696:2763" data-name="ChatGPT Image Jul 12, 2026, 06_23_43 PM 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgChatGptImageJul122026062343Pm1} />
-        </div>
-        <div className="absolute h-[194.6px] left-[7px] top-[5735.2px] w-[293px]" data-node-id="696:2770" data-name="Centered blue album with vinyl 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgCenteredBlueAlbumWithVinyl1} />
-        </div>
-        <div className="absolute h-[196.4px] left-[7px] top-[5942.8px] w-[293px]" data-node-id="696:2777" data-name="Screenshot 2026-10-06 at 16.54.47 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgScreenshot20261006At1654471} />
-        </div>
-        <div className="absolute h-[389.6px] left-[7px] top-[6152.2px] w-[293px]" data-node-id="696:2784" data-name="WhatsApp Image 2026-09-11 at 12.25.35 1">
-          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgWhatsAppImage20260911At1225351} />
-        </div>
-        <div className="absolute h-[294.1px] left-[7px] top-[6554.8px] w-[293px]" data-node-id="696:2791" data-name="Centered smartphone with colorful Instagram poster 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-full left-[-40.38%] max-w-none top-0 w-[178.96%]" src={imgCenteredSmartphoneWithColorfulInstagramPoster1} />
-          </div>
-        </div>
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[218.9px] w-[293px]" data-node-id="696:2631" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[231.9px] w-[293px]" data-node-id="696:2634" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[430.1px] w-[293px]" data-node-id="696:2638" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[443.1px] w-[293px]" data-node-id="696:2641" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[757.6px] w-[293px]" data-node-id="696:2645" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[770.6px] w-[293px]" data-node-id="696:2648" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1147px] w-[293px]" data-node-id="696:2652" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1160px] w-[293px]" data-node-id="696:2655" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1354.6px] w-[293px]" data-node-id="696:2659" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1367.6px] w-[293px]" data-node-id="696:2662" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1564px] w-[293px]" data-node-id="696:2666" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1577px] w-[293px]" data-node-id="696:2669" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1966.6px] w-[293px]" data-node-id="696:2673" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[1979.6px] w-[293px]" data-node-id="696:2676" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2273.7px] w-[293px]" data-node-id="696:2680" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2286.7px] w-[293px]" data-node-id="696:2683" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2506.2px] w-[293px]" data-node-id="696:2687" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2519.2px] w-[293px]" data-node-id="696:2690" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2717.4px] w-[293px]" data-node-id="696:2694" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[2730.4px] w-[293px]" data-node-id="696:2697" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3044.9px] w-[293px]" data-node-id="696:2701" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3057.9px] w-[293px]" data-node-id="696:2704" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3434.3px] w-[293px]" data-node-id="696:2708" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3447.3px] w-[293px]" data-node-id="696:2711" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3641.9px] w-[293px]" data-node-id="696:2715" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3654.9px] w-[293px]" data-node-id="696:2718" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3851.3px] w-[293px]" data-node-id="696:2722" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[3864.3px] w-[293px]" data-node-id="696:2725" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4253.9px] w-[293px]" data-node-id="696:2729" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4266.9px] w-[293px]" data-node-id="696:2732" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4561px] w-[293px]" data-node-id="696:2736" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4574px] w-[293px]" data-node-id="696:2739" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4793.5px] w-[293px]" data-node-id="696:2743" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[4806.5px] w-[293px]" data-node-id="696:2746" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5004.7px] w-[293px]" data-node-id="696:2750" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5017.7px] w-[293px]" data-node-id="696:2753" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5332.2px] w-[293px]" data-node-id="696:2757" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5345.2px] w-[293px]" data-node-id="696:2760" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5721.6px] w-[293px]" data-node-id="696:2764" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5734.6px] w-[293px]" data-node-id="696:2767" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5929.2px] w-[293px]" data-node-id="696:2771" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[5942.2px] w-[293px]" data-node-id="696:2774" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6138.6px] w-[293px]" data-node-id="696:2778" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6151.6px] w-[293px]" data-node-id="696:2781" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6541.2px] w-[293px]" data-node-id="696:2785" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6554.2px] w-[293px]" data-node-id="696:2788" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6848.3px] w-[293px]" data-node-id="696:2792" data-name="Line" />
-        <div className="absolute bg-[#363636] h-[1.2px] left-[7px] top-[6861.3px] w-[293px]" data-node-id="696:2795" data-name="Line" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[216.5px]" data-node-id="696:2632" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[216.5px]" data-node-id="696:2633" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[229.5px]" data-node-id="696:2635" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[229.5px]" data-node-id="696:2636" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[427.7px]" data-node-id="696:2639" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[427.7px]" data-node-id="696:2640" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[440.7px]" data-node-id="696:2642" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[440.7px]" data-node-id="696:2643" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[755.2px]" data-node-id="696:2646" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[755.2px]" data-node-id="696:2647" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[768.2px]" data-node-id="696:2649" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[768.2px]" data-node-id="696:2650" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1144.6px]" data-node-id="696:2653" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1144.6px]" data-node-id="696:2654" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1157.6px]" data-node-id="696:2656" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1157.6px]" data-node-id="696:2657" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1352.2px]" data-node-id="696:2660" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1352.2px]" data-node-id="696:2661" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1365.2px]" data-node-id="696:2663" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1365.2px]" data-node-id="696:2664" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1561.6px]" data-node-id="696:2667" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1561.6px]" data-node-id="696:2668" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1574.6px]" data-node-id="696:2670" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1574.6px]" data-node-id="696:2671" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1964.2px]" data-node-id="696:2674" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1964.2px]" data-node-id="696:2675" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[1977.2px]" data-node-id="696:2677" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[1977.2px]" data-node-id="696:2678" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2271.3px]" data-node-id="696:2681" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2271.3px]" data-node-id="696:2682" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2284.3px]" data-node-id="696:2684" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2284.3px]" data-node-id="696:2685" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2503.8px]" data-node-id="696:2688" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2503.8px]" data-node-id="696:2689" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2516.8px]" data-node-id="696:2691" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2516.8px]" data-node-id="696:2692" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2715px]" data-node-id="696:2695" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2715px]" data-node-id="696:2696" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[2728px]" data-node-id="696:2698" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[2728px]" data-node-id="696:2699" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3042.5px]" data-node-id="696:2702" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3042.5px]" data-node-id="696:2703" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3055.5px]" data-node-id="696:2705" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3055.5px]" data-node-id="696:2706" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3431.9px]" data-node-id="696:2709" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3431.9px]" data-node-id="696:2710" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3444.9px]" data-node-id="696:2712" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3444.9px]" data-node-id="696:2713" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3639.5px]" data-node-id="696:2716" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3639.5px]" data-node-id="696:2717" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3652.5px]" data-node-id="696:2719" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3652.5px]" data-node-id="696:2720" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3848.9px]" data-node-id="696:2723" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3848.9px]" data-node-id="696:2724" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[3861.9px]" data-node-id="696:2726" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[3861.9px]" data-node-id="696:2727" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4251.5px]" data-node-id="696:2730" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4251.5px]" data-node-id="696:2731" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4264.5px]" data-node-id="696:2733" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4264.5px]" data-node-id="696:2734" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4558.6px]" data-node-id="696:2737" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4558.6px]" data-node-id="696:2738" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4571.6px]" data-node-id="696:2740" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4571.6px]" data-node-id="696:2741" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4791.1px]" data-node-id="696:2744" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4791.1px]" data-node-id="696:2745" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[4804.1px]" data-node-id="696:2747" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[4804.1px]" data-node-id="696:2748" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5002.3px]" data-node-id="696:2751" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5002.3px]" data-node-id="696:2752" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5015.3px]" data-node-id="696:2754" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5015.3px]" data-node-id="696:2755" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5329.8px]" data-node-id="696:2758" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5329.8px]" data-node-id="696:2759" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5342.8px]" data-node-id="696:2761" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5342.8px]" data-node-id="696:2762" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5719.2px]" data-node-id="696:2765" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5719.2px]" data-node-id="696:2766" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5732.2px]" data-node-id="696:2768" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5732.2px]" data-node-id="696:2769" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5926.8px]" data-node-id="696:2772" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5926.8px]" data-node-id="696:2773" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[5939.8px]" data-node-id="696:2775" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[5939.8px]" data-node-id="696:2776" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6136.2px]" data-node-id="696:2779" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6136.2px]" data-node-id="696:2780" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6149.2px]" data-node-id="696:2782" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6149.2px]" data-node-id="696:2783" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6538.8px]" data-node-id="696:2786" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6538.8px]" data-node-id="696:2787" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6551.8px]" data-node-id="696:2789" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6551.8px]" data-node-id="696:2790" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6845.9px]" data-node-id="696:2793" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6845.9px]" data-node-id="696:2794" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[4px] rounded-[1.6px] size-[6px] top-[6858.9px]" data-node-id="696:2796" data-name="Joint" />
-        <div className="absolute bg-[#363636] left-[297px] rounded-[1.6px] size-[6px] top-[6858.9px]" data-node-id="696:2797" data-name="Joint" />
       </div>
     </div>
   );
@@ -315,10 +75,10 @@ export default function WorkWithMe() {
       <p className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[74px] leading-[normal] left-[24px] not-italic text-[#363636] text-[20px] top-[3167px] tracking-[6.2px] w-[65.778px]" data-node-id="580:12052">
         2.3
       </p>
-      <p className="[word-break:break-word] absolute bottom-[-3010.67px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[-116.8px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="580:12092">
+      <p className="[word-break:break-word] absolute bottom-[-3038.67px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[-116.8px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="580:12092">
         BRANDING
       </p>
-      <div className="absolute bottom-[-5112px] flex h-[6201px] items-center justify-center right-[calc(87.5%+95px)] w-0" data-node-id="580:12094">
+      <div className="absolute bottom-[-5140px] flex h-[6201px] items-center justify-center right-[calc(87.5%+95px)] w-0" data-node-id="580:12094">
         <div className="flex-none rotate-180">
           <div className="h-[6201px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -327,7 +87,7 @@ export default function WorkWithMe() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-[-5112px] flex h-[6201px] items-center justify-center right-[calc(87.5%+82px)] w-0" data-node-id="580:12095">
+      <div className="absolute bottom-[-5140px] flex h-[6201px] items-center justify-center right-[calc(87.5%+82px)] w-0" data-node-id="580:12095">
         <div className="flex-none rotate-180">
           <div className="h-[6201px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -381,7 +141,7 @@ export default function WorkWithMe() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-[-1618px] flex h-[2670.5px] items-center justify-center right-[calc(87.5%+95px)] w-0" data-node-id="580:12103">
+      <div className="absolute bottom-[-1646px] flex h-[2670.5px] items-center justify-center right-[calc(87.5%+95px)] w-0" data-node-id="580:12103">
         <div className="flex-none rotate-180">
           <div className="h-[2670.5px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -416,18 +176,16 @@ export default function WorkWithMe() {
         </div>
       </a>
       <p className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[353.565px] leading-[30.073px] left-[186px] not-italic text-[#363636] text-[18px] top-[334px] w-[543px] whitespace-pre-wrap" data-node-id="580:12248">
-        I see client work as a collaborative process built on dialogue, trust, and shared curiosity. This exchange allows me to understand not only practical needs, but also the character, values, and aspirations behind each project. My goal is to translate these insights into projects that feel personal, distinctive, and authentic — work that reflects the individuality of the client while resonating meaningfully with
-        <br aria-hidden />
-        their audience.
+        {`I see client work as a collaborative process built on dialogue, trust, and shared curiosity. This exchange allows me to understand not only practical needs, but also the character, values, and aspirations behind each project. `}
         <br aria-hidden />
         <br aria-hidden />
         My work with clients is grounded in three core values:
       </p>
-      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+128px)] not-italic text-[#363636] text-[18px] top-[649px] w-[543px]" data-node-id="580:12273">
+      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+97px)] not-italic text-[#363636] text-[18px] top-[585px] w-[543px]" data-node-id="580:12273">
         <p className="leading-[30.073px] mb-0">Great collaboration grows from listening, trust, and a shared sense of direction. When that connection is strong, the work becomes more thoughtful, aligned, and richer than anything created alone.</p>
         <p className="leading-[30.073px]">​</p>
       </div>
-      <div className="absolute h-[93px] left-[187px] top-[605px] w-[96px]" data-node-id="580:12268" data-name="Untitled-3 2">
+      <div className="absolute h-[77px] left-[186px] top-[547px] w-[80px]" data-node-id="580:12268" data-name="Untitled-3 2">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgUntitled32} />
       </div>
       <div className="absolute h-[130px] left-0 top-[58px] w-[1480px]" data-node-id="580:12258" data-name="Header Title">
@@ -455,50 +213,50 @@ export default function WorkWithMe() {
         <a className="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[71px] left-[697.5px] top-[0.5px] w-[85px]" data-node-id="I580:12258;583:1018" data-name="Hit M" />
         <div className="absolute bg-[rgba(255,255,255,0)] h-[71px] left-[1390px] top-[0.5px] w-[90px]" data-node-id="I580:12258;583:1019" data-name="Hit R" />
       </div>
-      <div className="absolute h-[83px] left-[186px] top-[953px] w-[79px]" data-node-id="580:12287" data-name="ChatGPT Image Sep 26, 2026, 10_06_30 PM 2">
+      <div className="absolute h-[71px] left-[186px] top-[889px] w-[68px]" data-node-id="580:12287" data-name="ChatGPT Image Sep 26, 2026, 10_06_30 PM 2">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute h-[131.67%] left-[-57.3%] max-w-none top-[-14.17%] w-[215.47%]" src={imgChatGptImageSep262026100630Pm2} />
         </div>
       </div>
-      <div className="absolute h-[87px] left-[186px] top-[780px] w-[91px]" data-node-id="580:12280" data-name="shape 2 2">
+      <div className="absolute h-[76px] left-[186px] top-[711px] w-[78px]" data-node-id="580:12280" data-name="shape 2 2">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgShape22} />
       </div>
       <div className="absolute h-[47px] left-[20px] opacity-40 top-[12px] w-[49px]" data-node-id="580:12266" data-name="Untitled-3 1">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgUntitled32} />
       </div>
-      <div className="absolute contents left-[calc(12.5%+128px)] top-[620px]" data-node-id="580:12270">
-        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+128px)] not-italic opacity-37 text-[#363636] text-[13px] top-[620px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12271">
+      <div className="absolute contents left-[calc(12.5%+97px)] top-[556px]" data-node-id="580:12270">
+        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+97px)] not-italic opacity-37 text-[#363636] text-[13px] top-[556px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12271">
           COLLABORATION
         </p>
       </div>
-      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+128px)] not-italic text-[#363636] text-[18px] top-[804px] w-[543px] whitespace-pre-wrap" data-node-id="580:12275">
+      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+97px)] not-italic text-[#363636] text-[18px] top-[740px] w-[543px] whitespace-pre-wrap" data-node-id="580:12275">
         <p className="leading-[30.073px] mb-0">Originality in design is about expressing an idea in a way that feels honest, intentional, and memorable. When a design is truly original, it creates a stronger connection and helps the work stand out with meaning rather than decoration.</p>
         <p className="leading-[30.073px] mb-0">​</p>
         <p className="leading-[30.073px]">​</p>
       </div>
-      <div className="absolute contents left-[calc(12.5%+128px)] top-[775px]" data-node-id="580:12277">
-        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+128px)] not-italic opacity-37 text-[#363636] text-[13px] top-[775px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12278">
+      <div className="absolute contents left-[calc(12.5%+97px)] top-[711px]" data-node-id="580:12277">
+        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+97px)] not-italic opacity-37 text-[#363636] text-[13px] top-[711px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12278">
           ORIGINALITY
         </p>
       </div>
-      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+128px)] not-italic text-[#363636] text-[18px] top-[982px] w-[543px] whitespace-pre-wrap" data-node-id="580:12283">
+      <div className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[135.223px] leading-[0] left-[calc(12.5%+97px)] not-italic text-[#363636] text-[18px] top-[918px] w-[543px] whitespace-pre-wrap" data-node-id="580:12283">
         <p className="leading-[30.073px] mb-0">Craft lives in the details and the care behind every decision. When that level of attention is present, the final work feels refined, intentional, and built to last.</p>
         <p className="leading-[30.073px] mb-0">​</p>
         <p className="leading-[30.073px] mb-0">​</p>
         <p className="leading-[30.073px]">​</p>
       </div>
-      <div className="absolute contents left-[calc(12.5%+128px)] top-[953px]" data-node-id="580:12284">
-        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+128px)] not-italic opacity-37 text-[#363636] text-[13px] top-[953px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12285">
+      <div className="absolute contents left-[calc(12.5%+97px)] top-[889px]" data-node-id="580:12284">
+        <p className="[word-break:break-word] absolute font-['Gilroy:Medium'] h-[25px] leading-[normal] left-[calc(12.5%+97px)] not-italic opacity-37 text-[#363636] text-[13px] top-[889px] tracking-[4.03px] w-[225px]" dir="auto" data-node-id="580:12285">
           CRAFT
         </p>
       </div>
-      <div className="absolute h-[918px] left-[calc(62.5%+1px)] overflow-clip top-[193px] w-[306px]" data-node-id="585:1364" data-name="Work Scroll">
-        <WorkStripAutoscroll className="absolute h-[918px] left-0 overflow-clip top-0 w-[306px]" />
+      <div className="absolute h-[918px] left-[calc(62.5%+1px)] overflow-clip top-[193px] w-[306px]" data-node-id="711:3575" data-name="Work Scroll">
+        <WorkStripLoop className="absolute h-[918px] left-0 overflow-clip top-0 w-[306px]" />
       </div>
       <p className="[word-break:break-word] absolute font-['Gilroy:Regular'] h-[86.082px] leading-[70.033px] left-[186px] not-italic text-[#363636] text-[65px] top-[245px] tracking-[-3.9px] w-[746px]" dir="auto" data-node-id="629:13345">
         LET’S CREATE TOGETHER
       </p>
-      <div className="absolute bottom-[-5111px] flex h-[6030px] items-center justify-center right-0 w-0" data-node-id="580:12096">
+      <div className="absolute bottom-[-5139px] flex h-[6030px] items-center justify-center right-0 w-0" data-node-id="580:12096">
         <div className="flex-none rotate-180">
           <div className="h-[6030px] relative w-0">
             <div className="absolute inset-[0_-0.6px]">
@@ -507,7 +265,7 @@ export default function WorkWithMe() {
           </div>
         </div>
       </div>
-      <div className="absolute inset-[63.73%_6.52%_34.1%_91.95%]" data-node-id="580:12149">
+      <div className="absolute inset-[65.37%_6.52%_32.4%_91.95%]" data-node-id="580:12149">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGroup16} />
       </div>
       <div className="absolute h-[14px] left-[calc(87.5%+5.88px)] top-[712px] w-[22px]" data-node-id="580:12153" data-name="Layer_1">
