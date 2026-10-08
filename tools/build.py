@@ -7,6 +7,7 @@ Images: a fragment's assets/img/<name> is rewritten to the optimized
 assets/img/<stem>.webp (or .svg) when it exists, else to assets/src-img/<name>
 (the untouched Figma originals, kept out of git; see tools/optimize_images.py).
 """
+import copy
 import json
 import os
 import re
@@ -77,7 +78,7 @@ MEDIA = {
              "name:Artifact 2 3": ("video", "stil-artifact"), "650:15993": ("poster", "stil-screen1"),
              "650:18218": ("poster", "stil-screen2"), "650:18568": ("poster", "stil-screen3"),
              "650:18573": ("poster", "stil-screen4")},
-    "lifta": {"462:2146": ("poster", "lifta-motion"), "462:2150": ("video", "lifta-logo")},
+    "lifta": {"462:2146": ("video", "lifta-logo"), "462:2150": ("video", "lifta-logo")},
     "unmask-qatar": {"414:2503": ("video", "unmask-film")},
     "voices-from-the-desert": {"462:3407": ("video", "voices-website"), "462:3437": ("video", "voices-gif")},
     "sorora": {"462:2469": ("video", "sorora-film")},
@@ -335,6 +336,14 @@ def build(page):
             waves = soup.new_tag("div", attrs={"class": "absolute h-[14px] left-[22px] top-[13px] w-[9px] waves", "data-name": "Waves"})
             waves.append(soup.new_tag("img", attrs={"src": "assets/img/sound-waves.svg", "alt": "", "class": "absolute block inset-0 size-full"}))
             sb.find(attrs={"data-name": "Hit"}).insert_before(waves)
+
+    # Films whose sound button Figma left out get a copy of the page's button, 64px above the film's bottom edge.
+    for top in {"stil": [1256]}.get(slug, []):
+        src = soup.find(class_="sound")
+        if src is not None:
+            btn = copy.copy(src)
+            btn["class"] = [c for c in btn["class"] if not c.startswith("top-[")] + [f"top-[{top}px]"]
+            soup.find(class_="frame").append(btn)
 
     # Image galleries: Figma prototypes these as component variants flipped by the arrow buttons.
     for key, names in GALLERIES.get(slug, {}).items():
