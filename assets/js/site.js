@@ -153,7 +153,7 @@
       g: ["286:5269", "286:5270", "386:1267", "386:1430", "386:1505"], m: ["286:5375", "286:5348", "298:385", ...range(468, 481)] },
     "298:418": { hfs: 17, n: "683:1886", t: "286:5245", ty: [23, 20], tlh: 38.73, d: "286:5244", dy: [102, 124.52],
       g: ["286:5271"], m: ["286:5381", "286:5462", "298:407", ...range(493, 506)] },
-    "298:438": { hfs: 16, n: "683:1888", t: "286:5273", ty: [23, 20], tw: 395, tlh: 38.73, d: "286:5272", dy: [102, 111.94],
+    "298:438": { hfs: 15, n: "683:1888", t: "286:5273", ty: [23, 20], tw: 395, tlh: 38.73, d: "286:5272", dy: [102, 111.94],
       g: ["286:5282"], m: ["286:5468", "286:5458", "298:427", ...range(518, 531)] },
     "298:458": { hfs: 17, n: "408:484", t: "286:5275", ty: [19, 15], tlh: 50.42, d: "286:5274", dy: [72.14, 85.94],
       g: ["386:1298"], m: ["286:5471", "286:5465", "298:447", ...range(543, 547), "614:868", ...range(549, 556)] },
@@ -161,6 +161,8 @@
       g: [...range(487, 490, "408:"), ...range(13276, 13279, "608:")], m: [...range(491, 495, "408:"), "614:866", ...range(497, 507, "408:")] },
   };
 
+  // Hover-state corrections so every enlarged title sits the same distance above its description.
+  const HX = { "298:418": 43, "298:438": -10, "683:1767": 5, "298:372": 2, "298:397": 2, "298:458": 3, "297:304": -1 };
   // Every row keeps the same gap between its title and description, and the description stays inside the row.
   const textBox = (el) => {
     const rs = [];
@@ -218,7 +220,7 @@
   }
   if (slides.length) {
     playIn(slides[0]);
-    if (!reduce) reelTimer = setInterval(reelStep, 3500);
+    if (!reduce) reelTimer = setInterval(reelStep, 2400);
   }
 
   $$(".row").forEach((row) => {
@@ -235,7 +237,7 @@
       if (cfg.tlh) s.lineHeight = cfg.tlh + "px";
     }, true);
     add(q(cfg.d), (s) => {
-      s.transform = `translateY(${cfg.dy[1] - cfg.dy[0] - (cfg.shift || 0)}px)`; s.fontSize = (cfg.hfs || 18) + "px"; s.lineHeight = "1.2"; s.width = "395px";
+      s.transform = `translateY(${cfg.dy[1] - cfg.dy[0] - (cfg.shift || 0) - (HX[row.dataset.row] || 0)}px)`; s.fontSize = (cfg.hfs || 18) + "px"; s.lineHeight = "1.2"; s.width = "395px";
     }, true);
     cfg.g.forEach((id) => add(q(id), (s) => { s.opacity = "0"; }));
     const moved = cfg.m.map(q).filter(Boolean);
@@ -288,7 +290,25 @@
       v.muted = !v.muted;
       if (!v.muted) v.play().catch(() => {});
       if (x) x.style.opacity = v.muted ? "1" : "0";
+      btn.classList.toggle("on", !v.muted);
+      btn.setAttribute("aria-label", v.muted ? "Sound on" : "Sound off");
     });
+  });
+
+  // ---------- Image galleries: arrows step through the slides ----------
+  $$(".gal").forEach((g) => {
+    const slides = $$(".gal-slide", g), prev = $(".gal-prev", g), next = $(".gal-next", g);
+    let i = 0;
+    const show = (n) => {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, k) => s.classList.toggle("on", k === i));
+      prev.hidden = i === 0;
+      next.hidden = i === slides.length - 1;
+    };
+    slides.forEach((s) => { s.loading = "eager"; });
+    prev.addEventListener("click", () => show(i - 1));
+    next.addEventListener("click", () => show(i + 1));
+    show(0);
   });
 
   // ---------- Videos: play only while on screen ----------
@@ -323,7 +343,7 @@
   if (!reduce && page !== "entrance-main") {
     const targets = new Set();
     $$("img, video.media", frame).forEach((m) => {
-      if (m.closest(".fx, .hdr, .row, .reel, .pv, .marquee, .totop, .neg-host, .sound")) return;
+      if (m.closest(".fx, .hdr, .row, .reel, .pv, .marquee, .totop, .neg-host, .sound, .gal-btn")) return;
       const r = m.getBoundingClientRect();
       if (r.width / Z < 110 || r.height / Z < 90) return;
       let el = m;
@@ -346,12 +366,39 @@
     });
   }
 
-  // ---------- Work with Me: the image strip scrolls continuously ----------
+  // ---------- Work with Me: the image strip drifts on its own, and wheel/drag scroll it too ----------
   const strip = $('[data-name="Strip"]');
-  if (strip && !reduce) {
+  if (strip) {
     const cycle = 1603; // one "Part" of the strip; Part 2 repeats it
-    strip.animate([{ transform: "translateY(0)" }, { transform: `translateY(${-cycle}px)` }],
-      { duration: (cycle / 30) * 1000, iterations: Infinity });
+    const box = strip.parentElement;
+    let y = 0, last = performance.now(), drag = null, push = 0;
+    const speed = reduce ? 0 : 30; // px per second
+    const wrap = (v) => ((v % cycle) + cycle) % cycle;
+    const frameFn = (t) => {
+      const dt = Math.min(0.1, (t - last) / 1000); last = t;
+      if (!drag) { y += speed * dt + push; push *= 0.9; if (Math.abs(push) < 0.05) push = 0; }
+      y = wrap(y);
+      strip.style.transform = `translateY(${-y}px)`;
+      requestAnimationFrame(frameFn);
+    };
+    requestAnimationFrame(frameFn);
+    box.addEventListener("wheel", (e) => { e.preventDefault(); y += e.deltaY / Z; push = 0; }, { passive: false });
+    box.style.touchAction = "none";
+    box.style.pointerEvents = "auto";
+    box.style.cursor = "grab";
+    box.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      drag = { start: e.clientY, y0: y, lastY: e.clientY, v: 0 };
+      box.setPointerCapture(e.pointerId); box.style.cursor = "grabbing";
+    });
+    box.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      drag.v = (drag.lastY - e.clientY) / Z; drag.lastY = e.clientY;
+      y = drag.y0 + (drag.start - e.clientY) / Z;
+    });
+    const end = () => { if (!drag) return; push = drag.v; drag = null; box.style.cursor = "grab"; };
+    box.addEventListener("pointerup", end);
+    box.addEventListener("pointercancel", end);
   }
 
   // ---------- Contact form (Formspree) ----------

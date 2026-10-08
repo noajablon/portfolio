@@ -56,6 +56,10 @@ CONTACT = ["mailto:noajablon@gmail.com", "https://www.behance.net/noajablon",
 # Video slots: node id (or data-name) -> ("video", file) or ("poster", file)
 V = "assets/video/"
 P = "assets/poster/"
+GALLERIES = {
+    "maskit": {"414:2091": ["gal-maskit-1", "gal-maskit-2", "gal-maskit-3", "gal-maskit-4"]},
+    "mazor": {"561:5722": ["gal-mazor-1", "gal-mazor-2", "gal-mazor-3"]},
+}
 MEDIA = {
     "entrance-main": {"331:1393": ("poster", "voices-film2"), "331:1397": ("poster", "sorora-film")},
     "explainer": {"462:5245": ("video", "explainer-process"), "462:5248": ("video", "explainer-glass"),
@@ -76,7 +80,7 @@ MEDIA = {
     "lifta": {"462:2146": ("poster", "lifta-motion"), "462:2150": ("video", "lifta-logo")},
     "unmask-qatar": {"414:2503": ("video", "unmask-film")},
     "voices-from-the-desert": {"462:3407": ("video", "voices-website"), "462:3437": ("video", "voices-gif")},
-    "sorora": {"462:2469": ("poster", "sorora-film")},
+    "sorora": {"462:2469": ("video", "sorora-film")},
 }
 
 HEAD = """<!doctype html>
@@ -229,6 +233,14 @@ def build(page):
         for el in find_id(soup, "651:888"):
             retag(el, "a", href=ARTWORKS[(i + 1) % len(ARTWORKS)] + ".html")
             el["aria-label"] = "Next artwork"
+    # Top arrows on artwork pages: one crisp circle each, centred in the side gutters.
+    for el in soup.find_all(attrs={"aria-label": ["Back to portfolio", "Next artwork"]}):
+        side = "l" if el["aria-label"] == "Back to portfolio" else "r"
+        el.clear()
+        el["class"] = ["absolute", "block", "cursor-pointer", "neg-host", "art-arrow", "art-arrow-" + side]
+        el.append(soup.new_tag("img", attrs={"src": f"assets/img/arrow-circle-{side}.svg", "alt": "",
+                                             "class": "absolute block inset-0 size-full"}))
+        el.append(soup.new_tag("div", attrs={"class": "absolute inset-0 rounded-full mix-blend-difference neg"}))
     for el in soup.find_all(attrs={"data-name": re.compile(r"^To Top")}):
         retag(el, "button", type="button")
         el["aria-label"] = "Back to top"
@@ -320,6 +332,28 @@ def build(page):
             retag(sb, "button", type="button")
             sb["aria-label"] = "Sound on/off"
             cls_add(sb, "sound")
+            waves = soup.new_tag("div", attrs={"class": "absolute h-[14px] left-[22px] top-[13px] w-[9px] waves", "data-name": "Waves"})
+            waves.append(soup.new_tag("img", attrs={"src": "assets/img/sound-waves.svg", "alt": "", "class": "absolute block inset-0 size-full"}))
+            sb.find(attrs={"data-name": "Hit"}).insert_before(waves)
+
+    # Image galleries: Figma prototypes these as component variants flipped by the arrow buttons.
+    for key, names in GALLERIES.get(slug, {}).items():
+        for el in find_id(soup, key):
+            arrow = el.find("img", src=re.compile(r"\.svg$"))
+            arrow_src = arrow["src"] if arrow else ""
+            for c in list(el.children):
+                c.extract()
+            gal = soup.new_tag("div", attrs={"class": "gal"})
+            for i, n in enumerate(names):
+                gal.append(soup.new_tag("img", attrs={"class": "gal-slide" + (" on" if i == 0 else ""),
+                                                      "src": "assets/img/" + n + ".webp", "alt": "",
+                                                      "decoding": "async", "loading": "lazy"}))
+            for d, label in (("prev", "Previous image"), ("next", "Next image")):
+                btn = soup.new_tag("button", attrs={"type": "button", "class": f"gal-btn gal-{d}", "aria-label": label})
+                btn.append(soup.new_tag("img", attrs={"src": arrow_src, "alt": ""}))
+                gal.append(btn)
+            el.append(gal)
+            cls_add(el, "has-gal")
 
     # Videos
     for key, (kind, name) in MEDIA.get(slug, {}).items():
@@ -404,10 +438,10 @@ PREVIEWS = {
     "298:438": [("img", "assets/img/preview-voices.webp",
                  crop_style([[0.9392, 0, 0.0095], [0, 0.8184, 0.0774]]))],
     "298:458": [("img", "assets/img/preview-miansi.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
-    "386:1324": [("img", P + "sorora-film.webp", "left:-9.8px;top:0;width:499px;height:573px;object-fit:cover")],
+    "386:1324": [("video", V + "sorora-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
 }
 REEL = [
-    ("img", P + "maskit-journal.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
+    ("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-2.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", P + "lifta-motion.webp", "right:4.67%;top:-21.36px;width:457px;height:615.7px;object-fit:cover"),
