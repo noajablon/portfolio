@@ -75,7 +75,7 @@ MEDIA = {
              "650:18573": ("poster", "stil-screen4")},
     "lifta": {"462:2146": ("poster", "lifta-motion"), "462:2150": ("video", "lifta-logo")},
     "unmask-qatar": {"414:2503": ("video", "unmask-film")},
-    "voices-from-the-desert": {"462:3407": ("poster", "voices-film1"), "462:3437": ("poster", "voices-film2")},
+    "voices-from-the-desert": {"462:3407": ("video", "voices-website"), "462:3437": ("video", "voices-gif")},
     "sorora": {"462:2469": ("poster", "sorora-film")},
 }
 
