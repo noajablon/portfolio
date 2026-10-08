@@ -5,7 +5,11 @@
 
 :root { --ink: #363636; --paper: #f5f3f1; --z: 1; --fade: 1.2s; --soft: cubic-bezier(0.45, 0, 0.2, 1); }
 
-.ff-gilroy, .ff-brandon-grotesque, .ff-google-sans { font-family: "Outfit", "Helvetica Neue", Arial, sans-serif; }
+@font-face { font-family: "Gilroy"; src: url("../fonts/gilroy-regular.otf") format("opentype"); font-weight: 100 450; font-display: swap; }
+@font-face { font-family: "Gilroy"; src: url("../fonts/gilroy-medium.otf") format("opentype"); font-weight: 451 600; font-display: swap; }
+@font-face { font-family: "Gilroy"; src: url("../fonts/gilroy-bold.otf") format("opentype"); font-weight: 601 900; font-display: swap; }
+.ff-gilroy { font-family: "Gilroy", "Outfit", "Helvetica Neue", Arial, sans-serif; }
+.ff-brandon-grotesque, .ff-google-sans { font-family: "Outfit", "Helvetica Neue", Arial, sans-serif; }
 .ff-kulim-park { font-family: "Kulim Park", "Outfit", sans-serif; }
 .ff-ezer-experimenta-trial-only, .ff-sixty-seven-trial { font-family: "Outfit", serif; }
 

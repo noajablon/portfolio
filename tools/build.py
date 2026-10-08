@@ -65,7 +65,7 @@ MEDIA = {
                    "I298:397;286:5270": ("poster", "sorora-film"),
                    "I386:1324;408:488": ("poster", "sorora-film"),
                    "I386:1324;608:13277": ("poster", "sorora-film")},
-    "maskit": {"414:2087": ("missing", ""), "414:2090": ("missing", ""), "414:2092": ("poster", "maskit-journal")},
+    "maskit": {"414:2087": ("video", "maskit-film"), "414:2090": ("video", "maskit-brandbook"), "414:2092": ("poster", "maskit-journal")},
     "mazor": {"441:1536": ("video", "mazor-website"), "561:5736": ("poster", "mazor-phone")},
     "mnemo": {"462:1261": ("poster", "mnemo-film")},
     "stil": {"650:15125": ("poster", "stil-film"),
@@ -391,7 +391,7 @@ def crop_style(m):
 
 
 PREVIEWS = {
-    "297:304": [("img", P + "maskit-journal.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
+    "297:304": [("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:319": [("img", "assets/img/preview-mazor.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:345": [("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "683:1767": [("box", "background:#000"),
