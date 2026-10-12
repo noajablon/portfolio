@@ -273,6 +273,7 @@
   $$(".sound").forEach((btn) => {
     const x = $('[data-name="Mute X"]', btn);
     const target = () => {
+      if (btn.dataset.for) return $(`[data-node-id="${btn.dataset.for}"] video`);
       const r = btn.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       let best = null, bd = Infinity;
       vids.forEach((v) => {

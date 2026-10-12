@@ -75,9 +75,9 @@ MEDIA = {
     "mazor": {"441:1536": ("video", "mazor-website"), "561:5736": ("poster", "mazor-phone")},
     "mnemo": {"462:1261": ("video", "mnemo-film")},
     "stil": {"650:15125": ("video", "stil-film"),
-             "name:Artifact 2 3": ("video", "stil-artifact"), "650:15993": ("poster", "stil-screen1"),
-             "650:18218": ("poster", "stil-screen2"), "650:18568": ("poster", "stil-screen3"),
-             "650:18573": ("poster", "stil-screen4")},
+             "name:Artifact 2 3": ("video", "stil-artifact"), "650:15993": ("video", "stil-stage1"),
+             "650:18218": ("video", "stil-app"), "650:18568": ("video", "stil-stage2"),
+             "650:18573": ("video", "stil-stage3")},
     "lifta": {"462:2146": ("video", "lifta-logo")},
     "unmask-qatar": {"414:2503": ("video", "unmask-film")},
     "voices-from-the-desert": {"462:3407": ("video", "voices-website"), "462:3437": ("video", "voices-gif")},
@@ -337,11 +337,22 @@ def build(page):
             waves.append(soup.new_tag("img", attrs={"src": "assets/img/sound-waves.svg", "alt": "", "class": "absolute block inset-0 size-full"}))
             sb.find(attrs={"data-name": "Hit"}).insert_before(waves)
 
+    # Sound buttons Figma left hidden behind a section: point them at their video and bring them
+    # to the front, 64px above the section's bottom edge.
+    for top, (nid, new_top) in {"stil": {1975: ("650:18218", 2312)}}.get(slug, {}).items():
+        for b in soup.find_all(class_="sound"):
+            if f"top-[{top}px]" in b["class"]:
+                b["data-for"] = nid
+                b["class"] = [c for c in b["class"] if not c.startswith("top-[")] + [f"top-[{new_top}px]"]
+                soup.find(class_="frame").append(b.extract())
+                break
+
     # Films whose sound button Figma left out get a copy of the page's button, 64px above the film's bottom edge.
     for top in {"stil": [1256]}.get(slug, []):
         src = soup.find(class_="sound")
         if src is not None:
             btn = copy.copy(src)
+            btn.attrs.pop("data-for", None)
             btn["class"] = [c for c in btn["class"] if not c.startswith("top-[")] + [f"top-[{top}px]"]
             soup.find(class_="frame").append(btn)
 
