@@ -67,7 +67,7 @@ MEDIA = {
                   "462:5247": ("video", "explainer-clock"),
                   "486:5257": ("video", "explainer-film"), "462:5246": ("video", "salt-pour")},
     "home-main2": {"name:Artifact 2 3": ("video", "stil-artifact"),
-                   "I298:372;286:5268": ("poster", "lifta-motion"),
+                   "I298:372;286:5268": ("video", "lifta-logo"),
                    "I298:397;286:5270": ("poster", "sorora-film"),
                    "I386:1324;408:488": ("poster", "sorora-film"),
                    "I386:1324;608:13277": ("poster", "sorora-film")},
@@ -78,7 +78,7 @@ MEDIA = {
              "name:Artifact 2 3": ("video", "stil-artifact"), "650:15993": ("poster", "stil-screen1"),
              "650:18218": ("poster", "stil-screen2"), "650:18568": ("poster", "stil-screen3"),
              "650:18573": ("poster", "stil-screen4")},
-    "lifta": {"462:2146": ("video", "lifta-logo"), "462:2150": ("video", "lifta-logo")},
+    "lifta": {"462:2146": ("video", "lifta-logo")},
     "unmask-qatar": {"414:2503": ("video", "unmask-film")},
     "voices-from-the-desert": {"462:3407": ("video", "voices-website"), "462:3437": ("video", "voices-gif")},
     "sorora": {"462:2469": ("video", "sorora-film")},
@@ -440,7 +440,7 @@ PREVIEWS = {
     "298:345": [("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "683:1767": [("box", "background:#000"),
                  ("video", V + "stil-artifact.mp4", "left:47.9px;top:112px;width:383.5px;height:348.9px;object-fit:cover;transform:rotate(1deg)")],
-    "298:372": [("img", P + "lifta-motion.webp", "left:0;top:-21.4px;width:457px;height:615.7px;object-fit:cover")],
+    "298:372": [("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000")],
     "298:397": [("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:418": [("img", "assets/img/preview-unmask.webp",
                  crop_style([[0.8828, 0, 0.0843], [0, 0.8878, 0.0525]]))],
@@ -453,7 +453,7 @@ REEL = [
     ("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-2.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
-    ("img", P + "lifta-motion.webp", "right:4.67%;top:-21.36px;width:457px;height:615.7px;object-fit:cover"),
+    ("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000"),
     ("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-6.webp", "left:-9.55%;top:-5.91%;width:113.28%;height:112.64%;object-fit:cover"),
     ("img", "assets/img/reel-7.webp", "left:-1.01%;top:-9.45%;width:106.47%;height:122.19%;object-fit:cover"),
@@ -471,8 +471,12 @@ def layer(soup, parts, cls):
             continue
         style = "position:absolute;max-width:none;" + p[2]
         if kind == "video":
-            d.append(soup.new_tag("video", attrs={"src": a, "muted": "", "loop": "", "playsinline": "",
-                                                  "preload": "none", "style": style}))
+            v = soup.new_tag("video", attrs={"src": a, "muted": "", "loop": "", "playsinline": "",
+                                             "preload": "none", "style": style})
+            poster = P + os.path.basename(a)[:-4] + ".webp"
+            if os.path.exists(os.path.join(ROOT, poster)):
+                v["poster"] = poster
+            d.append(v)
         else:
             d.append(soup.new_tag("img", attrs={"src": a, "alt": "", "decoding": "async", "style": style}))
     return d

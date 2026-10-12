@@ -1,43 +1,44 @@
-const imgGroup34 = "https://www.figma.com/api/mcp/asset/f2956d6a-0c45-42d2-9d68-34a781ebfa21.svg";
-const imgNegative = "https://www.figma.com/api/mcp/asset/df3c36ad-751e-4997-84e0-23d0ee8041ba.svg";
-const imgRing = "https://www.figma.com/api/mcp/asset/86e5d0e7-5513-4dd1-a2eb-f7ccf59892ee.svg";
-const imgSpeaker = "https://www.figma.com/api/mcp/asset/016cfa7f-7e77-4ce6-a038-ac14e2f70fa9.svg";
-const imgMuteX = "https://www.figma.com/api/mcp/asset/3cde7de0-3436-40ec-bad5-904fc69882bc.svg";
+const imgGroup34 = "https://www.figma.com/api/mcp/asset/1e0ed8d4-bf9f-45d7-9021-3af8d9e25117.svg";
+const imgNegative = "https://www.figma.com/api/mcp/asset/2b3be534-0ac6-4c73-9b56-ff9cf6ced0c5.svg";
+const imgRing = "https://www.figma.com/api/mcp/asset/1c108c70-054a-468d-867f-9c58cc51ffe9.svg";
+const imgSpeaker = "https://www.figma.com/api/mcp/asset/3be78908-e665-4c07-bb1a-f9629d97da18.svg";
+const imgMuteX = "https://www.figma.com/api/mcp/asset/63113c68-869b-41b6-b0fa-17a5d53fa5c7.svg";
 import { motion } from "motion/react";
-const imgLifta41 = "https://www.figma.com/api/mcp/asset/fecb816f-f855-45cd-a57e-6e48c69a8847.png";
-const imgUntitled31 = "https://www.figma.com/api/mcp/asset/26dc26ea-91c8-4055-940b-e7bc93d7256f.png";
-const imgShape22 = "https://www.figma.com/api/mcp/asset/189e2186-e40b-48f0-a365-9753efd986e2.png";
-const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/f90ba787-31fe-42f6-814e-c88a2d7e6312.png";
-const imgScreenshot20261004At2335191 = "https://www.figma.com/api/mcp/asset/dac4e267-77d7-4d9b-baed-a070a4068f9c.png";
-const imgLayer1 = "https://www.figma.com/api/mcp/asset/e5d34d22-7532-4892-8049-3a30625c79be.png";
-const imgScreenshot20261004At2335451 = "https://www.figma.com/api/mcp/asset/e277a7a2-34bd-4fe8-bab8-5bd1c6339c80.png";
-const imgImg29861 = "https://www.figma.com/api/mcp/asset/8e48188a-9f15-4f83-9603-86b64ee93f9d.png";
-const imgP11553221 = "https://www.figma.com/api/mcp/asset/ee860ebd-ff78-4ecd-ace4-f650e9acf94d.png";
-const imgHangingBannersMockup4 = "https://www.figma.com/api/mcp/asset/046cdd1d-ff63-43c1-9b89-5bf989fc6c1d.png";
-const imgImage10 = "https://www.figma.com/api/mcp/asset/7d88e3c3-2aec-45f3-9c58-ff3569763771.png";
-const imgRectangle38 = "https://www.figma.com/api/mcp/asset/d33fb9b8-5777-48ec-a055-0e2dcf09fb80.svg";
-const imgEllipse21 = "https://www.figma.com/api/mcp/asset/54560191-4e5d-463a-92fa-8803ca3b4ee3.svg";
-const imgGroup10 = "https://www.figma.com/api/mcp/asset/06d43a79-3d95-41e3-bbe4-e74f52c141a1.svg";
-const imgNegative1 = "https://www.figma.com/api/mcp/asset/a7325954-7300-4cc5-b39f-b5250d907b9e.svg";
-const imgGroup11 = "https://www.figma.com/api/mcp/asset/d893beed-f40c-4bc9-a638-8d8e3381bee5.svg";
-const imgEllipse22 = "https://www.figma.com/api/mcp/asset/144a9314-876e-4511-90b4-ab61ff7a1282.svg";
-const imgGroup9 = "https://www.figma.com/api/mcp/asset/a41203ac-4c8f-4460-af6a-e2e6c4322080.svg";
-const imgNegative2 = "https://www.figma.com/api/mcp/asset/5ff03bbb-18f7-464c-bc2c-d8f695a6c098.svg";
-const imgVector193 = "https://www.figma.com/api/mcp/asset/fc2e4d22-1f9f-4ecb-9e9c-01dd6d945af4.svg";
-const imgVector111 = "https://www.figma.com/api/mcp/asset/6b7c01a1-7e6e-4d50-8dfb-81bf7768a49a.svg";
-const imgVector127 = "https://www.figma.com/api/mcp/asset/f4c56a6a-443c-44c6-ab96-b51216d49f2e.svg";
-const imgVector112 = "https://www.figma.com/api/mcp/asset/3c9de3d3-a210-41dc-90e3-298012fc164f.svg";
-const imgVector110 = "https://www.figma.com/api/mcp/asset/b9b1fad7-69cd-49e0-81d7-ebf2a490d9c8.svg";
-const imgGroup20 = "https://www.figma.com/api/mcp/asset/f54cc60b-2055-41f9-a311-974cd2f8132f.svg";
-const imgVector218 = "https://www.figma.com/api/mcp/asset/d63ab850-c75f-4ab8-862c-64beddefd8fa.svg";
-const imgLine2 = "https://www.figma.com/api/mcp/asset/a2dd0102-aa72-45f7-be3b-b463f56c8b0c.svg";
-const imgVector220 = "https://www.figma.com/api/mcp/asset/8ebe56cd-2b28-4956-899a-071bb089938d.svg";
-const imgVector223 = "https://www.figma.com/api/mcp/asset/8fceff46-90e7-42e5-8b57-e63b915634fd.svg";
-const imgVector192 = "https://www.figma.com/api/mcp/asset/f35a9945-535d-4e3b-8745-fbd2801e54d7.svg";
-const imgVector176 = "https://www.figma.com/api/mcp/asset/48e53222-5937-4429-b833-16499efd5597.svg";
-const imgVector177 = "https://www.figma.com/api/mcp/asset/b30ea732-684e-4634-a3ad-54b42f88bc84.svg";
-const imgVector178 = "https://www.figma.com/api/mcp/asset/d3a650d0-f8f1-42d5-9d44-8aebd248b2d2.svg";
-const imgVector39 = "https://www.figma.com/api/mcp/asset/a9137591-3a8d-4046-801b-097d8dfdd568.svg";
+const imgLifta41 = "https://www.figma.com/api/mcp/asset/5affd3e8-7702-4349-bbc8-af1041bc7d1c.png";
+const imgUntitled31 = "https://www.figma.com/api/mcp/asset/ec7f4920-4b1e-47da-92db-9b5bbca4597d.png";
+const imgShape22 = "https://www.figma.com/api/mcp/asset/f9257142-bd39-4f9a-9313-78fe11fb6adb.png";
+const imgChatGptImageSep262026100630Pm2 = "https://www.figma.com/api/mcp/asset/824c3a12-c5bb-43c9-9763-2d44db623af1.png";
+const imgScreenshot20261004At2335191 = "https://www.figma.com/api/mcp/asset/e3584a46-1fbb-4660-b959-a39418313685.png";
+const imgLayer1 = "https://www.figma.com/api/mcp/asset/99801eeb-6aa9-4dca-8936-11b718f0478a.png";
+const imgScreenshot20261004At2335451 = "https://www.figma.com/api/mcp/asset/42933db6-9b69-43be-9631-8e5396133f21.png";
+const imgImg29861 = "https://www.figma.com/api/mcp/asset/56f23b4a-0ec0-4f56-8117-c372a28a1f3b.png";
+const imgP11553221 = "https://www.figma.com/api/mcp/asset/da112d73-25b8-4122-8074-43dfd23c1687.png";
+const imgHangingBannersMockup4 = "https://www.figma.com/api/mcp/asset/2aec37c9-678a-48a9-9b4c-f2f8c7bf974d.png";
+const imgImage10 = "https://www.figma.com/api/mcp/asset/69773ed4-bb28-4a4c-a11a-1b9498915be4.png";
+const imgRectangle38 = "https://www.figma.com/api/mcp/asset/b26e9ecf-a4d2-403d-9e23-1ccc52203940.svg";
+const imgEllipse21 = "https://www.figma.com/api/mcp/asset/76221615-b240-4790-99ca-25e8f392433a.svg";
+const imgGroup10 = "https://www.figma.com/api/mcp/asset/73ca0312-51c1-456a-bc16-a9e2694bcaae.svg";
+const imgNegative1 = "https://www.figma.com/api/mcp/asset/d9ef6952-2709-4f17-99b0-80087f73a2d0.svg";
+const imgGroup11 = "https://www.figma.com/api/mcp/asset/15dfa83a-6d5d-45bc-9b44-237d942e3276.svg";
+const imgEllipse22 = "https://www.figma.com/api/mcp/asset/1e4b6386-e9f1-491d-ae94-d89fa312704c.svg";
+const imgGroup9 = "https://www.figma.com/api/mcp/asset/72811770-b60c-455d-9e2b-ad3fb8cacafe.svg";
+const imgNegative2 = "https://www.figma.com/api/mcp/asset/6854e628-a7b2-4a98-9e24-ed82233e1547.svg";
+const imgVector193 = "https://www.figma.com/api/mcp/asset/4c20de11-13ec-49e8-ac90-eff177203996.svg";
+const imgVector111 = "https://www.figma.com/api/mcp/asset/e941611f-eb4a-4873-b743-7771ad0a6e7e.svg";
+const imgVector127 = "https://www.figma.com/api/mcp/asset/458a8fa3-a82c-481c-bb2e-64b8aa1d2178.svg";
+const imgVector112 = "https://www.figma.com/api/mcp/asset/c34f9f4f-3065-4f68-b8a3-661388ff0767.svg";
+const imgVector110 = "https://www.figma.com/api/mcp/asset/82186452-3aa3-473a-8f5a-307c22f7aa5b.svg";
+const imgGroup20 = "https://www.figma.com/api/mcp/asset/f647f3e0-097a-4fa2-870f-162897b0a753.svg";
+const imgVector218 = "https://www.figma.com/api/mcp/asset/7b636d57-530f-466d-9e70-31ed0ac7a1d0.svg";
+const imgLine2 = "https://www.figma.com/api/mcp/asset/11af6eca-2df7-418c-a95b-5748849b5850.svg";
+const imgVector220 = "https://www.figma.com/api/mcp/asset/1542b80a-8266-4278-b530-b1f612a42d98.svg";
+const imgVector223 = "https://www.figma.com/api/mcp/asset/434fcc68-2c03-4eb9-9e40-d8526212042c.svg";
+const imgVector192 = "https://www.figma.com/api/mcp/asset/12e67d43-4c0a-4874-ba62-ec58f8e1b13e.svg";
+const imgVector176 = "https://www.figma.com/api/mcp/asset/f32dbb1c-1e78-4d8a-8a47-d05438ff2a3f.svg";
+const imgVector177 = "https://www.figma.com/api/mcp/asset/ebadcb4f-5e04-4b17-abd3-d1da929a7657.svg";
+const imgVector178 = "https://www.figma.com/api/mcp/asset/7ca1ff9d-2080-41ea-85d3-67b2d0d71e6c.svg";
+const imgVector190 = "https://www.figma.com/api/mcp/asset/53b9f0fc-95b3-47cd-9abc-34300330f9b9.svg";
+const imgVector39 = "https://www.figma.com/api/mcp/asset/8af9a85a-e21c-41a8-bd45-fc78525efdce.svg";
 
 type NextArtworkButtonProps = {
   className?: string;
@@ -245,7 +246,7 @@ export default function Lifta() {
       <p className="[word-break:break-word] absolute bottom-[199.33px] font-['Gilroy:Regular'] h-[35px] leading-[38.024px] not-italic right-[-116.8px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px]" dir="auto" data-node-id="462:1499">
         BRANDING
       </p>
-      <div className="absolute h-[732px] left-[103px] top-[3268px] w-[584px]" data-node-id="462:2146" data-name="final motion 3-2mp4 5" />
+      <div className="absolute h-[732px] left-[calc(12.5%+189px)] top-[3268px] w-[584px]" data-node-id="462:2146" data-name="final motion 3-2mp4 5" />
       <SoundButton className="absolute block cursor-pointer left-[calc(37.5%+76px)] size-[40px] top-[3937px]" />
       <div className="absolute h-[1349px] left-[calc(37.5%+104.5px)] top-[689px] w-[566.375px]" data-node-id="462:2167" data-name="Screenshot 2026-10-04 at 23.35.19 1">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgScreenshot20261004At2335191} />
@@ -483,10 +484,10 @@ export default function Lifta() {
           </div>
         </div>
       </div>
-      <div className="absolute flex h-[469px] items-center justify-center left-[calc(50%+114.99px)] top-[2786px] w-[0.01px]" data-node-id="462:2188">
+      <div className="absolute flex h-[732px] items-center justify-center left-[calc(62.5%+46px)] top-[3268px] w-0" data-node-id="462:2188">
         <div className="flex-none rotate-180">
-          <div className="h-[469px] relative w-[0.01px]">
-            <div className="absolute inset-[0_-0.59px_0_-0.6px]">
+          <div className="h-[732px] relative w-0">
+            <div className="absolute inset-[0_-0.6px]">
               <img alt="" className="block max-w-none size-full" src={imgVector192} />
             </div>
           </div>
@@ -582,15 +583,33 @@ export default function Lifta() {
         <div className="flex-none rotate-180">
           <div className="h-[469px] relative w-[0.01px]">
             <div className="absolute inset-[0_-0.59px_0_-0.6px]">
+              <img alt="" className="block max-w-none size-full" src={imgVector190} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute flex h-[732px] items-center justify-center left-[calc(62.5%+33px)] top-[3268px] w-0" data-node-id="462:2187">
+        <div className="flex-none rotate-180">
+          <div className="h-[732px] relative w-0">
+            <div className="absolute inset-[0_-0.6px]">
               <img alt="" className="block max-w-none size-full" src={imgVector192} />
             </div>
           </div>
         </div>
       </div>
-      <div className="absolute flex h-[469px] items-center justify-center left-[calc(50%+101.99px)] top-[2786px] w-[0.01px]" data-node-id="462:2187">
+      <div className="absolute flex h-[732px] items-center justify-center left-[calc(12.5%+189px)] top-[3268px] w-0" data-node-id="731:21320">
         <div className="flex-none rotate-180">
-          <div className="h-[469px] relative w-[0.01px]">
-            <div className="absolute inset-[0_-0.59px_0_-0.6px]">
+          <div className="h-[732px] relative w-0">
+            <div className="absolute inset-[0_-0.6px]">
+              <img alt="" className="block max-w-none size-full" src={imgVector192} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute flex h-[732px] items-center justify-center left-[calc(12.5%+176px)] top-[3268px] w-0" data-node-id="731:21321">
+        <div className="flex-none rotate-180">
+          <div className="h-[732px] relative w-0">
+            <div className="absolute inset-[0_-0.6px]">
               <img alt="" className="block max-w-none size-full" src={imgVector192} />
             </div>
           </div>
@@ -600,7 +619,7 @@ export default function Lifta() {
         <div className="flex-none rotate-180">
           <div className="h-[469px] relative w-[0.01px]">
             <div className="absolute inset-[0_-0.59px_0_-0.6px]">
-              <img alt="" className="block max-w-none size-full" src={imgVector192} />
+              <img alt="" className="block max-w-none size-full" src={imgVector190} />
             </div>
           </div>
         </div>
@@ -712,6 +731,14 @@ export default function Lifta() {
         <div className="absolute bg-[#363636] left-[calc(75%+36px)] rounded-[1.6px] size-[6px] top-[673px]" data-node-id="665:1274" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[calc(75%+36px)] rounded-[1.6px] size-[6px] top-[190.09px]" data-node-id="665:1275" data-name="Joint" />
         <div className="absolute bg-[#363636] left-[calc(75%+36px)] rounded-[1.6px] size-[6px] top-[177.09px]" data-node-id="665:1276" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(12.5%+173px)] rounded-[1.6px] size-[6px] top-[3265px]" data-node-id="731:21323" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(12.5%+186px)] rounded-[1.6px] size-[6px] top-[3265px]" data-node-id="731:21324" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(62.5%+31px)] rounded-[1.6px] size-[6px] top-[3265px]" data-node-id="731:21326" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(62.5%+44px)] rounded-[1.6px] size-[6px] top-[3265px]" data-node-id="731:21327" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(12.5%+173px)] rounded-[1.6px] size-[6px] top-[3997px]" data-node-id="731:21329" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(12.5%+186px)] rounded-[1.6px] size-[6px] top-[3997px]" data-node-id="731:21330" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(62.5%+31px)] rounded-[1.6px] size-[6px] top-[3997px]" data-node-id="731:21331" data-name="Joint" />
+        <div className="absolute bg-[#363636] left-[calc(62.5%+44px)] rounded-[1.6px] size-[6px] top-[3997px]" data-node-id="731:21332" data-name="Joint" />
       </div>
       <div className="absolute bg-[#363636] h-[58px] left-0 overflow-clip top-0 w-[1480px]" data-node-id="629:13738" data-name="Marquee">
         <motion.div className="absolute content-stretch flex items-start left-[16px] overflow-clip top-0" data-node-id="629:13739" data-name="Track">
