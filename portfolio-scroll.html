@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noa Jablon · Portfolio</title>
+<meta name="description" content="Noa Jablon, multidisciplinary designer: branding, UX/UI, typography and illustration.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/snap.css">
+<script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<meta name="robots" content="noindex">
+<style>
+.page-scroll { background: var(--paper); }
+.page-scroll .stage { overflow: visible; }
+.sc-track { position: relative; }
+.sc-view { position: sticky; top: 0; height: calc(100vh / var(--z)); overflow: hidden; }
+.sc-word { position: absolute; left: 87px; right: 90px; top: 130px; height: 50px; display: flex; justify-content: space-between;
+  align-items: center; padding: 0 45px 0 60px; font: 400 20px/1 "Gilroy", "Outfit", sans-serif; color: var(--ink);
+  border-bottom: 1px solid var(--ink); border-left: 1px solid var(--ink); border-right: 1px solid var(--ink); background: var(--paper); z-index: 3; }
+.sc-col { position: absolute; left: 0; right: 0; top: 180px; bottom: 0; overflow: hidden; }
+.sc-mask { position: absolute; left: 0; right: 0; top: 0; height: 181px; background: var(--paper); z-index: 41; pointer-events: none; }
+.sc-mask .hl { position: absolute; left: 0; right: 0; height: 1px; background: var(--ink); }
+.sc-mask .vl { position: absolute; top: 130px; height: 50px; width: 1px; background: var(--ink); }
+.sc-mask .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); }
+.sc-row { position: absolute; left: 0; width: 1480px; overflow: hidden; color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); background: var(--paper); will-change: top, height; }
+.sc-row .v { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ink); }
+.sc-row .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 2; }
+.sc-num { position: absolute; left: 22px; top: 62px; font: 400 26px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; }
+.sc-title { position: absolute; left: 137px; top: 50px; font: 500 46px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 13px;
+  text-transform: uppercase; white-space: nowrap; width: 400px; }
+.sc-title.long { font-size: 32px; letter-spacing: 9px; top: 58px; }
+.sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
+.sc-f { position: absolute; top: 143px; height: 81px; padding: 22px 0 0 50px; }
+.sc-f + .sc-f { border-left: 1px solid var(--ink); }
+.sc-f small, .sc-about small { display: block; font: 400 9px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.79px; opacity: .55; margin-bottom: 14px; }
+.sc-f span { font: 500 15px/1 "Gilroy", "Outfit", sans-serif; }
+.sc-about { position: absolute; left: 137px; top: 271px; width: 370px; font: 400 15px/1.55 "Gilroy", "Outfit", sans-serif; }
+.sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
+.sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
+.sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
+.sc-count { position: absolute; left: 0; right: 0; top: 62px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
+.sc-arrow { position: absolute; left: 25px; top: 50%; width: 38px; height: 34px; margin-top: -17px; transition: transform .5s var(--soft); }
+.sc-row:hover .sc-arrow, .sc-row:focus-visible .sc-arrow { transform: translateX(8px); }
+.sc-row .box > * { transition: transform 1.2s var(--soft); }
+.sc-row:hover .box > * { transform: scale(1.03); }
+.sc-tags { position: absolute; left: 137px; width: 400px; padding-top: 44px; display: flex; flex-wrap: wrap; gap: 12px 10px; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; }
+.sc-tags small { width: 100%; font-size: 9px; letter-spacing: 2.79px; opacity: .55; margin-bottom: 8px; }
+.sc-tags em { font-style: normal; border: 1px solid var(--ink); border-radius: 20px; padding: 8px 15px; }
+.sc-fab { position: fixed; z-index: 70; right: calc(120px * var(--z)); bottom: calc(36px * var(--z)); zoom: var(--z);
+  display: flex; align-items: center; gap: 14px; height: 58px; padding: 0 26px 0 30px; border-radius: 40px;
+  background: var(--ink); color: var(--paper); text-decoration: none; font: 500 14px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 4.4px;
+  text-transform: uppercase; box-shadow: 0 10px 30px rgba(0,0,0,.18); border: 1px solid var(--ink);
+  transition: background .5s var(--soft), color .5s var(--soft), transform .5s var(--soft), box-shadow .5s var(--soft); }
+.sc-fab svg { width: 22px; height: 20px; transition: transform .5s var(--soft); }
+.sc-fab .e { max-width: 0; overflow: hidden; white-space: nowrap; letter-spacing: 1px; text-transform: none; font-weight: 400; opacity: 0;
+  transition: max-width .6s var(--soft), opacity .4s var(--soft); }
+.sc-fab:hover, .sc-fab:focus-visible { background: var(--paper); color: var(--ink); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.22); }
+.sc-fab:hover .e, .sc-fab:focus-visible .e { max-width: 220px; opacity: 1; }
+.sc-fab:hover svg { transform: translateX(6px); }
+.sc-contact .sc-media { align-items: center; }
+.sc-big { display: flex; align-items: center; justify-content: center; gap: 36px; width: 100%; height: 100%; background: var(--ink);
+  color: var(--paper); font: 500 64px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 19px; text-transform: uppercase; text-decoration: none;
+  transition: background .5s var(--soft), color .5s var(--soft); }
+.sc-big svg { width: 54px; height: 48px; transition: transform .5s var(--soft); }
+.sc-big:hover, .sc-big:focus-visible { background: var(--paper); color: var(--ink); }
+.sc-big:hover svg { transform: translateX(10px); }
+.sc-links { position: absolute; left: 137px; top: 271px; font: 400 15px/2.1 "Gilroy", "Outfit", sans-serif; }
+.sc-links a { color: var(--ink); text-decoration: none; display: block; width: max-content; border-bottom: 1px solid transparent; line-height: 1.4; margin-bottom: 10px; }
+.sc-links a:hover { border-color: var(--ink); }
+</style>
+</head>
+<body class="page-scroll" data-page="scroll">
+<div id="stage" class="stage"><div class="frame" style="position:relative">
+<div class="absolute bg-[#363636] h-[58px] left-0 overflow-clip top-0 w-[1480px] fx marquee" data-name="Marquee" data-node-id="286:5418"><div class="absolute flex items-start left-[16px] overflow-clip top-0" data-name="Track" data-node-id="286:5422"><div class="h-[58px] relative shrink-0 w-[883px]" data-name="Sequence" data-node-id="286:5423"><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px] whitespace-nowrap" data-node-id="286:5424" dir="auto">MULTIDISCIPLINARY DESIGNER</p><div class="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5425"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5426" dir="auto">BRANDING</p><div class="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5427"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5428" dir="auto">UX/UI</p><div class="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5429"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px] whitespace-nowrap" data-node-id="286:5430" dir="auto">TYPOGRAPHY</p><div class="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5431"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px] whitespace-nowrap" data-node-id="286:5432" dir="auto">ILLUSTRATION</p><div class="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5433"></div></div><div class="h-[58px] relative shrink-0 w-[883px]" data-name="Sequence" data-node-id="286:5434"><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px] whitespace-nowrap" data-node-id="286:5435" dir="auto">MULTIDISCIPLINARY DESIGNER</p><div class="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5436"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5437" dir="auto">BRANDING</p><div class="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5438"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5439" dir="auto">UX/UI</p><div class="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5440"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px] whitespace-nowrap" data-node-id="286:5441" dir="auto">TYPOGRAPHY</p><div class="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5442"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px] whitespace-nowrap" data-node-id="286:5443" dir="auto">ILLUSTRATION</p><div class="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5444"></div></div><div class="h-[58px] relative shrink-0 w-[883px]" data-name="Sequence" data-node-id="286:5445"><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35.344px] leading-[38.024px] not-italic right-[883px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[266.755px] whitespace-nowrap" data-node-id="286:5446" dir="auto">MULTIDICIPLINARY DESIGNER</p><div class="absolute bg-[#f5f3f1] right-[616.97px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5447"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[595.2px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5448" dir="auto">BRANDING</p><div class="absolute bg-[#f5f3f1] right-[470.9px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5449"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[449.14px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[111.875px] whitespace-nowrap" data-node-id="286:5450" dir="auto">UX/UI</p><div class="absolute bg-[#f5f3f1] right-[366.92px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5451"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[345.16px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[168.125px] whitespace-nowrap" data-node-id="286:5452" dir="auto">TYPOGRAPHY</p><div class="absolute bg-[#f5f3f1] right-[200.44px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5453"></div><p class="absolute bottom-[45.33px] ff-gilroy font-[400] h-[35px] leading-[38.024px] not-italic right-[178.67px] text-[#f5f3f1] text-[20px] tracking-[-1.2px] translate-x-full translate-y-full w-[129.375px] whitespace-nowrap" data-node-id="286:5454" dir="auto">ILLUSTRATION</p><div class="absolute bg-[#f5f3f1] right-[34.56px] rounded-[1.212px] size-[4.848px] top-[29.38px]" data-node-id="286:5455"></div></div></div></div><div class="absolute h-[130px] left-0 top-[58px] w-[1480px] fx hdr" data-name="Header Title" data-node-id="434:575"><div class="absolute h-[47px] left-[20px] top-[12px] w-[49px]" data-name="Untitled-3 1" data-node-id="I434:575;286:5230"><img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/img/1c2ec7c5b4438c.webp"/></div><div class="absolute h-[46px] left-[719.5px] opacity-25 top-[13px] w-[48px]" data-name="shape 2 2" data-node-id="I434:575;286:5284"><img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/img/83615e9d033f15.webp"/></div><div class="absolute h-[49px] left-[1409px] opacity-25 top-[12px] w-[46px]" data-name="ChatGPT Image Sep 26, 2026, 10_06_30 PM 2" data-node-id="I434:575;286:5285"><div class="absolute inset-0 overflow-hidden pointer-events-none"><img alt="" class="absolute h-[131.67%] left-[-57.3%] max-w-none top-[-14.17%] w-[215.47%]" src="assets/img/cd48e349064ada.webp"/></div></div><p class="absolute bottom-[51px] ff-gilroy font-[500] leading-[42.681px] left-[calc(50%-595px)] not-italic text-[#363636] text-[20px] tracking-[137.6px] translate-y-full w-[1215px] whitespace-nowrap" data-node-id="I434:575;307:442" dir="auto">PORTFOLIO</p><p class="absolute bottom-[53px] ff-gilroy font-[500] leading-[42.681px] left-[calc(50%-595px)] not-italic opacity-0 text-[#363636] text-[20px] tracking-[165px] translate-y-full w-[1182px] whitespace-nowrap" data-node-id="I434:575;433:557" dir="auto">ABOUT ME</p><p class="absolute bottom-[53px] ff-gilroy font-[500] leading-[42.681px] left-[calc(50%-595px)] not-italic opacity-0 text-[#363636] text-[20px] tracking-[70px] translate-y-full w-[1263px] whitespace-nowrap" data-node-id="I434:575;583:718" dir="auto">WORK WITH ME</p><div class="absolute bg-[#363636] left-[87px] rounded-[1.6px] size-[6px] top-[69px]" data-name="Joint Marker" data-node-id="I434:575;436:563"></div><a aria-label="Portfolio" class="absolute bg-[rgba(255,255,255,0)] h-[71px] left-0 top-[0.5px] w-[89.5px]" data-name="Hit L" data-node-id="I434:575;583:1005" href="portfolio.html"></a><a aria-label="About me" class="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[71px] left-[697.5px] top-[0.5px] w-[85px]" data-name="Hit M" data-node-id="I434:575;583:1006" href="about.html"></a><a aria-label="Work with me" class="absolute bg-[rgba(255,255,255,0)] block cursor-pointer h-[71px] left-[1390px] top-[0.5px] w-[90px]" data-name="Hit R" data-node-id="I434:575;583:1007" href="work-with-me.html"></a></div>
+<div class="sc-track"><div class="sc-view">
+<div class="sc-mask" aria-hidden="true"><i class="hl" style="top:130px"></i><i class="hl" style="top:180px"></i><i class="vl" style="left:87px"></i><i class="vl" style="left:1390px"></i>
+<i class="j" style="left:85px;top:128px"></i><i class="j" style="left:1388px;top:128px"></i><i class="j" style="left:85px;top:178px"></i><i class="j" style="left:555px;top:178px"></i><i class="j" style="left:1388px;top:178px"></i></div>
+<div class="sc-col">
+<a class="sc-row" href="maskit.html" aria-label="Maskit">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">01</span>
+<span class="sc-title">Maskit</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Branding</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2026</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Maskit is a speculative brand and immersive desert retreat that explores memory, cultural preservation, and storytelling through symbolic experiences.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Speculative</em><em>Brand identity</em><em>Experience</em></span>
+<span class="sc-media"><span class="box"><video src="assets/video/maskit-film.mp4" poster="assets/poster/maskit-film.webp" muted loop playsinline preload="metadata" style="object-fit:cover"></video></span></span>
+<span class="sc-side"><span class="sc-count">01 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="mazor.html" aria-label="Mazor">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">02</span>
+<span class="sc-title">Mazor</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Branding</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2025</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>“Mazor” is a fungi-infused salt brand, designed for luxury meals and plating.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Packaging</em><em>Brand identity</em><em>Food</em></span>
+<span class="sc-media"><span class="box"><img src="assets/img/preview-mazor.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-side"><span class="sc-count">02 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="mnemo.html" aria-label="Mnemo">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">03</span>
+<span class="sc-title">Mnemo</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>UX/UI</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2026</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Mnemo is an AI-powered memory platform that transforms photos, videos, and personal stories into an interactive archive of a person&#x27;s life.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>AI</em><em>Product design</em><em>Archive</em></span>
+<span class="sc-media"><span class="box"><img src="assets/poster/mnemo-reel.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-side"><span class="sc-count">03 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="stil.html" aria-label="Stil">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">04</span>
+<span class="sc-title">Stil</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>UX/UI</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2026</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Stil is an emotional regulation assistant that detects vital disregulations before they peak, and guides the nervous system back to calm through a living biometric talisman; turning the hardest moments into permanent artifacts.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Wearable</em><em>Product design</em><em>Wellbeing</em></span>
+<span class="sc-media"><span class="box"><video src="assets/video/stil-artifact.mp4" poster="assets/poster/stil-artifact.webp" muted loop playsinline preload="metadata" style="object-fit:contain"></video></span></span>
+<span class="sc-side"><span class="sc-count">04 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="lifta.html" aria-label="Lifta">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">05</span>
+<span class="sc-title">Lifta</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Poster</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2025</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Posters and logo inspired by the contested village of Lifta in Jerusalem. Both designs feature both Hebrew and Arabic, highlighting the site&#x27;s historical significance.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Poster</em><em>Logo</em><em>Bilingual</em></span>
+<span class="sc-media"><span class="box"><video src="assets/video/lifta-logo.mp4" poster="assets/poster/lifta-logo.webp" muted loop playsinline preload="metadata" style="object-fit:contain"></video></span></span>
+<span class="sc-side"><span class="sc-count">05 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="explainer.html" aria-label="Explainer">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">06</span>
+<span class="sc-title">Explainer</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Video</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2026</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>A visual storytelling project investigating Jerusalem&#x27;s ghost stories and spiritual beliefs through the history of my home in Nachlaot, combining animation and interviews.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Animation</em><em>Storytelling</em><em>Interviews</em></span>
+<span class="sc-media"><span class="box"><video src="assets/video/salt-pour.mp4" poster="assets/poster/salt-pour.webp" muted loop playsinline preload="metadata" style="object-fit:cover"></video></span></span>
+<span class="sc-side"><span class="sc-count">06 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="unmask-qatar.html" aria-label="Unmask Qatar">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">07</span>
+<span class="sc-title long">Unmask Qatar</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Branding</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2024</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Freelance</span></span>
+<span class="sc-about"><small>ABOUT</small>“Unmask Qatar” is a campaign that seeks to reveal how Qatar has been playing both sides of the Israel–Hamas war, profiting from the conflict while contributing to its devastation.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Campaign</em><em>Activism</em><em>Social media</em></span>
+<span class="sc-media"><span class="box"><img src="assets/img/preview-unmask.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-side"><span class="sc-count">07 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="voices-from-the-desert.html" aria-label="Voices of the Desert">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">08</span>
+<span class="sc-title long">Voices of the Desert</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Typography</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2025</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Production of a booklet about the Dead Sea scrolls, alongside the development and design of a dedicated website for the launch event, which included a film screening as well as a public discussion.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Editorial</em><em>Web design</em><em>Event</em></span>
+<span class="sc-media"><span class="box"><img src="assets/img/preview-voices.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-side"><span class="sc-count">08 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="miansi.html" aria-label="Miansi">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">09</span>
+<span class="sc-title">Miansi</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Branding</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2025</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>ECNU</span></span>
+<span class="sc-about"><small>ABOUT</small>Collaborative branding project for hair accessories designed for an international audience, integrating Chinese silk heritage as a visual and material language to foster cultural connection.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Brand identity</em><em>Packaging</em><em>Collaboration</em></span>
+<span class="sc-media"><span class="box"><img src="assets/img/preview-miansi.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-side"><span class="sc-count">09 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+<a class="sc-row" href="sorora.html" aria-label="Sorora">
+<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:85px;top:-2px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j" style="left:1388px;top:-2px"></i>
+<span class="sc-num">10</span>
+<span class="sc-title">Sorora</span>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
+<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
+<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>UX/UI</span></span>
+<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>2026</span></span>
+<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>Bezalel</span></span>
+<span class="sc-about"><small>ABOUT</small>Sorora is a location-based running platform designed to connect women in real time through shared movement, transforming solo runs into a network of presence, safety, and community by matching runners based on pace, route, distance, and location.</span>
+<i class="sc-h" style="top:430px"></i><i class="j" style="left:85px;top:428px"></i><i class="j" style="left:555px;top:428px"></i>
+<span class="sc-tags" style="top:430px"><small>TAGS</small><em>Mobile app</em><em>Community</em><em>Safety</em></span>
+<span class="sc-media"><span class="box"><video src="assets/video/sorora-film.mp4" poster="assets/poster/sorora-film.webp" muted loop playsinline preload="metadata" style="object-fit:cover"></video></span></span>
+<span class="sc-side"><span class="sc-count">10 / 10</span><svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></span>
+</a>
+</div></div></div>
+</div></div>
+<a class="sc-fab" href="work-with-me.html"><span class="t">Contact me</span><span class="e">noajablon@gmail.com</span><svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></a>
+<script>
+(function () {
+  var view = document.querySelector('.sc-view'), track = document.querySelector('.sc-track');
+  var rows = [].slice.call(document.querySelectorAll('.sc-row'));
+  var MIN = 0.3, PEEK = 72, TOP = 180, F = 0, z = 1;
+  var vids = rows.map(function (r) { return r.querySelector('video'); });
+  function size() {
+    z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1;
+    var H = innerHeight / z;
+    F = Math.max(H - TOP - PEEK, 300);
+    track.style.height = ((rows.length - 1) * F + H) + 'px';
+    place();
+  }
+  function ease(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+  function place() {
+    var p = Math.min(Math.max(scrollY / z / F, 0), rows.length - 1);
+    var k = Math.floor(p), t = p - k, y = -F * t, H = innerHeight / z;
+    rows.forEach(function (r, i) {
+      var g = i <= k ? 1 : i === k + 1 ? MIN + (1 - MIN) * ease(t) : MIN, last = i === rows.length - 1, h = F * g + (last ? PEEK * (i <= k ? 1 : i === k + 1 ? ease(t) : 0) : 0), top;
+      if (i < k) { r.style.visibility = 'hidden'; return; }
+      top = y; y += h;
+      r.style.visibility = top > H ? 'hidden' : '';
+      r.style.top = top + 'px'; r.style.height = h + 'px';
+      r.style.setProperty('--g', g.toFixed(4));
+      var v = vids[i]; if (v) { if (top < H - TOP - 40 && top + h > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
+    });
+  }
+  addEventListener('resize', size);
+  addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
+  size();
+})();
+</script>
+</body>
+</html>
