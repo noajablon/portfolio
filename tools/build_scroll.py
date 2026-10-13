@@ -46,7 +46,6 @@ WORKS = [
      "Sorora is a location-based running platform designed to connect women in real time through shared movement, transforming solo runs into a network of presence, safety, and community by matching runners based on pace, route, distance, and location.",
      ("video", V + "sorora-film.mp4"), "cover"),
 ]
-TAGS = {'maskit': ['Speculative', 'Brand identity', 'Experience'], 'mazor': ['Packaging', 'Brand identity', 'Food'], 'mnemo': ['AI', 'Product design', 'Archive'], 'stil': ['Wearable', 'Product design', 'Wellbeing'], 'lifta': ['Poster', 'Logo', 'Bilingual'], 'explainer': ['Animation', 'Storytelling', 'Interviews'], 'unmask-qatar': ['Campaign', 'Activism', 'Social media'], 'voices-from-the-desert': ['Editorial', 'Web design', 'Event'], 'miansi': ['Brand identity', 'Packaging', 'Collaboration'], 'sorora': ['Mobile app', 'Community', 'Safety']}
 SOCIAL = [("Behance", "https://www.behance.net/noajablon"),
           ("Instagram", "https://www.instagram.com/noaj.creative/"),
           ("LinkedIn", "https://www.linkedin.com/in/noajablon/")]
@@ -64,32 +63,38 @@ CSS = """
 .sc-mask .hl { position: absolute; left: 0; right: 0; height: 1px; background: var(--ink); }
 .sc-mask .vl { position: absolute; top: 130px; height: 50px; width: 1px; background: var(--ink); }
 .sc-mask .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); }
-.sc-row { position: absolute; left: 0; width: 1480px; overflow: hidden; color: var(--ink); text-decoration: none;
-  border-bottom: 1px solid var(--ink); background: var(--paper); will-change: top, height; }
-.sc-row .v { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ink); }
-.sc-row .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 2; }
+.sc-view { --F: 650px; }
+.sc-row { position: absolute; left: 0; width: 1480px; color: var(--ink); background: var(--paper); will-change: top, height; }
+.sc-row .in { position: absolute; inset: 0; overflow: hidden; }
+.sc-row .hl { position: absolute; left: 0; right: 0; height: 1px; background: var(--ink); z-index: 2; }
+.sc-row .v { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ink); z-index: 2; }
+.sc-row .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 3; }
+.sc-row .jb { top: auto; bottom: -2px; }
 .sc-num { position: absolute; left: 22px; top: 62px; font: 400 26px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; }
 .sc-title { position: absolute; left: 137px; top: 50px; font: 500 46px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 13px;
   text-transform: uppercase; white-space: nowrap; width: 400px; }
 .sc-title.long { font-size: 32px; letter-spacing: 9px; top: 58px; }
 .sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
-.sc-f { position: absolute; top: 143px; height: 81px; padding: 22px 0 0 50px; }
-.sc-f + .sc-f { border-left: 1px solid var(--ink); }
+.sc-f { position: absolute; top: calc(var(--F) - 81px); height: 81px; padding: 24px 0 0 50px; }
 .sc-f small, .sc-about small { display: block; font: 400 9px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.79px; opacity: .55; margin-bottom: 14px; }
 .sc-f span { font: 500 15px/1 "Gilroy", "Outfit", sans-serif; }
-.sc-about { position: absolute; left: 137px; top: 271px; width: 370px; font: 400 15px/1.55 "Gilroy", "Outfit", sans-serif; }
+.sc-about { position: absolute; left: 137px; top: 191px; width: 360px; font: 400 15px/1.6 "Gilroy", "Outfit", sans-serif; }
 .sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
 .sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
 .sc-count { position: absolute; left: 0; right: 0; top: 62px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
-.sc-arrow { position: absolute; left: 25px; top: 50%; width: 38px; height: 34px; margin-top: -17px; transition: transform .5s var(--soft); }
-.sc-row:hover .sc-arrow, .sc-row:focus-visible .sc-arrow { transform: translateX(8px); }
+.sc-go { position: absolute; left: 13px; top: calc(var(--F) / 2 - 32px); width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
+  color: var(--ink); border-radius: 50%; transition: background .5s var(--soft), color .5s var(--soft); }
+.sc-arrow { width: 38px; height: 34px; transition: transform .5s var(--soft); }
+.sc-go:hover, .sc-go:focus-visible { background: var(--ink); color: var(--paper); }
+.sc-go:hover .sc-arrow, .sc-go:focus-visible .sc-arrow { transform: translateX(4px); }
 .sc-row .box > * { transition: transform 1.2s var(--soft); }
-.sc-row:hover .box > * { transform: scale(1.03); }
-.sc-tags { position: absolute; left: 137px; width: 400px; padding-top: 44px; display: flex; flex-wrap: wrap; gap: 12px 10px; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; }
-.sc-tags small { width: 100%; font-size: 9px; letter-spacing: 2.79px; opacity: .55; margin-bottom: 8px; }
-.sc-tags em { font-style: normal; border: 1px solid var(--ink); border-radius: 20px; padding: 8px 15px; }
+.sc-row:has(.sc-go:hover) .box > * { transform: scale(1.03); }
+.sc-grid { position: absolute; inset: 0; z-index: 80; pointer-events: none; display: none; }
+.grid-on .sc-grid { display: block; }
+.sc-grid i { position: absolute; background: rgba(255, 64, 64, .55); }
+.sc-grid b { position: absolute; font: 600 10px/1 "Outfit", sans-serif; color: #e03030; background: rgba(255,255,255,.85); padding: 2px 3px; }
 .sc-fab { position: fixed; z-index: 70; right: calc(120px * var(--z)); bottom: calc(36px * var(--z)); zoom: var(--z);
   display: flex; align-items: center; gap: 14px; height: 58px; padding: 0 26px 0 30px; border-radius: 40px;
   background: var(--ink); color: var(--paper); text-decoration: none; font: 500 14px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 4.4px;
@@ -117,29 +122,31 @@ JS = """
 (function () {
   var view = document.querySelector('.sc-view'), track = document.querySelector('.sc-track');
   var rows = [].slice.call(document.querySelectorAll('.sc-row'));
-  var MIN = 0.3, PEEK = 72, TOP = 180, F = 0, z = 1;
+  var MIN = 0.3, PEEK = 72, TOP = 180, GAP = 13, F = 0, z = 1, col = document.querySelector('.sc-col');
   var vids = rows.map(function (r) { return r.querySelector('video'); });
   function size() {
     z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1;
     var H = innerHeight / z;
-    F = Math.max(H - TOP - PEEK, 300);
-    track.style.height = ((rows.length - 1) * F + H) + 'px';
+    F = Math.max(H - TOP - PEEK, 420);
+    view.style.setProperty('--F', F + 'px');
+    track.style.height = ((rows.length - 1) * (F + GAP) + H) + 'px';
     place();
   }
   function ease(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
   function place() {
-    var p = Math.min(Math.max(scrollY / z / F, 0), rows.length - 1);
-    var k = Math.floor(p), t = p - k, y = -F * t, H = innerHeight / z;
+    var p = Math.min(Math.max(scrollY / z / (F + GAP), 0), rows.length - 1);
+    var k = Math.floor(p), t = p - k, y = -(F + GAP) * t, H = innerHeight / z;
     rows.forEach(function (r, i) {
       var g = i <= k ? 1 : i === k + 1 ? MIN + (1 - MIN) * ease(t) : MIN, last = i === rows.length - 1, h = F * g + (last ? PEEK * (i <= k ? 1 : i === k + 1 ? ease(t) : 0) : 0), top;
       if (i < k) { r.style.visibility = 'hidden'; return; }
-      top = y; y += h;
+      top = y; y += h + GAP;
       r.style.visibility = top > H ? 'hidden' : '';
       r.style.top = top + 'px'; r.style.height = h + 'px';
       r.style.setProperty('--g', g.toFixed(4));
       var v = vids[i]; if (v) { if (top < H - TOP - 40 && top + h > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
     });
   }
+  if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
   addEventListener('resize', size);
   addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
   size();
@@ -167,24 +174,27 @@ def media(m, fit):
 def row(i, w):
     slug, title, field, year, place, about, m, fit = w
     n = len(WORKS)
-    TAGY = 430
     long = " long" if len(title) > 10 else ""
-    return f"""<a class="sc-row" href="{slug}.html" aria-label="{html.escape(title)}">
-<i class="v" style="left:87px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i>{joints([87, 557, 1390])}
+    xs = [87, 557, 1390]
+    lines = '<i class="hl" style="top:0"></i><i class="hl" style="bottom:0"></i>' + "".join(f'<i class="v" style="left:{x}px"></i>' for x in xs)
+    js = joints(xs) + "".join(f'<i class="j jb" style="left:{x - 2}px"></i>' for x in xs)
+    inner = "".join(f'<i class="j" style="left:{x - 2}px;top:141px"></i>' for x in (87, 557))
+    inner += "".join(f'<i class="j" style="left:{x - 2}px;top:calc(var(--F) - 83px)"></i>' for x in (87, 257, 386, 557))
+    return f"""<div class="sc-row">
+{lines}{js}
+<div class="in">
 <span class="sc-num">{i + 1:02d}</span>
 <span class="sc-title{long}">{html.escape(title)}</span>
-<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:224px"></i>
-<i class="j" style="left:85px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
-<i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i>
+<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:calc(var(--F) - 82px)"></i>
+<i class="v" style="left:257px;top:calc(var(--F) - 82px)"></i><i class="v" style="left:386px;top:calc(var(--F) - 82px)"></i>{inner}
+<span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
 <span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>{field}</span></span>
 <span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>{year}</span></span>
 <span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>{place}</span></span>
-<span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
-<i class="sc-h" style="top:{TAGY}px"></i><i class="j" style="left:85px;top:{TAGY - 2}px"></i><i class="j" style="left:555px;top:{TAGY - 2}px"></i>
-<span class="sc-tags" style="top:{TAGY}px"><small>TAGS</small>{"".join(f"<em>{html.escape(t)}</em>" for t in TAGS[slug])}</span>
 <span class="sc-media"><span class="box">{media(m, fit)}</span></span>
-<span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span>{ARROW}</span>
-</a>"""
+<span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span><a class="sc-go" href="{slug}.html" aria-label="Open {html.escape(title)}">{ARROW}</a></span>
+</div>
+</div>"""
 
 
 def contact():
@@ -200,6 +210,18 @@ def contact():
 <span class="sc-media"><a class="sc-big" href="work-with-me.html">Contact me<svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></a></span>
 <span class="sc-side"></span>
 </div>"""
+
+
+GRID_V = [(87, "87"), (137, "137 text"), (257, "257"), (386, "386"), (557, "557"), (1390, "1390"), (1480, "1480")]
+GRID_H = [("58px", "58 marquee"), ("130px", "130"), ("180px", "180 row top"), ("323px", "+143 title"),
+          ("calc(180px + var(--F) - 82px)", "info strip (81)"), ("calc(180px + var(--F))", "row bottom"),
+          ("calc(193px + var(--F))", "gap 13 / next row")]
+
+
+def grid():
+    out = "".join(f'<i style="left:{x}px;top:0;bottom:0;width:1px"></i><b style="left:{x + 3}px;top:184px">{t}</b>' for x, t in GRID_V)
+    out += "".join(f'<i style="top:{y};left:0;right:0;height:1px"></i><b style="top:{y};left:3px">{t}</b>' for y, t in GRID_H)
+    return f'<div class="sc-grid" aria-hidden="true">{out}</div>'
 
 
 def main():
@@ -219,7 +241,7 @@ def main():
 <i class="j" style="left:85px;top:128px"></i><i class="j" style="left:1388px;top:128px"></i><i class="j" style="left:85px;top:178px"></i><i class="j" style="left:555px;top:178px"></i><i class="j" style="left:1388px;top:178px"></i></div>
 <div class="sc-col">
 {rows}
-</div></div></div>
+</div>{grid()}</div></div>
 </div></div>
 <a class="sc-fab" href="work-with-me.html"><span class="t">Contact me</span><span class="e">noajablon@gmail.com</span><svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></a>
 <script>{JS}</script>
