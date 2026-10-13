@@ -146,11 +146,18 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .sound .waves { opacity: 0; }
 .sound.on .waves { opacity: 1; }
 
-/* Sorora's gallery arrows sit under the slides, where Figma puts them (Group 13, 419..557 x 576 in the
-   976x549 component). The Figma arrow points right, so the previous button is the one turned round. */
-.page-sorora .has-gal, .page-sorora .has-gal .gal { overflow: visible; }
-.page-sorora .gal-btn { top: calc(100% + 30px); margin-top: 0; width: 42px; height: 42px; }
-.page-sorora .gal-prev { left: 42.93%; transform: rotate(180deg); }
-.page-sorora .gal-next { left: 53.28%; right: auto; transform: none; }
+/* Gallery arrows go negative on hover. The buttons are transformed (their own stacking context), so the
+   disc sits behind the arrow and the whole button blends with the photo, as the fixed buttons do. */
+.gal-btn { isolation: isolate; }
+.gal-btn .neg { position: absolute; inset: 0; z-index: -1; mix-blend-mode: normal; }
+.gal-btn:hover .neg, .gal-btn:focus-visible .neg { opacity: 1; }
+.gal-btn:hover, .gal-btn:focus-visible { mix-blend-mode: difference; }
+
+/* Sorora's arrow points right in Figma, so the previous button is the one turned round; it is drawn
+   white to read on the dark slides (dark again on hover, over the white disc). */
+.page-sorora .gal-prev { transform: rotate(180deg); }
+.page-sorora .gal-next { transform: none; }
 .page-sorora .gal-prev:hover { transform: rotate(180deg) scale(1.1); }
 .page-sorora .gal-next:hover { transform: scale(1.1); }
+.page-sorora .gal-btn img { filter: invert(1); transition: filter 0.4s ease-in-out; }
+.page-sorora .gal-btn:hover img, .page-sorora .gal-btn:focus-visible img { filter: none; }

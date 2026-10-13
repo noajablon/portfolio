@@ -378,6 +378,7 @@ def build(page):
             for d, label in (("prev", "Previous image"), ("next", "Next image")):
                 btn = soup.new_tag("button", attrs={"type": "button", "class": f"gal-btn gal-{d}", "aria-label": label})
                 btn.append(soup.new_tag("img", attrs={"src": arrow_src, "alt": ""}))
+                btn.append(soup.new_tag("div", attrs={"class": "neg"}))  # negative disc on hover
                 gal.append(btn)
             el.append(gal)
             cls_add(el, "has-gal")

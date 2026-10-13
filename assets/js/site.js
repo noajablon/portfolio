@@ -151,16 +151,18 @@
       g: ["286:5267", "286:5268", "386:1273", "386:1541"], m: ["286:5370", "286:5337", "298:357", ...range(443, 456)] },
     "298:397": { n: "683:1884", t: "286:5243", ty: [26.76, 16.54], tw: 372, d: "286:5242", dy: [71.66, 85.01],
       g: ["286:5269", "286:5270", "386:1267", "386:1430", "386:1505"], m: ["286:5375", "286:5348", "298:385", ...range(468, 481)] },
-    "298:418": { hfs: 17, n: "683:1886", t: "286:5245", ty: [23, 20], tlh: 38.73, d: "286:5244", dy: [102, 124.52],
+    "298:418": { n: "683:1886", t: "286:5245", ty: [23, 20], tlh: 38.73, d: "286:5244", dy: [102, 124.52],
       g: ["286:5271"], m: ["286:5381", "286:5462", "298:407", ...range(493, 506)] },
-    "298:438": { hfs: 15, n: "683:1888", t: "286:5273", ty: [23, 20], tw: 395, tlh: 38.73, d: "286:5272", dy: [102, 111.94],
+    "298:438": { n: "683:1888", t: "286:5273", ty: [23, 20], tw: 395, tlh: 38.73, d: "286:5272", dy: [102, 111.94],
       g: ["286:5282"], m: ["286:5468", "286:5458", "298:427", ...range(518, 531)] },
-    "298:458": { hfs: 17, n: "408:484", t: "286:5275", ty: [19, 15], tlh: 50.42, d: "286:5274", dy: [72.14, 85.94],
+    "298:458": { n: "408:484", t: "286:5275", ty: [19, 15], tlh: 50.42, d: "286:5274", dy: [72.14, 85.94],
       g: ["386:1298"], m: ["286:5471", "286:5465", "298:447", ...range(543, 547), "614:868", ...range(549, 556)] },
-    "386:1324": { hfs: 16, n: "408:484", t: "408:486", ty: [26.76, 17], regular: true, d: "408:485", dy: [71.66, 82.41],
+    "386:1324": { n: "408:484", t: "408:486", ty: [26.76, 17], regular: true, d: "408:485", dy: [71.66, 82.41],
       g: [...range(487, 490, "408:"), ...range(13276, 13279, "608:")], m: [...range(491, 495, "408:"), "614:866", ...range(497, 507, "408:")] },
   };
 
+  // Every enlarged description uses the same size.
+  const HFS = 15;
   // Hover-state corrections so every enlarged title sits the same distance above its description.
   const HX = { "298:418": 43, "298:438": -10, "683:1767": 5, "298:372": 2, "298:397": 2, "298:458": 3, "297:304": -1 };
   // Every row keeps the same gap between its title and description, and the description stays inside the row.
@@ -237,7 +239,7 @@
       if (cfg.tlh) s.lineHeight = cfg.tlh + "px";
     }, true);
     add(q(cfg.d), (s) => {
-      s.transform = `translateY(${cfg.dy[1] - cfg.dy[0] - (cfg.shift || 0) - (HX[row.dataset.row] || 0)}px)`; s.fontSize = (cfg.hfs || 18) + "px"; s.lineHeight = "1.2"; s.width = "395px";
+      s.transform = `translateY(${cfg.dy[1] - cfg.dy[0] - (cfg.shift || 0) - (HX[row.dataset.row] || 0)}px)`; s.fontSize = HFS + "px"; s.lineHeight = "1.2"; s.width = "395px";
     }, true);
     cfg.g.forEach((id) => add(q(id), (s) => { s.opacity = "0"; }));
     const moved = cfg.m.map(q).filter(Boolean);
