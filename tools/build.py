@@ -60,6 +60,7 @@ P = "assets/poster/"
 GALLERIES = {
     "maskit": {"414:2091": ["gal-maskit-1", "gal-maskit-2", "gal-maskit-3", "gal-maskit-4"]},
     "mazor": {"561:5722": ["gal-mazor-1", "gal-mazor-2", "gal-mazor-3"]},
+    "sorora": {"462:2457": [f"gal-sorora-{i}" for i in range(1, 13)]},
 }
 MEDIA = {
     "entrance-main": {"331:1393": ("poster", "voices-film2"), "331:1397": ("poster", "sorora-film")},
@@ -337,6 +338,11 @@ def build(page):
             waves = soup.new_tag("div", attrs={"class": "absolute h-[14px] left-[22px] top-[13px] w-[9px] waves", "data-name": "Waves"})
             waves.append(soup.new_tag("img", attrs={"src": "assets/img/sound-waves.svg", "alt": "", "class": "absolute block inset-0 size-full"}))
             sb.find(attrs={"data-name": "Hit"}).insert_before(waves)
+
+    # Videos that should play without a sound button.
+    if slug == "sorora":
+        for b in soup.find_all(class_="sound"):
+            b.decompose()
 
     # Sound buttons Figma left hidden behind a section: point them at their video and bring them
     # to the front, 64px above the section's bottom edge.

@@ -145,3 +145,10 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .sound [data-name="Mute X"], .sound .waves { transition: opacity 0.25s ease; }
 .sound .waves { opacity: 0; }
 .sound.on .waves { opacity: 1; }
+
+/* Sorora's gallery arrow points right in Figma, so the previous button is the one turned round. */
+.page-sorora .gal-prev { transform: rotate(180deg); }
+.page-sorora .gal-next { transform: none; }
+.page-sorora .gal-prev:hover { transform: rotate(180deg) scale(1.1); }
+.page-sorora .gal-next:hover { transform: scale(1.1); }
+.page-sorora .gal-btn img { filter: invert(1); }
