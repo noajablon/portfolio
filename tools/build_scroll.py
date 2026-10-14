@@ -16,7 +16,7 @@ V, P = "assets/video/", "assets/poster/"
 # slug, title, field, year, place, about, media (kind, src), object-fit
 WORKS = [
     ("maskit", "Maskit", "Branding", "2026", "Bezalel",
-     "Maskit is a speculative brand and immersive desert retreat that explores memory, cultural preservation, and storytelling through symbolic experiences.",
+     "Maskit is a speculative brand and immersive desert retreat that explores memory, cultural preservation, and storytelling through symbolic experiences inspired by the Negev.",
      ("video", V + "maskit-film.mp4"), "cover"),
     ("mazor", "Mazor", "Branding", "2025", "Bezalel",
      "“Mazor” is a fungi-infused salt brand, designed for luxury meals and plating.",
@@ -71,22 +71,23 @@ CSS = """
 .sc-row .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 3; }
 .sc-row .jb { top: auto; bottom: -2px; }
 .sc-num { position: absolute; left: 22px; top: 62px; font: 400 26px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; }
-.sc-title { position: absolute; left: 137px; top: 50px; font: 500 46px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 13px;
-  text-transform: uppercase; white-space: nowrap; width: 400px; }
-.sc-title.long { font-size: 32px; letter-spacing: 9px; top: 58px; }
+.sc-title { position: absolute; left: 56px; top: 46px; display: flex; align-items: baseline; font: 500 43px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 13.3px;
+  text-transform: uppercase; white-space: nowrap; }
+.sc-title b { font-weight: 500; font-size: 28px; letter-spacing: 8.6px; margin-right: 18px; opacity: .85; }
+.sc-title.long { font-size: 30px; letter-spacing: 9px; top: 54px; }
 .sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
-.sc-f { position: absolute; top: calc(var(--F) - 81px); height: 81px; padding: 24px 0 0 50px; }
-.sc-f small, .sc-about small { display: block; font: 400 9px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.79px; opacity: .55; margin-bottom: 14px; }
-.sc-f span { font: 500 15px/1 "Gilroy", "Outfit", sans-serif; }
-.sc-about { position: absolute; left: 137px; top: 191px; width: 360px; font: 400 15px/1.6 "Gilroy", "Outfit", sans-serif; }
+.sc-f { position: absolute; top: 143px; height: 81px; padding: 18px 0 0 50px; }
+.sc-f small, .sc-about small { display: block; font: 400 9.8px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3px; opacity: .55; margin-bottom: 13px; }
+.sc-f span { font: 400 16px/1 "Gilroy", "Outfit", sans-serif; }
+.sc-about { position: absolute; left: 137px; top: 268px; width: 370px; font: 300 16px/1.45 "Gilroy", "Outfit", sans-serif; }
 .sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
 .sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
 .sc-count { position: absolute; left: 0; right: 0; top: 62px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
-.sc-go { position: absolute; left: 13px; top: calc(var(--F) / 2 - 32px); width: 64px; height: 64px; display: flex; align-items: center; justify-content: center;
-  color: var(--ink); border-radius: 50%; transition: background .5s var(--soft), color .5s var(--soft); }
-.sc-arrow { width: 38px; height: 34px; transition: transform .5s var(--soft); }
+.sc-go { position: absolute; left: 13px; top: calc(var(--F) / 2 - 33px); width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
+  color: var(--ink); border-radius: 50%; border: 1px solid var(--ink); transition: background .5s var(--soft), color .5s var(--soft); }
+.sc-arrow { width: 32px; height: 28px; transition: transform .5s var(--soft); }
 .sc-go:hover, .sc-go:focus-visible { background: var(--ink); color: var(--paper); }
 .sc-go:hover .sc-arrow, .sc-go:focus-visible .sc-arrow { transform: translateX(4px); }
 .sc-row .box > * { transition: transform 1.2s var(--soft); }
@@ -175,22 +176,21 @@ def row(i, w):
     slug, title, field, year, place, about, m, fit = w
     n = len(WORKS)
     long = " long" if len(title) > 10 else ""
-    xs = [87, 557, 1390]
-    lines = '<i class="hl" style="top:0"></i><i class="hl" style="bottom:0"></i>' + "".join(f'<i class="v" style="left:{x}px"></i>' for x in xs)
-    js = joints(xs) + "".join(f'<i class="j jb" style="left:{x - 2}px"></i>' for x in xs)
-    inner = "".join(f'<i class="j" style="left:{x - 2}px;top:141px"></i>' for x in (87, 557))
-    inner += "".join(f'<i class="j" style="left:{x - 2}px;top:calc(var(--F) - 83px)"></i>' for x in (87, 257, 386, 557))
+    lines = '<i class="hl" style="top:0"></i><i class="hl" style="bottom:0"></i>'
+    lines += '<i class="v" style="left:87px;top:143px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i>'
+    js = "".join(f'<i class="j" style="left:{x - 2}px;top:-2px"></i><i class="j jb" style="left:{x - 2}px"></i>' for x in (557, 1390))
+    js += '<i class="j jb" style="left:85px"></i>'
+    inner = "".join(f'<i class="j" style="left:{x - 2}px;top:{y - 2}px"></i>' for y in (143, 224) for x in (87, 257, 386, 557))
     return f"""<div class="sc-row">
 {lines}{js}
 <div class="in">
-<span class="sc-num">{i + 1:02d}</span>
-<span class="sc-title{long}">{html.escape(title)}</span>
-<i class="sc-h" style="top:143px"></i><i class="sc-h" style="top:calc(var(--F) - 82px)"></i>
-<i class="v" style="left:257px;top:calc(var(--F) - 82px)"></i><i class="v" style="left:386px;top:calc(var(--F) - 82px)"></i>{inner}
-<span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
+<span class="sc-title{long}"><b>{i + 1:02d}/</b>{html.escape(title)}</span>
+<i class="sc-h" style="top:143px;left:0;width:557px"></i><i class="sc-h" style="top:224px"></i>
+<i class="v" style="left:257px;top:143px;bottom:auto;height:81px"></i><i class="v" style="left:386px;top:143px;bottom:auto;height:81px"></i>{inner}
 <span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>{field}</span></span>
-<span class="sc-f" style="left:257px;width:129px;padding-left:30px"><small>YEAR</small><span>{year}</span></span>
-<span class="sc-f" style="left:386px;width:171px;padding-left:30px"><small>PLACE</small><span>{place}</span></span>
+<span class="sc-f" style="left:257px;width:129px"><small>YEAR</small><span>{year}</span></span>
+<span class="sc-f" style="left:386px;width:171px"><small>PLACE</small><span>{place}</span></span>
+<span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
 <span class="sc-media"><span class="box">{media(m, fit)}</span></span>
 <span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span><a class="sc-go" href="{slug}.html" aria-label="Open {html.escape(title)}">{ARROW}</a></span>
 </div>
@@ -212,9 +212,8 @@ def contact():
 </div>"""
 
 
-GRID_V = [(87, "87"), (137, "137 text"), (257, "257"), (386, "386"), (557, "557"), (1390, "1390"), (1480, "1480")]
-GRID_H = [("58px", "58 marquee"), ("130px", "130"), ("180px", "180 row top"), ("323px", "+143 title"),
-          ("calc(180px + var(--F) - 82px)", "info strip (81)"), ("calc(180px + var(--F))", "row bottom"),
+GRID_V = [(56, "56 no."), (87, "87"), (137, "137 text"), (257, "257"), (386, "386"), (557, "557"), (1390, "1390"), (1480, "1480")]
+GRID_H = [("58px", "58 marquee"), ("130px", "130"), ("180px", "180 row top"), ("323px", "+143 title"), ("404px", "+224 field row"), ("calc(180px + var(--F))", "row bottom"),
           ("calc(193px + var(--F))", "gap 13 / next row")]
 
 
