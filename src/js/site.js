@@ -16,8 +16,9 @@
     // About / Work With Me: full width like the Portfolio page, one window tall (scrolls only if the window is shorter than the content).
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
+      // The page ends on its last rule, like a row on the Portfolio page; nothing runs on below it.
       const screen = innerHeight / Z, fits = screen >= fit;
-      stage.style.height = (fits ? screen : fit) + "px";
+      stage.style.height = fit + "px";
       doc.classList.toggle("fit-one", fits);
     }
   };
@@ -51,8 +52,10 @@
       else if (t === "ABOUT ME") titles.M = p;
       else if (t === "WORK WITH ME") titles.R = p;
     });
-    const shownSpacing = { L: "143.8px", M: "165px", R: "101.4px" };
+    // Each title spans the bar like PORTFOLIO does on the Portfolio page: its last letter ends inside the 1390 rule.
+    const shownSpacing = { L: "137.6px", M: "158.7px", R: "96.6px" };
     const saved = new Map();
+    for (const k of ["L", "M", "R"]) if (titles[k]) titles[k].style.letterSpacing = shownSpacing[k];
     [...Object.values(icons), ...Object.values(titles)].forEach((el) => el && saved.set(el, el.getAttribute("style") || ""));
     Object.values(titles).forEach((ti) => ti && (ti.dataset.txt = ti.textContent));
     // Letters dissolve in: each one blurs and fades into place, passing through a random letter or two on the way.

@@ -185,7 +185,8 @@ def media_html(soup, kind, name):
 
 
 # Pages that always fit the window (no scroll). About shows down to its last rule.
-FIT = {"about-me": ' data-fit="772"', "work-with-me": ' data-fit="772"'}
+FIT = {"about-me": ' data-fit="769"', "work-with-me": ' data-fit="769"'}
+FIT_JOINTS = {"about-me": [1390], "work-with-me": [87, 933, 1226]}
 
 # Work With Me on one screen: shorter copy, the three values stacked closer together.
 WWM_TEXT = {
@@ -488,6 +489,11 @@ def build(page):
                 clip.append(find_id(soup, nid)[0].extract())
 
     body = str(soup)
+    if slug in FIT:
+        # The page ends on one full-width rule at 766, with a joint on every line that meets it.
+        ends = "".join(f'<i class="fit-j" style="left:{x - 2}px"></i>' for x in FIT_JOINTS[slug])
+        extra = f'<i class="bar-1390"></i><i class="bar-1390-j"></i><i class="fit-end"></i>{ends}'
+        body = body[:body.rfind("</div>")] + extra + "</div>" + body[body.rfind("</div>") + 6:]
     if slug in ARTWORKS:
         body += MASK
     out = HEAD.format(title=("Noa Jablon · " + title) if title != "Noa Jablon" else "Noa Jablon · Designer", slug=slug,
