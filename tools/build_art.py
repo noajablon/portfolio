@@ -61,7 +61,10 @@ CSS = """
 .ar-label { position: absolute; font: 500 20px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; text-transform: uppercase; white-space: nowrap; }
 .ar-logo { position: absolute; width: 551px; height: 110px; }
 .ar-facts { position: absolute; display: flex; }
-.ar-facts span { position: relative; width: 114px; padding: 0 0 0 22px; box-sizing: border-box; }
+.ar-facts { translate: -50% 0; }
+.ar-facts span { position: relative; padding: 0 58px; white-space: nowrap; }
+.ar-facts span:first-child { padding-left: 0; }
+.ar-facts span:last-child { padding-right: 0; }
 .ar-facts span + span::before { content: ""; position: absolute; left: 0; top: 0; height: 36px; width: 1px; background: var(--ink); }
 .ar-facts span + span::after { content: ""; position: absolute; left: -2px; top: -2px; width: 5px; height: 40px;
   background: linear-gradient(var(--ink) 0 5px, transparent 5px 35px, var(--ink) 35px); border-radius: 1.6px; }
@@ -203,12 +206,13 @@ def build(w):
     out.append(f'<a class="ar-btn next" href="{w["next"]}" style="left:1410px;top:222px" aria-label="Next artwork">{ARR}</a>')
     out.append(f'<span class="ar-label" style="left:{logo_x}px;top:252px">{w["num"]}/ {html.escape(w["title"])}</span>')
     out.append(f'<img class="ar-logo" src="{w["logo"]}" alt="{html.escape(w["title"])}" style="left:{logo_x}px;top:296px">')
-    out.append(f'<div class="ar-facts" style="left:{CX - facts_w / 2 + 11}px;top:442px">'
+    out.append(f'<div class="ar-facts" style="left:{CX}px;top:442px">'
                f'<span><small>FIELD</small><b>{w["field"]}</b></span><span><small>YEAR</small><b>{w["year"]}</b></span>'
                f'<span><small>PLACE</small><b>{w["place"]}</b></span></div>')
     out.append(f'<p class="ar-about" style="left:{CX - 301}px;top:512px">{html.escape(w["about"])}</p>')
 
     y = y_end + GAP
+    cols = [{L, R}]   # verticals of each block, so a rule shared by neighbours runs through the gap between them
     for n, s in enumerate(w["sections"], 1):
         h, right = s["h"], s["right"]
         y0, y1 = y, y + h
@@ -216,6 +220,7 @@ def build(w):
         xs = [L] + ([right] if right < 1480 else [])
         if "notes_right" in s:
             xs.append(s["notes_right"])
+        cols.append(set(xs))
         for x in xs:
             lines.append(vl(x, y0, y1))
             joints += [j(x, y0), j(x, y1)]
@@ -246,10 +251,11 @@ def build(w):
                f'<a href="{w["next"]}">{ARR}Next<br>design</a></nav>')
     total = end_top + 115 + 80
     lines.append(vl(L, y - GAP, total))
-    # the 87 rule runs through every gap too
+    # a rule shared by two neighbouring blocks runs through the gap between them (87 always does)
     yy = y_end
-    for s in w["sections"]:
-        lines.append(vl(L, yy, yy + GAP))
+    for k, s in enumerate(w["sections"]):
+        for x in sorted(cols[k] & cols[k + 1]):
+            lines.append(vl(x, yy, yy + GAP))
         yy += GAP + s["h"]
     return "\n".join(lines + joints + out), total
 
