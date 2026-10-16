@@ -222,3 +222,17 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-mnemo [data-node-id="566:6419"] { letter-spacing: 2.4px; white-space: nowrap; }
 /* Artwork pages: Figma's second top rule (193, drawn as a rotated 90px box) goes; the 180 rule is the one. */
 .art-page .frame > [class~="top-[193.09px]"][class~="w-[1413px]"][class~="h-[90px]"] { display: none; }
+
+/* Artwork pages (NEW format): Field / Year / Place in one row, dividers capped with joints. */
+.ar-facts { position: absolute; display: flex; }
+.ar-facts { translate: -50% 0; }
+.ar-facts span { position: relative; padding: 0 32px 0 45px; white-space: nowrap; }
+.ar-facts span:first-child { padding-left: 0; }
+.ar-facts span:last-child { padding-right: 0; }
+.ar-facts span + span::before { content: ""; position: absolute; left: 0; top: 2px; height: 36px; width: 1px; background: var(--ink); }
+.ar-facts span + span::after { content: ""; position: absolute; left: -2px; top: 0; width: 5px; height: 40px;
+  background: linear-gradient(var(--ink) 0 5px, transparent 5px 35px, var(--ink) 35px); border-radius: 1.6px; }
+.ar-facts small { display: block; font: 400 9.45px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.9px; opacity: .55; margin-bottom: 9px; }
+.ar-facts b { font: 500 15.75px/1 "Gilroy", "Outfit", sans-serif; }
+/* Mnemo: the tagline stays on one line under the wordmark. */
+.page-mnemo [data-node-id="462:2492"] p { white-space: nowrap; }

@@ -481,7 +481,7 @@ def build(page):
             cls_add(hdr, "fx")
         # Voices: the taped notes in the opening picture stay inside its column.
         if slug == "voices-from-the-desert":
-            clip = soup.new_tag("div", attrs={"class": "absolute", "style": "inset:0;clip-path:inset(193px 103px calc(100% - 676px) 1149px)"})
+            clip = soup.new_tag("div", attrs={"class": "absolute side-clip", "style": "inset:0;clip-path:inset(193px 103px calc(100% - 676px) 1149px)"})
             first = find_id(soup, "462:3321")[0]
             first.insert_before(clip)
             for nid in ("462:3321", "462:3313"):
@@ -501,6 +501,24 @@ def build(page):
         out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
         out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
     out += '<script src="assets/js/site.js" defer></script>\n</body>\n</html>\n'
+    if slug in ARTWORKS and slug != "maskit":
+        # NEW format (Maskit NEW Redesign): same page with a centred opening section, laid out by tools/intro.mjs.
+        # The Figma layout as it was is kept as <slug>-classic.html.
+        with open(os.path.join(ROOT, fname.replace(".html", "-classic.html")), "w") as f:
+            f.write(out)
+        print("wrote", fname.replace(".html", "-classic.html"))
+        facts = {}
+        for p in soup.find_all("p"):
+            t = p.get_text(strip=True)
+            if t in ("FIELD", "YEAR", "PLACE") and t not in facts:
+                vals = [x.get_text(strip=True) for x in p.find_all_next("p", limit=3) if x.get_text(strip=True)]
+                facts[t] = vals[0] if vals else ""
+        row = "".join(f"<span><small>{k}</small><b>{facts.get(k, '')}</b></span>" for k in ("FIELD", "YEAR", "PLACE"))
+        k = out.rfind("</div>", 0, out.find(MASK))
+        out = out[:k] + f'<div class="ar-facts" style="left:738.5px;top:446px">{row}</div>' + out[k:]
+        out = out.replace(f'<body class="page-{slug} art-page"', f'<body class="page-{slug} art-page art-new"')
+        out = out.replace('<link rel="stylesheet" href="assets/css/snap.css">',
+                          '<link rel="stylesheet" href="assets/css/snap.css">\n<link rel="stylesheet" href="assets/css/intro.css">')
     with open(os.path.join(ROOT, fname), "w") as f:
         f.write(out)
     print("wrote", fname)

@@ -58,18 +58,8 @@ CSS = """
 .ar .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 3; }
 .ar { position: relative; width: 1480px; color: var(--ink); font-family: "Gilroy", "Outfit", sans-serif; }
 .ar-intro { position: absolute; left: 0; top: 180px; width: 1480px; height: 513px; }
-.ar-label { position: absolute; font: 500 20px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; text-transform: uppercase; white-space: nowrap; }
+.ar-label { position: absolute; opacity: .37; font: 500 20px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; text-transform: uppercase; white-space: nowrap; }
 .ar-logo { position: absolute; width: 551px; height: 110px; }
-.ar-facts { position: absolute; display: flex; }
-.ar-facts { translate: -50% 0; }
-.ar-facts span { position: relative; padding: 0 58px; white-space: nowrap; }
-.ar-facts span:first-child { padding-left: 0; }
-.ar-facts span:last-child { padding-right: 0; }
-.ar-facts span + span::before { content: ""; position: absolute; left: 0; top: 0; height: 36px; width: 1px; background: var(--ink); }
-.ar-facts span + span::after { content: ""; position: absolute; left: -2px; top: -2px; width: 5px; height: 40px;
-  background: linear-gradient(var(--ink) 0 5px, transparent 5px 35px, var(--ink) 35px); border-radius: 1.6px; }
-.ar-facts small { display: block; font: 400 9.45px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.9px; opacity: .55; margin-bottom: 9px; }
-.ar-facts b { font: 500 15.75px/1 "Gilroy", "Outfit", sans-serif; }
 .ar-about { position: absolute; width: 602px; text-align: center; font: 400 18px/1.4 "Gilroy", "Outfit", sans-serif; margin: 0; }
 .ar-btn { position: absolute; width: 50px; height: 50px; border-radius: 50%; border: 0.8px solid var(--ink); color: var(--ink);
   display: flex; align-items: center; justify-content: center; transition: background .5s var(--soft), color .5s var(--soft); }
@@ -206,10 +196,10 @@ def build(w):
     out.append(f'<a class="ar-btn next" href="{w["next"]}" style="left:1410px;top:222px" aria-label="Next artwork">{ARR}</a>')
     out.append(f'<span class="ar-label" style="left:{logo_x}px;top:252px">{w["num"]}/ {html.escape(w["title"])}</span>')
     out.append(f'<img class="ar-logo" src="{w["logo"]}" alt="{html.escape(w["title"])}" style="left:{logo_x}px;top:296px">')
-    out.append(f'<div class="ar-facts" style="left:{CX}px;top:442px">'
+    out.append(f'<div class="ar-facts" style="left:{CX}px;top:446px">'
                f'<span><small>FIELD</small><b>{w["field"]}</b></span><span><small>YEAR</small><b>{w["year"]}</b></span>'
                f'<span><small>PLACE</small><b>{w["place"]}</b></span></div>')
-    out.append(f'<p class="ar-about" style="left:{CX - 301}px;top:512px">{html.escape(w["about"])}</p>')
+    out.append(f'<p class="ar-about" style="left:{CX - 301}px;top:522px">{html.escape(w["about"])}</p>')
 
     y = y_end + GAP
     cols = [{L, R}]   # verticals of each block, so a rule shared by neighbours runs through the gap between them
