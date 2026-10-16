@@ -115,6 +115,10 @@ CSS = """
 .sc-links { position: absolute; left: 137px; top: 271px; font: 400 15px/2.1 "Gilroy", "Outfit", sans-serif; }
 .sc-links a { color: var(--ink); text-decoration: none; display: block; width: max-content; border-bottom: 1px solid transparent; line-height: 1.4; margin-bottom: 10px; }
 .sc-links a:hover { border-color: var(--ink); }
+.dz-w { display: inline-block; white-space: nowrap; }
+.dz { display: inline-block; white-space: pre; text-align: center; transition: opacity .55s ease-out, filter .55s ease-out; }
+.dz-mid { opacity: .55; filter: blur(3px); }
+.dz-soft { opacity: .35; filter: blur(5px); }
 """
 
 JS = """
@@ -142,9 +146,53 @@ JS = """
       r.style.visibility = top > H ? 'hidden' : '';
       r.style.top = top + 'px'; r.style.height = h + 'px';
       r.style.setProperty('--g', g.toFixed(4));
+      setOn(i, i <= k || g > .6);
       var v = vids[i]; if (v) { if (top < H - TOP - 40 && top + h > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
     });
   }
+  // Text dissolves in as each work arrives: every letter blurs into place through a random letter or two,
+  // like the header titles. Works still waiting below stay soft and faded.
+  var ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var texts = rows.map(function () { return []; }), on = rows.map(function () { return null; }), timers = rows.map(function () { return []; });
+  function split(el, out) {
+    [].slice.call(el.childNodes).forEach(function (n) {
+      if (n.nodeType === 1) { if (n.tagName !== 'SMALL') split(n, out); return; }
+      if (n.nodeType !== 3 || !n.textContent.trim()) return;
+      var f = document.createDocumentFragment();
+      n.textContent.split(/(\\s+)/).forEach(function (w) {
+        if (!w) return;
+        if (/^\\s+$/.test(w)) { f.appendChild(document.createTextNode(w)); return; }
+        var word = document.createElement('span'); word.className = 'dz-w';
+        [].forEach.call(w, function (ch) { var s = document.createElement('span'); s.className = 'dz'; s.textContent = ch; s.dataset.c = ch; word.appendChild(s); out.push(s); });
+        f.appendChild(word);
+      });
+      n.parentNode.replaceChild(f, n);
+    });
+  }
+  function setOn(i, v) {
+    if (reduce || on[i] === v || !texts[i].length) return;
+    on[i] = v;
+    timers[i].forEach(clearTimeout); timers[i] = [];
+    var ls = texts[i];
+    if (!v) { ls.forEach(function (s) { s.textContent = s.dataset.c; s.className = 'dz dz-soft'; }); return; }
+    ls.forEach(function (s, n) {
+      var ch = s.dataset.c, start = Math.random() * 380 + Math.min(n, 120) * 2, swaps = 1 + ((Math.random() * 2) | 0);
+      if (!/[A-Za-z]/.test(ch)) { timers[i].push(setTimeout(function () { s.className = 'dz'; }, start)); return; }
+      timers[i].push(setTimeout(function () { s.textContent = ABC[(Math.random() * 26) | 0]; s.className = 'dz dz-mid'; }, start));
+      for (var m = 1; m <= swaps; m++) (function (last) {
+        timers[i].push(setTimeout(function () { s.textContent = last ? ch : ABC[(Math.random() * 26) | 0]; if (last) s.className = 'dz'; }, start + m * 110));
+      })(m === swaps);
+    });
+  }
+  function prepare() {
+    rows.forEach(function (r, i) {
+      [].forEach.call(r.querySelectorAll('.sc-title, .sc-f, .sc-about, .sc-count'), function (el) { split(el, texts[i]); });
+      // Random letters never shift the line: each letter keeps the width of its own.
+      texts[i].forEach(function (s) { s.style.width = s.getBoundingClientRect().width / z + 'px'; });
+    });
+    place();
+  }
+  if (!reduce) (document.fonts ? document.fonts.ready : Promise.resolve()).then(prepare);
   if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
   addEventListener('resize', size);
   addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });

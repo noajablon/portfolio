@@ -212,6 +212,18 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-about-me .frame:has([data-node-id="632:870"]:is(:hover, :focus-visible)) [data-node-id="580:11732"] > div > div { background-color: #363636; }
 .page-about-me .frame:has([data-node-id="632:870"]:is(:hover, :focus-visible)) [data-node-id="580:11734"] p { color: #f5f3f1; }
 
+/* About: no contact column; the photo fills the grid up to the 1390 rule, like the other pages. Contact is the floating button. */
+.page-about-me :is([data-node-id="580:11865"], [data-node-id="580:11869"], [data-node-id="580:11873"], [data-node-id="580:11876"],
+  [data-node-id="580:11877"], [data-node-id="580:11878"], [data-node-id="580:11879"], [data-node-id="580:11880"], [data-node-id="580:11881"],
+  [data-node-id="580:11882"], [data-node-id="580:11883"], [data-node-id="580:11889"], [data-node-id="580:11895"], [data-node-id="580:11901"],
+  [data-node-id="580:11907"], [data-node-id="580:11913"], [data-node-id="580:11919"], [data-node-id="580:11926"], [data-node-id="580:11927"],
+  [data-node-id="647:1856"], [data-node-id="570:9580"]), .page-about-me .frame > form { display: none !important; }
+.page-about-me [data-node-id="570:9581"] { left: 1390px !important; }
+.page-about-me :is([data-node-id="570:9621"], [data-node-id="570:9622"]) { left: 1387px !important; }
+.page-about-me [data-node-id="575:11715"] { left: 933px !important; width: 457px !important; }
+.page-about-me [data-node-id="575:11715"] img { left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important;
+  object-fit: cover; object-position: 66% 40%; }
+
 /* Artwork pages: the top bar stays put like on the Portfolio page; a paper strip with its lines sits behind it. */
 .ar-mask { position: fixed; left: 0; top: 0; width: 1480px; height: 181px; background: var(--paper); z-index: 39; pointer-events: none; }
 .ar-mask .hl { position: absolute; left: 0; width: 1480px; height: 1px; background: #363636; }

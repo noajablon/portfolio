@@ -49,7 +49,16 @@
 .sc-mail small { display: block; font-size: 9.8px; letter-spacing: 3px; opacity: .55; margin-bottom: 5px; }
 .sc-soc { display: flex; justify-content: center; gap: 16px; padding: 16px; border-top: 1px solid var(--ink); }
 .sc-soc a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--ink); display: flex; align-items: center; justify-content: center; transition: background .3s; }
-.sc-soc a:hover { background: rgba(54,54,54,.1); }
+/* Every button in the popup turns negative under the mouse. */
+.sc-soc a img, .sc-mail img { transition: filter .3s; }
+.sc-soc a:hover, .sc-soc a:focus-visible { background: var(--ink); }
+.sc-soc a:hover img, .sc-soc a:focus-visible img { filter: brightness(0) invert(.95); }
+.sc-mail { transition: background .3s, color .3s; }
+.sc-mail:hover, .sc-mail:focus-visible { background: var(--ink); color: var(--paper); }
+.sc-mail:hover img, .sc-mail:focus-visible img { filter: invert(1) brightness(1.15); }
+.sc-x { border-radius: 50%; transition: background .3s, color .3s, opacity .3s; }
+.sc-x:hover, .sc-x:focus-visible { background: var(--ink); color: var(--paper); }
+.sc-send button:focus-visible { background: var(--ink); color: var(--paper); }
 .sc-fab { cursor: pointer; }
 .sc-fab[aria-expanded="true"] { background: var(--paper); color: var(--ink); }
 .sc-fab[aria-expanded="true"] svg { transform: rotate(-90deg); }

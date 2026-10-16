@@ -500,6 +500,10 @@ def build(page):
         out = out.replace(f'<body class="page-{slug}"', f'<body class="page-{slug} art-page" data-fab-hide="520"')
         out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
         out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
+    if slug == "about-me":
+        # About: just the photo in the grid; contact is the floating button, like on the Portfolio page.
+        out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
+        out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
     out += '<script src="assets/js/site.js" defer></script>\n</body>\n</html>\n'
     if slug in ARTWORKS and slug != "maskit":
         # NEW format (Maskit NEW Redesign): same page with a centred opening section, laid out by tools/intro.mjs.
