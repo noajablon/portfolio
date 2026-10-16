@@ -12,8 +12,14 @@
   let Z = 1;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
-    if (doc.dataset.fit) Z = Math.min(Z, innerHeight / doc.dataset.fit); // About fits the window
     doc.style.setProperty("--z", Z);
+    // About / Work With Me: full width like the Portfolio page, one window tall (scrolls only if the window is shorter than the content).
+    const fit = +doc.dataset.fit, stage = fit && $(".stage");
+    if (stage) {
+      const screen = innerHeight / Z, fits = screen >= fit;
+      stage.style.height = (fits ? screen : fit) + "px";
+      doc.classList.toggle("fit-one", fits);
+    }
   };
   setZoom();
   addEventListener("resize", () => { setZoom(); onScroll(); });
@@ -48,23 +54,60 @@
     const shownSpacing = { L: "143.8px", M: "165px", R: "101.4px" };
     const saved = new Map();
     [...Object.values(icons), ...Object.values(titles)].forEach((el) => el && saved.set(el, el.getAttribute("style") || ""));
-    const restore = () => saved.forEach((s, el) => el.setAttribute("style", s));
+    Object.values(titles).forEach((ti) => ti && (ti.dataset.txt = ti.textContent));
+    // Letters fade in slowly, each flickering through random letters before it settles.
+    const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let timers = [];
+    const stopScramble = () => { timers.forEach(clearInterval); timers.forEach(clearTimeout); timers = []; };
+    const scramble = (ti) => {
+      const txt = ti.dataset.txt;
+      ti.textContent = "";
+      const spans = [...txt].map((ch) => {
+        const s = document.createElement("span");
+        s.textContent = ch;
+        s.style.cssText = "display:inline-block;white-space:pre;opacity:0;transition:opacity 1.1s ease-in-out";
+        ti.appendChild(s);
+        return s;
+      });
+      spans.forEach((s) => (s.style.width = s.getBoundingClientRect().width / Z + "px")); // random letters never shift the word
+      spans.forEach((s, i) => {
+        const ch = txt[i];
+        if (ch === " " || reduce) { s.style.opacity = "1"; return; }
+        const start = Math.random() * 700, settle = start + 450 + Math.random() * 650;
+        timers.push(setTimeout(() => {
+          s.style.opacity = "1";
+          const flick = setInterval(() => { s.textContent = ABC[(Math.random() * 26) | 0]; }, 75);
+          timers.push(flick);
+          timers.push(setTimeout(() => { clearInterval(flick); s.textContent = ch; }, settle - start));
+        }, start));
+      });
+    };
+    let current = null;
+    const restore = () => {
+      stopScramble();
+      Object.values(titles).forEach((ti) => ti && (ti.textContent = ti.dataset.txt));
+      saved.forEach((s, el) => el.setAttribute("style", s));
+      // The page's own title comes back the same way.
+      const own = Object.values(titles).find((ti) => ti && ti !== current && getComputedStyle(ti).opacity !== "0");
+      current = null;
+      if (own) scramble(own);
+    };
     const show = (k) => {
+      stopScramble();
       for (const key of ["L", "M", "R"]) {
         const ic = icons[key], ti = titles[key];
         if (ic) { ic.style.opacity = key === k ? "1" : "0.25"; ic.style.transform = key === k ? "scale(1.15)" : ""; }
         if (ti) {
+          ti.textContent = ti.dataset.txt;
           ti.style.opacity = key === k ? "1" : "0";
           if (key === k) {
-            // Letters open out from the middle: spacing grows from 0 while the word slides left by half the growth.
-            const grow = (ti.textContent.trim().length - 1) * parseFloat(shownSpacing[key]);
             ti.style.transition = "none";
-            ti.style.letterSpacing = "0px";
-            ti.style.transform = `translateX(${grow / 2}px)`;
+            ti.style.letterSpacing = shownSpacing[key];
+            ti.style.transform = "none";
             void ti.offsetWidth;
             ti.style.transition = "";
-            ti.style.letterSpacing = shownSpacing[key];
-            ti.style.transform = "translateX(0)";
+            current = ti;
+            scramble(ti);
           }
         }
       }

@@ -20,8 +20,8 @@ body { overflow-x: clip; -webkit-font-smoothing: antialiased; }
 /* The 1480px Figma frame, scaled to the window width. */
 .stage { width: 1480px; zoom: var(--z); position: relative; overflow: hidden; overflow: clip; }
 .frame { width: 1480px; }
-[data-fit] .stage { margin: 0 auto; height: 772px; transform: translateZ(0); } /* fixed layers stay inside the centred page */
-[data-fit], [data-fit] body { overflow: hidden; }
+[data-fit] .stage { height: 772px; transform: translateZ(0); } /* height set by site.js; fixed layers stay inside the page */
+.fit-one, .fit-one body { overflow: hidden; }
 .fx { position: fixed !important; z-index: 40; pointer-events: none; }
 /* Decorative Figma layers overlap the page; only real controls take the pointer. */
 .frame, .frame * { pointer-events: none; }
@@ -66,7 +66,7 @@ img { user-select: none; -webkit-user-drag: none; }
 /* Header */
 .hdr p, .hdr [data-name="Untitled-3 1"], .hdr [data-name="shape 2 2"], .hdr [data-name^="ChatGPT"] {
   transition: opacity 0.3s ease-in-out, letter-spacing 0.6s var(--soft), transform 0.45s ease-in-out; }
-.hdr p { transition: opacity 0.3s ease-in-out, letter-spacing 0.6s var(--soft), transform 0.6s var(--soft); }
+.hdr p { transition: opacity 0.6s ease-in-out; }
 .hdr a { z-index: 2; }
 
 /* Home rows */
@@ -163,7 +163,6 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-sorora .gal-btn:hover img, .page-sorora .gal-btn:focus-visible img { filter: none; }
 
 /* Work With Me fits the window like About, at its own height. */
-[data-fit] .page-work-with-me .stage { height: 820px; }
 
 /* Joints match the Portfolio page everywhere: 5x5, radius 1.6, #363636, drawn above the lines they mark.
    scale (not transform) keeps snap.css positions and any animation transforms intact. */
@@ -186,3 +185,23 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-work-with-me :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]) {
   pointer-events: auto; cursor: default; transition: scale .6s var(--soft); }
 .page-work-with-me :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]):hover { scale: 1.08; }
+
+/* About: the same single grid as the Portfolio page (no doubled 103 / 193 lines). */
+.page-about-me [data-node-id="570:9579"], .page-about-me [data-node-id="570:9588"] { display: none; }
+.page-about-me [data-node-id="575:11715"] { top: 180px !important; height: 586px !important; }
+.page-about-me [data-node-id="580:11718"] { top: 180px !important; height: 6043px !important; }
+.page-about-me :is([data-node-id="570:9578"], [data-node-id="570:9587"], [data-node-id="570:9580"], [data-node-id="570:9584"],
+  [data-node-id="570:9585"], [data-node-id="570:9586"], [data-node-id="580:11718"], [data-node-id="570:9581"]) { width: 1px !important; background: #363636; }
+.page-about-me :is([data-node-id="570:9582"], [data-node-id="570:9583"], [data-node-id="570:9573"], [data-node-id="580:11925"],
+  [data-node-id="580:11926"], [data-node-id="580:11927"]) { height: 1px !important; background: #363636; }
+.page-about-me :is([data-node-id="570:9578"], [data-node-id="570:9587"], [data-node-id="570:9580"], [data-node-id="570:9584"],
+  [data-node-id="570:9585"], [data-node-id="570:9586"], [data-node-id="580:11718"], [data-node-id="570:9581"], [data-node-id="570:9582"],
+  [data-node-id="570:9583"], [data-node-id="570:9573"], [data-node-id="580:11925"], [data-node-id="580:11926"], [data-node-id="580:11927"]) > img { display: none; }
+
+/* About and Work With Me: top bar lines sit where the Portfolio page has them (left rule at 87, full-width rule under the title). */
+.page-about-me :is([data-node-id="570:9578"], [data-node-id="570:9587"]),
+.page-work-with-me :is([data-node-id="580:12094"], [data-node-id="580:12103"]) { left: 87px !important; }
+.page-about-me [data-node-id="570:9582"], .page-work-with-me [data-node-id="580:12098"] { left: 0 !important; width: 1480px !important; }
+
+/* Header: the right icon a touch smaller (scale, so the hover transform still applies). */
+.hdr [data-name^="ChatGPT"] { scale: .88; }

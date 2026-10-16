@@ -98,7 +98,7 @@ HEAD = """<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="stylesheet" href="assets/css/snap.css">
-<script>(function(d){{var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);}})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<script>(function(d){{var z=Math.max(d.clientWidth||innerWidth,320)/1480;d.style.setProperty('--z',z);}})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 </head>
 <body class="page-{slug}" data-page="{slug}">
 """
@@ -182,7 +182,7 @@ def media_html(soup, kind, name):
 
 
 # Pages that always fit the window (no scroll). About shows down to its last rule.
-FIT = {"about-me": ' data-fit="772"', "work-with-me": ' data-fit="820"'}
+FIT = {"about-me": ' data-fit="772"', "work-with-me": ' data-fit="772"'}
 
 # Work With Me on one screen: shorter copy, the three values stacked closer together.
 WWM_TEXT = {
