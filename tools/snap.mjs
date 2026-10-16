@@ -95,11 +95,20 @@ const measure = async () => {
   }
 
   // 2. Joints sit on the crossing.
+  const stray = [];
   for (const j of ided.filter((e) => e.dataset.name === "Joint")) {
     const g = box(j), cx = g.x + g.w / 2, cy = g.y + g.h / 2;
     let bx = null, by = null;
     for (const v of V) if (cy >= v.a - JOINT && cy <= v.z + JOINT && Math.abs(v.x - cx) <= JOINT && (bx === null || Math.abs(v.x - cx) < Math.abs(bx))) bx = v.x - cx;
     for (const h of H) if (cx >= h.a - JOINT && cx <= h.z + JOINT && Math.abs(h.y - cy) <= JOINT && (by === null || Math.abs(h.y - cy) < Math.abs(by))) by = h.y - cy;
+    // On the artwork pages Figma's joint layer sits ~43px right of the grid: a joint on a horizontal line but
+    // beside its vertical moves left onto the nearest crossing (up to 50px). A joint with no crossing near is hidden.
+    if (bx === null && by !== null) {
+      let best = null;
+      for (const v of V) if (cy >= v.a - JOINT && cy <= v.z + JOINT && v.x < cx && cx - v.x <= 50 && (best === null || cx - v.x < Math.abs(best))) best = v.x - cx;
+      if (best !== null) bx = best;
+    }
+    if (bx === null || by === null) { set(j, "display", "none"); stray.push(j.dataset.nodeId); continue; }
     if (bx !== null && Math.abs(bx) > 0.05) set(j, "left", parseFloat(cs(j).left) + bx);
     if (by !== null && Math.abs(by) > 0.05) set(j, "top", parseFloat(cs(j).top) + by);
     set(j, "z-index", 3);
@@ -181,7 +190,7 @@ const measure = async () => {
     rules.push(`${id}::after{content:"";position:absolute;${geo};background:${stroke}${op < 1 ? `;opacity:${op}` : ""}}`);
   }
   const missed = [...H, ...V].filter((l) => !solid.has(l.e)).map((l) => l.e.dataset.nodeId);
-  return { missed, rules, counts: { H: H.length, V: V.length, solid: solid.size, media: media.length, fixed: fix.size } };
+  return { missed, rules, counts: { H: H.length, V: V.length, solid: solid.size, media: media.length, fixed: fix.size, stray: stray.length } };
 };
 
 const browser = await chromium.launch();
