@@ -24,7 +24,7 @@ WORKS = [
      ("img", "assets/img/preview-mazor.webp"), "cover"),
     ("mnemo", "Mnemo", "UX/UI", "2026", "Bezalel",
      "Mnemo is an AI-powered memory platform that transforms photos, videos, and personal stories into an interactive archive of a person's life.",
-     ("img", P + "mnemo-reel.webp"), "cover"),
+     ("video", V + "mnemo-film.mp4"), "cover"),
     ("stil", "Stil", "UX/UI", "2026", "Bezalel",
      "Stil is an emotional regulation assistant that detects vital disregulations before they peak, and guides the nervous system back to calm through a living biometric talisman; turning the hardest moments into permanent artifacts.",
      ("video", V + "stil-artifact.mp4"), "contain"),
@@ -87,10 +87,10 @@ CSS = """
 .sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
-.sc-count { position: absolute; left: 0; right: 0; top: 73px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
-.sc-go { position: absolute; left: 12px; top: calc(var(--F) / 2 - 33px); width: 66px; height: 66px; display: block;
+.sc-count { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
+.sc-go { position: absolute; left: 12px; top: calc(var(--F) / 2 - 33.5px); width: 67px; height: 67px; display: block;
   color: var(--ink); border-radius: 50%; transition: background .5s var(--soft), color .5s var(--soft); }
-.sc-arrow { width: 66px; height: 66px; display: block; overflow: visible; }
+.sc-arrow { width: 67px; height: 67px; display: block; overflow: visible; }
 .sc-arrow circle { fill: transparent; stroke: currentColor; transition: fill .5s var(--soft); }
 .sc-arrow path { stroke: currentColor; transition: transform .5s var(--soft); }
 .sc-go:hover .sc-arrow circle, .sc-go:focus-visible .sc-arrow circle { fill: var(--ink); }
@@ -142,7 +142,7 @@ CSS = """
 .sc-soc a:hover { background: rgba(54,54,54,.1); }
 .sc-fab { cursor: pointer; }
 .sc-fab[aria-expanded="true"] { background: var(--paper); color: var(--ink); }
-.sc-fab[aria-expanded="true"] svg { transform: rotate(90deg); }
+.sc-fab[aria-expanded="true"] svg { transform: rotate(-90deg); }
 .sc-contact .sc-media { align-items: center; }
 .sc-big { display: flex; align-items: center; justify-content: center; gap: 36px; width: 100%; height: 100%; background: var(--ink);
   color: var(--paper); font: 500 64px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 19px; text-transform: uppercase; text-decoration: none;
@@ -208,10 +208,10 @@ JS = """
 })();
 """
 
-ARROW = ('<svg class="sc-arrow" viewBox="0 0 50 50" fill="none" aria-hidden="true">'
-         '<circle cx="25" cy="25" r="24.5" stroke-width="1"/>'
-         '<path d="M14 24.2H36L27.8 13.8" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round"/>'
-         '<path d="M33.9 30.3L27.9 36.3" stroke-width="2.2" stroke-linecap="square"/></svg>')
+ARROW = ('<svg class="sc-arrow" viewBox="0 0 67 67" fill="none" aria-hidden="true">'
+         '<circle cx="33.5" cy="33.5" r="33.1" stroke-width="0.8"/>'
+         '<path d="M18 33.06H49.2L37.68 22.18L35.38 20" stroke-width="2.9" stroke-linecap="square" stroke-linejoin="round"/>'
+         '<path d="M42.5 40L35 47.5" stroke-width="2.9" stroke-linecap="square"/></svg>')
 
 
 def joints(xs):
@@ -317,7 +317,7 @@ def main():
 {hdr}
 <div class="sc-track"><div class="sc-view">
 <div class="sc-mask" aria-hidden="true"><i class="hl" style="top:130px"></i><i class="hl" style="top:180px"></i><i class="vl" style="left:87px"></i><i class="vl" style="left:1390px"></i>
-<i class="j" style="left:85px;top:128px"></i><i class="j" style="left:1388px;top:128px"></i><i class="j" style="left:85px;top:178px"></i><i class="j" style="left:555px;top:178px"></i><i class="j" style="left:1388px;top:178px"></i></div>
+<i class="vl" style="left:87px;top:58px;height:72px"></i><i class="vl" style="left:698px;top:58px;height:72px"></i><i class="vl" style="left:783px;top:58px;height:72px"></i><i class="vl" style="left:1390px;top:58px;height:72px"></i><i class="j" style="left:85px;top:128px"></i><i class="j" style="left:696px;top:128px"></i><i class="j" style="left:781px;top:128px"></i><i class="j" style="left:1388px;top:128px"></i><i class="j" style="left:85px;top:178px"></i><i class="j" style="left:555px;top:178px"></i><i class="j" style="left:1388px;top:178px"></i></div>
 <div class="sc-col">
 {rows}
 </div>{grid()}</div></div>
@@ -325,6 +325,7 @@ def main():
 <button class="sc-fab" type="button" aria-haspopup="dialog" aria-controls="sc-pop" aria-expanded="false"><span class="t">Contact me</span><svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></button>
 {body_popup}
 <script>{JS}</script>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>
 """

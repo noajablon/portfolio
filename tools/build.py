@@ -31,7 +31,7 @@ PAGES = [
         "580:11880", "580:11881", "580:11882", "580:11883", "580:11889", "580:11895", "580:11901",
         "580:11907", "580:11913", "580:11919", "580:11925", "580:11926", "580:11927", "647:1856",
         "623:879", "623:881", "623:883"]),
-    ("work-with-me.html", "work-with-me", "Work With Me", 1083, []),
+    ("work-with-me.html", "work-with-me", "Work With Me", 1083, []),  # shown 820 tall (FIT); % insets need 1083
     ("maskit.html", "maskit", "Maskit", 6165, ["462:878"]),
     ("mazor.html", "mazor", "Mazor", 4081, ["462:982"]),
     ("mnemo.html", "mnemo", "Mnemo", 4081, []),
@@ -179,6 +179,42 @@ def media_html(soup, kind, name):
         return soup.new_tag("img", attrs={"class": "media", "src": P + name + ".webp", "alt": "",
                                           "loading": "lazy", "decoding": "async"})
     return soup.new_tag("div", attrs={"class": "media media-missing"})
+
+
+# Pages that always fit the window (no scroll). About shows down to its last rule.
+FIT = {"about-me": ' data-fit="772"', "work-with-me": ' data-fit="820"'}
+
+# Work With Me on one screen: shorter copy, the three values stacked closer together.
+WWM_TEXT = {
+    "580:12248": "I see client work as a collaborative process built on dialogue, trust, and shared curiosity. "
+                 "It helps me understand not only practical needs, but the character and values behind each project.",
+    "580:12273": "Great collaboration grows from listening, trust, and a shared sense of direction.",
+    "580:12275": "Expressing an idea in a way that feels honest, intentional, and memorable.",
+    "580:12283": "Care in every detail, so the final work feels refined and built to last.",
+}
+# node id -> new top (design px). Each value: icon, heading, text.
+WWM_TOP = {"629:13345": 205, "580:12248": 300,
+           "580:12268": 441, "580:12271": 450, "580:12273": 479,
+           "580:12280": 556, "580:12278": 565, "580:12275": 594,
+           "580:12287": 674, "580:12285": 680, "580:12283": 709}
+
+
+def set_top(el, y):
+    el["class"] = [c for c in el.get("class", []) if not c.startswith("top-[")] + [f"top-[{y}px]"]
+
+
+def compact_work_with_me(soup):
+    for nid, text in WWM_TEXT.items():
+        for el in find_id(soup, nid):
+            el.clear()
+            el["class"] = [c for c in el["class"] if not c.startswith(("h-[", "leading-[0]", "whitespace-pre-wrap"))] + ["leading-[30.073px]"]
+            el.append(text)
+    for nid, y in WWM_TOP.items():
+        for el in find_id(soup, nid):
+            set_top(el, y)
+    for nid in ("580:12270", "580:12277", "580:12284"):  # heading wrappers (display: contents)
+        for el in find_id(soup, nid):
+            el["class"] = [c for c in el["class"] if not c.startswith("top-[")]
 
 
 def build(page):
@@ -433,10 +469,12 @@ def build(page):
     if slug == "entrance-main":
         root["style"] = f"height:{height}px"
         cls_add(root, "entrance")
+    if slug == "work-with-me":
+        compact_work_with_me(soup)
 
     body = str(soup)
     out = HEAD.format(title=("Noa Jablon · " + title) if title != "Noa Jablon" else "Noa Jablon · Designer", slug=slug,
-                      fit=' data-fit="772"' if slug == "about-me" else "")  # About shows down to its last rule
+                      fit=FIT.get(slug, ""))
     if slug == "entrance-main":
         out += '<div id="scrolly"><div id="stage" class="stage sticky">' + body + "</div></div>\n"
     else:

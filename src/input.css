@@ -161,3 +161,12 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-sorora .gal-next:hover { transform: scale(1.1); }
 .page-sorora .gal-btn img { filter: invert(1); transition: filter 0.4s ease-in-out; }
 .page-sorora .gal-btn:hover img, .page-sorora .gal-btn:focus-visible img { filter: none; }
+
+/* Work With Me fits the window like About, at its own height. */
+[data-fit] .page-work-with-me .stage { height: 820px; }
+
+/* Joints match the Portfolio page everywhere: 5x5, radius 1.6, #363636, drawn above the lines they mark.
+   scale (not transform) keeps snap.css positions and any animation transforms intact. */
+.frame [data-name="Joint"], .frame [data-name^="Joint "] { scale: calc(5 / 6); border-radius: 1.92px !important; background-color: #363636 !important; z-index: 3; }
+.page-entrance-main .frame div[class~="size-[8px]"] { scale: .625; z-index: 3; }
+.page-entrance-main .frame div[class~="size-[8px]"][class~="bg-[#363636]"] { border-radius: 2.56px; }
