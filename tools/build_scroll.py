@@ -41,7 +41,7 @@ WORKS = [
      ("img", "assets/img/preview-unmask.webp"), "cover"),
     ("voices-from-the-desert", "Voices of the Desert", "Typography", "2025", "Bezalel",
      "Production of a booklet about the Dead Sea scrolls, alongside the development and design of a dedicated website for the launch event, which included a film screening as well as a public discussion.",
-     ("img", "assets/img/preview-voices.webp"), "cover"),
+     ("video", V + "voices-website.mp4"), "cover"),
     ("miansi", "Miansi", "Branding", "2025", "ECNU",
      "Collaborative branding project for hair accessories designed for an international audience, integrating Chinese silk heritage as a visual and material language to foster cultural connection.",
      ("img", "assets/img/preview-miansi.webp"), "cover"),
@@ -78,6 +78,9 @@ CSS = """
   text-transform: uppercase; white-space: nowrap; }
 .sc-title b { font-weight: 500; font-size: 28px; letter-spacing: 8.6px; margin-right: 18px; opacity: .85; }
 .sc-title.long { font-size: 30px; letter-spacing: 9px; top: 54px; }
+.sc-title .dz-w + .dz-w { margin-left: .45em; }  /* the space between words (a flex row drops it) */
+.sc-title.xlong { font-size: 23px; letter-spacing: 6.4px; top: 58px; }
+.sc-title.xlong b { font-size: 23px; letter-spacing: 6.4px; margin-right: 12px; }
 .sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
 .sc-f { position: absolute; top: 143px; height: 81px; padding: 18px 0 0 50px; }
 .sc-f small, .sc-about small { display: block; font: 400 9.8px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3px; opacity: .55; margin-bottom: 13px; }
@@ -86,7 +89,7 @@ CSS = """
 .sc-f span { font: 400 16px/1 "Gilroy", "Outfit", sans-serif; }
 .sc-about { position: absolute; left: 137px; top: 268px; width: 370px; font: 300 16px/1.45 "Gilroy", "Outfit", sans-serif; }
 .sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
-.sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
+.sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #363636; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
 .sc-count { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
@@ -255,7 +258,7 @@ def media(m, fit):
 def row(i, w):
     slug, title, field, year, place, about, m, fit = w
     n = len(WORKS)
-    long = " long" if len(title) > 10 else ""
+    long = " long xlong" if len(title) > 16 else " long" if len(title) > 10 else ""
     lines = '<i class="hl" style="top:0"></i><i class="hl" style="bottom:0"></i>'
     lines += '<i class="v" style="left:87px;top:143px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i>'
     js = "".join(f'<i class="j" style="left:{x - 2}px;top:-2px"></i><i class="j jb" style="left:{x - 2}px"></i>' for x in (557, 1390))

@@ -53,14 +53,19 @@ img { user-select: none; -webkit-user-drag: none; }
 .gal-next:hover { transform: rotate(180deg) scale(1.1); }
 .gal-btn[hidden] { display: block; opacity: 0; pointer-events: none; }
 /* Explainer 6.2: the grid paper sits behind the artwork, so the artwork shows at full strength. */
-.page-explainer .frame { isolation: isolate; }
 .page-explainer [data-node-id="608:12590"], .page-explainer [data-node-id="608:12592"] { z-index: -1; }
 .page-explainer [data-node-id="462:5247"] { mix-blend-mode: multiply; }
 
 /* Negative hover: an inverted disc, as in the Figma "Negative" variants. */
-.neg { background: #fff; border-radius: 50%; mix-blend-mode: difference; opacity: 0; pointer-events: none;
+/* Hover: a site-grey disc under the button, its drawing turned paper-coloured (never black). */
+.neg { background: var(--ink); border-radius: 50%; opacity: 0; pointer-events: none; z-index: -1;
   transition: opacity 0.4s ease-in-out; }
 .neg-host:hover .neg, .neg-host:focus-visible .neg { opacity: 1; }
+.neg-host { isolation: isolate; }
+.neg-host img { transition: filter 0.4s ease-in-out; }
+.neg-host:is(:hover, :focus-visible) img { filter: brightness(0) invert(.95); }
+/* Contact icons: the drawing sits outside the button, so the disc inverts what is under it, paper to the site grey. */
+.neg.mix-blend-difference { background: transparent; mix-blend-mode: normal; z-index: auto; -webkit-backdrop-filter: invert(.815); backdrop-filter: invert(.815); }
 [data-node-id="647:1856"] .neg { transition-duration: 0.35s; }
 
 /* Header */
@@ -134,9 +139,6 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .sound.no-video { opacity: 0.3; cursor: default; }
 /* The floating To Top is its own layer (fixed), so its disc can't blend with the page.
    Blend the whole button instead while hovered: a white disc under the ink artwork inverts what's behind. */
-.totop-float .neg, .neg-host.fx .neg { mix-blend-mode: normal; z-index: -1; }
-.neg-host.fx { isolation: isolate; }
-.totop-float:hover, .totop-float:focus-visible, .neg-host.fx:hover, .neg-host.fx:focus-visible { mix-blend-mode: difference; }
 .art-arrow { top: 229px; width: 50px; height: 50px; border-radius: 50%; }
 .art-arrow-l { left: 20px; }
 .art-arrow-r { left: calc(100% - 70px); }
@@ -149,9 +151,11 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 /* Gallery arrows go negative on hover. The buttons are transformed (their own stacking context), so the
    disc sits behind the arrow and the whole button blends with the photo, as the fixed buttons do. */
 .gal-btn { isolation: isolate; }
-.gal-btn .neg { position: absolute; inset: 0; z-index: -1; mix-blend-mode: normal; }
+.gal-btn .neg { position: absolute; inset: 0; z-index: -1; background: #fff; }
 .gal-btn:hover .neg, .gal-btn:focus-visible .neg { opacity: 1; }
-.gal-btn:hover, .gal-btn:focus-visible { mix-blend-mode: difference; }
+
+/* Pictures have square corners. */
+.has-gal, .has-gal .gal, .has-gal .gal-slide { border-radius: 0 !important; }
 
 /* Sorora's arrow points right in Figma, so the previous button is the one turned round; it is drawn
    white to read on the dark slides (dark again on hover, over the white disc). */
@@ -278,7 +282,57 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .bar-away :is(.hdr, .marquee).fx, .bar-away .ar-mask { translate: 0 -200px; opacity: 0; }
 /* Artwork videos: pause / play and play-from-the-start buttons, bottom left of each video. */
 .vc { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 10px; z-index: 5; pointer-events: auto; }
-.vc button { width: 40px; height: 40px; padding: 0; border-radius: 50%; border: 1px solid #fff; background: rgba(0,0,0,.15); color: #fff;
+.vc button { width: 40px; height: 40px; padding: 0; border-radius: 50%; border: 1px solid #fff; background: rgba(54,54,54,.3); color: #fff;
   display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .3s, color .3s; }
 .vc button:hover, .vc button:focus-visible { background: #fff; color: var(--ink); }
 .vc svg { width: 18px; height: 18px; }
+
+/* Unmask Qatar: every picture fills its cell of the grid, and no rule runs across a picture. */
+.page-unmask-qatar [data-node-id="462:2858"]{left:88px!important;top:1076px!important;width:557px!important;height:776px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2859"]{left:672px!important;top:1076px!important;width:554px!important;height:776px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2860"]{left:88px!important;top:1866px!important;width:557px!important;height:761px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2861"]{left:672px!important;top:1866px!important;width:554px!important;height:761px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="414:2503"]{left:88px!important;top:2641px!important;width:557px!important;height:779px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2883"]{left:672px!important;top:2641px!important;width:554px!important;height:779px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2894"]{left:88px!important;top:4123px!important;width:1138px!important;height:1085px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2914"]{left:88px!important;top:3434px!important;width:284.5px!important;height:339px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2884"]{left:372.5px!important;top:3434px!important;width:284.5px!important;height:339px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2915"]{left:657px!important;top:3434px!important;width:284.5px!important;height:339px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2889"]{left:941.5px!important;top:3434px!important;width:284.5px!important;height:339px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2920"]{left:88px!important;top:3787px!important;width:284.5px!important;height:322px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2917"]{left:372.5px!important;top:3787px!important;width:284.5px!important;height:322px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2921"]{left:657px!important;top:3787px!important;width:284.5px!important;height:322px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2918"]{left:941.5px!important;top:3787px!important;width:284.5px!important;height:322px!important;right:auto!important;bottom:auto!important;inset:auto;transform:none!important;translate:none!important;margin:0!important}
+.page-unmask-qatar [data-node-id="462:2858"] :is(img, video), .page-unmask-qatar [data-node-id="462:2859"] :is(img, video), .page-unmask-qatar [data-node-id="462:2860"] :is(img, video), .page-unmask-qatar [data-node-id="462:2861"] :is(img, video), .page-unmask-qatar [data-node-id="414:2503"] :is(img, video), .page-unmask-qatar [data-node-id="462:2883"] :is(img, video), .page-unmask-qatar [data-node-id="462:2894"] :is(img, video), .page-unmask-qatar [data-node-id="462:2914"] :is(img, video), .page-unmask-qatar [data-node-id="462:2884"] :is(img, video), .page-unmask-qatar [data-node-id="462:2915"] :is(img, video), .page-unmask-qatar [data-node-id="462:2889"] :is(img, video), .page-unmask-qatar [data-node-id="462:2920"] :is(img, video), .page-unmask-qatar [data-node-id="462:2917"] :is(img, video), .page-unmask-qatar [data-node-id="462:2921"] :is(img, video), .page-unmask-qatar [data-node-id="462:2918"] :is(img, video){position:absolute!important;inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 50%}
+.page-unmask-qatar [data-node-id="462:2883"] img{object-fit:contain!important} .page-unmask-qatar [data-node-id="462:2883"]{background:#fff}
+.page-unmask-qatar [data-node-id="462:2883"] > div{inset:0!important}
+.page-unmask-qatar :is([data-node-id="462:2909"], [data-node-id="462:2911"], [data-node-id="462:2902"], [data-node-id="462:2905"], [data-node-id="462:2912"], [data-node-id="462:2906"], [data-node-id="462:2908"], [data-node-id="462:2903"], [data-node-id="462:2869"], [data-node-id="462:2870"]){display:none!important}
+
+/* Sorora: 10.2 follows the gallery straight away (no empty band between them). */
+.page-sorora [data-node-id="462:2339"]{top:1352px!important;bottom:auto!important}
+.page-sorora [data-node-id="462:2467"]{top:1306px!important;bottom:auto!important}
+.page-sorora [data-node-id="462:2466"]{top:1319px!important;bottom:auto!important}
+.page-sorora [data-node-id="462:2324"]{top:1956px!important;bottom:auto!important}
+.page-sorora [data-node-id="462:2325"]{top:1943px!important;bottom:auto!important}
+.page-sorora [data-node-id="462:2469"]{top:1320px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1194"]{top:1316.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1203"]{top:1316.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1212"]{top:1316.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1219"]{top:1316.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1196"]{top:1953.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1205"]{top:1953.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1214"]{top:1953.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="493:1221"]{top:1953.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1398"]{top:1303.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1401"]{top:1303.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1404"]{top:1303.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1406"]{top:1303.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1399"]{top:1940.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1402"]{top:1940.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1405"]{top:1940.5px!important;bottom:auto!important}
+.page-sorora [data-node-id="665:1407"]{top:1940.5px!important;bottom:auto!important}
+.page-unmask-qatar :is([data-node-id="462:2863"], [data-node-id="462:2864"]){display:none!important}
+/* Rules and joints added to the Figma grid (tools/build.py EXTRA). */
+.xl-h { position: absolute; left: 0; width: 1480px; height: 1px; background: var(--ink); z-index: 2; }
+.xl-v { position: absolute; width: 1px; background: var(--ink); z-index: 2; }
+.xl-j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 3; }

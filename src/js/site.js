@@ -386,12 +386,39 @@
   const PAUSE = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx=".6"/><rect x="11.8" y="4" width="3.2" height="12" rx=".6"/></svg>';
   const PLAY = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.5 4.2v11.6L16 10z"/></svg>';
   const AGAIN = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4.6 10a5.4 5.4 0 1 0 1.6-3.85"/><path d="M5.6 2.9v3.5h3.5"/></svg>';
+  const artVidsAll = artVids.slice();
   artVids.forEach((v) => {
     v.removeAttribute("autoplay");
     v.autoplay = false;
     v.muted = true;
     v.pause();
-    const host = v.parentElement;
+    // The buttons sit at the bottom left of the video, or, when the video is a screen inside a picture
+    // (a phone), at the bottom left of that picture, off the video itself.
+    let host = v.parentElement;
+    const vr = v.getBoundingClientRect();
+    for (let a = host; a && !a.matches(".frame, .stage, body"); a = a.parentElement) {
+      const r = a.getBoundingClientRect(), cs = getComputedStyle(a);
+      if (cs.display === "contents" || cs.position === "static") continue;
+      if (r.width > vr.width * 1.25 && r.height > vr.height * 1.08) { host = a; break; }
+      if (r.width > vr.width * 1.25 || r.height > vr.height * 1.25) break;
+    }
+    // A phone laid over a picture: the picture is a sibling, not a parent. Use the smallest picture around the
+    // video that holds no other video.
+    if (host === v.parentElement && vr.width < 600) {
+      let area = Infinity;
+      const others = artVidsAll.filter((o) => o !== v).map((o) => o.getBoundingClientRect());
+      $$(".frame [data-node-id]").forEach((e) => {
+        if (e.contains(v) || e.tagName === "IMG" || e.closest(".fx")) return;
+        const r = e.getBoundingClientRect();
+        if (!(r.left <= vr.left + 1 && r.top <= vr.top + 1 && r.right >= vr.right - 1 && r.bottom >= vr.bottom - 1)) return;
+        if (!(r.width > vr.width * 1.25 && r.height > vr.height * 1.08) || r.width * r.height >= area) return;
+        const c = getComputedStyle(e);
+        if (c.position === "static" || c.display === "contents") return;
+        if (c.backgroundImage === "none" && /^rgba\(0, 0, 0, 0\)$/.test(c.backgroundColor) && !e.querySelector("img")) return;
+        if (others.some((o) => o.left >= r.left - 1 && o.top >= r.top - 1 && o.right <= r.right + 1 && o.bottom <= r.bottom + 1)) return;
+        area = r.width * r.height; host = e;
+      });
+    }
     if (getComputedStyle(host).position === "static") host.style.position = "relative";
     const bar = document.createElement("div");
     bar.className = "vc";

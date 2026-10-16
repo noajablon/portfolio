@@ -68,7 +68,7 @@ CSS = """
 .ar-btn.next:hover svg { transform: translateX(3px); }
 .ar-btn.prev:hover svg { transform: translateX(-3px); }
 .ar-num { position: absolute; left: 22px; font: 400 20px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; }
-.ar-media { position: absolute; overflow: hidden; background: #000; }
+.ar-media { position: absolute; overflow: hidden; background: var(--ink); }
 .ar-media > img, .ar-media > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .ar-gal img { opacity: 0; transition: opacity 1s var(--soft); }
 .ar-gal img.on { opacity: 1; }
@@ -80,7 +80,7 @@ CSS = """
 .ar-dots { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; display: flex; gap: 8px; }
 .ar-dots i { width: 6px; height: 6px; border-radius: 50%; background: #fff; opacity: .4; transition: opacity .5s; }
 .ar-dots i.on { opacity: 1; }
-.ar-snd { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #fff; background: rgba(0,0,0,.15);
+.ar-snd { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #fff; background: rgba(54,54,54,.3);
   color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .4s, color .4s; }
 .ar-snd:hover { background: #fff; color: var(--ink); }
 .ar-snd svg { width: 20px; height: 16px; }

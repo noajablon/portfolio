@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=82d8c183">
-<link rel="stylesheet" href="assets/css/snap.css?v=e46a62cf">
+<link rel="stylesheet" href="assets/css/site.css?v=f889038b">
+<link rel="stylesheet" href="assets/css/snap.css?v=d9f5dd3b">
 <script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 <style>
 .page-scroll { background: var(--paper); }
@@ -37,6 +37,9 @@
   text-transform: uppercase; white-space: nowrap; }
 .sc-title b { font-weight: 500; font-size: 28px; letter-spacing: 8.6px; margin-right: 18px; opacity: .85; }
 .sc-title.long { font-size: 30px; letter-spacing: 9px; top: 54px; }
+.sc-title .dz-w + .dz-w { margin-left: .45em; }  /* the space between words (a flex row drops it) */
+.sc-title.xlong { font-size: 23px; letter-spacing: 6.4px; top: 58px; }
+.sc-title.xlong b { font-size: 23px; letter-spacing: 6.4px; margin-right: 12px; }
 .sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
 .sc-f { position: absolute; top: 143px; height: 81px; padding: 18px 0 0 50px; }
 .sc-f small, .sc-about small { display: block; font: 400 9.8px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3px; opacity: .55; margin-bottom: 13px; }
@@ -45,7 +48,7 @@
 .sc-f span { font: 400 16px/1 "Gilroy", "Outfit", sans-serif; }
 .sc-about { position: absolute; left: 137px; top: 268px; width: 370px; font: 300 16px/1.45 "Gilroy", "Outfit", sans-serif; }
 .sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
-.sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
+.sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #363636; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
 .sc-count { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
@@ -242,14 +245,14 @@
 <div class="sc-row">
 <i class="hl" style="top:0"></i><i class="hl" style="bottom:0"></i><i class="v" style="left:87px;top:143px"></i><i class="v" style="left:557px"></i><i class="v" style="left:1390px"></i><i class="j" style="left:555px;top:-2px"></i><i class="j jb" style="left:555px"></i><i class="j" style="left:1388px;top:-2px"></i><i class="j jb" style="left:1388px"></i><i class="j jb" style="left:85px"></i>
 <div class="in">
-<span class="sc-title long"><b>08/</b>Voices of the Desert</span>
+<span class="sc-title long xlong"><b>08/</b>Voices of the Desert</span>
 <i class="sc-h" style="top:143px;left:0;width:557px"></i><i class="sc-h" style="top:224px"></i>
 <i class="v" style="left:257px;top:143px;bottom:auto;height:81px"></i><i class="v" style="left:386px;top:143px;bottom:auto;height:81px"></i><i class="j" style="left:85px;top:141px"></i><i class="j" style="left:255px;top:141px"></i><i class="j" style="left:384px;top:141px"></i><i class="j" style="left:555px;top:141px"></i><i class="j" style="left:85px;top:222px"></i><i class="j" style="left:255px;top:222px"></i><i class="j" style="left:384px;top:222px"></i><i class="j" style="left:555px;top:222px"></i>
 <span class="sc-f" style="left:87px;width:170px"><small>FIELD</small><span>Typography</span></span>
 <span class="sc-f" style="left:257px;width:129px"><small>YEAR</small><span>2025</span></span>
 <span class="sc-f" style="left:386px;width:171px"><small>PLACE</small><span>Bezalel</span></span>
 <span class="sc-about"><small>ABOUT</small>Production of a booklet about the Dead Sea scrolls, alongside the development and design of a dedicated website for the launch event, which included a film screening as well as a public discussion.</span>
-<span class="sc-media"><span class="box"><img src="assets/img/preview-voices.webp" alt="" decoding="async" style="object-fit:cover"></span></span>
+<span class="sc-media"><span class="box"><video src="assets/video/voices-website.mp4" poster="assets/poster/voices-website.webp" muted loop playsinline preload="metadata" style="object-fit:cover"></video></span></span>
 <span class="sc-side"><span class="sc-count">08 / 10</span><a class="sc-go" href="voices-from-the-desert.html" aria-label="Open Voices of the Desert"><svg class="sc-arrow" viewBox="0 0 67 67" fill="none" aria-hidden="true"><circle cx="33.5" cy="33.5" r="33.1" stroke-width="0.8"/><path d="M18 33.06H49.2L37.68 22.18L35.38 20" stroke-width="2.9" stroke-linecap="square" stroke-linejoin="round"/><path d="M42.5 40L35 47.5" stroke-width="2.9" stroke-linecap="square"/></svg></a></span>
 </div>
 </div>
@@ -437,6 +440,6 @@
   }
 })();
 </script>
-<script src="assets/js/site.js?v=ea2f437f" defer></script>
+<script src="assets/js/site.js?v=071af267" defer></script>
 </body>
 </html>

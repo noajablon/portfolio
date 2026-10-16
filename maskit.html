@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=82d8c183">
-<link rel="stylesheet" href="assets/css/snap.css?v=e46a62cf">
+<link rel="stylesheet" href="assets/css/site.css?v=f889038b">
+<link rel="stylesheet" href="assets/css/snap.css?v=d9f5dd3b">
 <script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 <style>
 .page-art .stage { overflow: visible; }
@@ -29,7 +29,7 @@
 .ar-btn.next:hover svg { transform: translateX(3px); }
 .ar-btn.prev:hover svg { transform: translateX(-3px); }
 .ar-num { position: absolute; left: 22px; font: 400 20px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 6.2px; }
-.ar-media { position: absolute; overflow: hidden; background: #000; }
+.ar-media { position: absolute; overflow: hidden; background: var(--ink); }
 .ar-media > img, .ar-media > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .ar-gal img { opacity: 0; transition: opacity 1s var(--soft); }
 .ar-gal img.on { opacity: 1; }
@@ -41,7 +41,7 @@
 .ar-dots { position: absolute; left: 50%; bottom: 18px; translate: -50% 0; display: flex; gap: 8px; }
 .ar-dots i { width: 6px; height: 6px; border-radius: 50%; background: #fff; opacity: .4; transition: opacity .5s; }
 .ar-dots i.on { opacity: 1; }
-.ar-snd { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #fff; background: rgba(0,0,0,.15);
+.ar-snd { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #fff; background: rgba(54,54,54,.3);
   color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .4s, color .4s; }
 .ar-snd:hover { background: #fff; color: var(--ink); }
 .ar-snd svg { width: 20px; height: 16px; }
@@ -314,6 +314,6 @@ We deconstructed Maskit’s original logo into five shapes, then recombined them
   }
 })();
 </script>
-<script src="assets/js/site.js?v=ea2f437f" defer></script>
+<script src="assets/js/site.js?v=071af267" defer></script>
 </body>
 </html>

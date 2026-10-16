@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from contact import CONTACT_CSS, CONTACT_JS, FAB, MASK, popup  # noqa: E402
+import build_art  # noqa: E402  (the Maskit page's buttons: back / next arrows, the end buttons, To top)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRAG = os.path.join(ROOT, "src", "fragments")
@@ -184,6 +185,26 @@ def media_html(soup, kind, name):
     return soup.new_tag("div", attrs={"class": "media media-missing"})
 
 
+# Rules and joints the Figma grid is missing: ("h", y) full width, ("v", x, y0, y1), ("j", x, y).
+_QJ = [("j", x, y) for x in (645, 672) for y in (1062, 1075, 1852, 1865, 2627, 2640, 3420)] + \
+      [("j", x, y) for x in (88, 1226, 1454) for y in (1852, 1865)]
+EXTRA = {
+    "unmask-qatar": [("h", 1852), ("h", 1865), ("v", 645, 1062, 3420), ("v", 672, 1062, 3420)] + _QJ,
+}
+
+
+def extra_html(items):
+    out = []
+    for it in items:
+        if it[0] == "h":
+            out.append(f'<i class="xl-h" style="top:{it[1] - 0.5}px"></i>')
+        elif it[0] == "v":
+            out.append(f'<i class="xl-v" style="left:{it[1] - 0.5}px;top:{it[2]}px;height:{it[3] - it[2]}px"></i>')
+        else:
+            out.append(f'<i class="xl-j" style="left:{it[1] - 2.5}px;top:{it[2] - 2.5}px"></i>')
+    return "".join(out)
+
+
 # Pages that always fit the window (no scroll). About shows down to its last rule.
 FIT = {"about-me": ' data-fit="709"', "work-with-me": ' data-fit="709"'}
 FIT_JOINTS = {"about-me": [87, 932, 1390], "work-with-me": [87, 933, 1226, 1479]}
@@ -276,14 +297,17 @@ def build(page):
         for el in find_id(soup, "651:888"):
             retag(el, "a", href=ARTWORKS[(i + 1) % len(ARTWORKS)] + ".html")
             el["aria-label"] = "Next artwork"
-    # Top arrows on artwork pages: one crisp circle each, centred in the side gutters.
+    # Top arrows on artwork pages: Maskit's round arrow buttons, centred in the side gutters.
     for el in soup.find_all(attrs={"aria-label": ["Back to portfolio", "Next artwork"]}):
         side = "l" if el["aria-label"] == "Back to portfolio" else "r"
         el.clear()
-        el["class"] = ["absolute", "block", "cursor-pointer", "neg-host", "art-arrow", "art-arrow-" + side]
-        el.append(soup.new_tag("img", attrs={"src": f"assets/img/arrow-circle-{side}.svg", "alt": "",
-                                             "class": "absolute block inset-0 size-full"}))
-        el.append(soup.new_tag("div", attrs={"class": "absolute inset-0 rounded-full mix-blend-difference neg"}))
+        el["class"] = ["ar-btn", "prev" if side == "l" else "next", "art-arrow", "art-arrow-" + side]
+        el.append(BeautifulSoup(build_art.ARR_L if side == "l" else build_art.ARR, "html.parser"))
+    if slug in ARTWORKS:
+        # The end of the page uses Maskit's buttons (previous / to top / next); tools/ends.mjs places them.
+        for dn in ("Next Design", "Previous Design", "To Top · End", "To Top · Floating"):
+            for el in soup.find_all(attrs={"data-name": dn}):
+                el.decompose()
     for el in soup.find_all(attrs={"data-name": re.compile(r"^To Top")}):
         retag(el, "button", type="button")
         el["aria-label"] = "Back to top"
@@ -294,8 +318,6 @@ def build(page):
         cls_add(el, "neg-host", "see-work")
         # Negative hover on the circle, like the other round buttons.
         disc = "left:238.1px;top:0.6px;width:86.8px;height:86.8px"
-        # The intro animates this button in its own layer, so give the blend a paper backdrop to work against.
-        el.insert(0, soup.new_tag("div", attrs={"class": "absolute rounded-full bg-[#f5f3f1]", "style": disc}))
         el.append(soup.new_tag("div", attrs={"class": "neg absolute", "style": disc}))
 
     # Home rows
@@ -491,6 +513,15 @@ def build(page):
             for nid in ("462:3321", "462:3313"):
                 clip.append(find_id(soup, nid)[0].extract())
 
+    if slug in EXTRA:
+        root.append(BeautifulSoup(extra_html(EXTRA[slug]), "html.parser"))
+    if slug in ARTWORKS:
+        i = ARTWORKS.index(slug)
+        prev, nxt = ARTWORKS[i - 1] + ".html", ARTWORKS[(i + 1) % len(ARTWORKS)] + ".html"
+        root.append(BeautifulSoup(
+            f'<nav class="ar-end" data-end style="left:{build_art.CX - (3 * 115 + 2 * 36) / 2}px;top:0px" aria-label="More work">'
+            f'<a href="{prev}">{build_art.ARR_L}Previous<br>design</a><a href="#" data-top>{build_art.ARR_UP}To top</a>'
+            f'<a href="{nxt}">{build_art.ARR}Next<br>design</a></nav>', "html.parser"))
     body = str(soup)
     if slug in FIT:
         # The page ends on one full-width rule at 766, with a joint on every line that meets it.
@@ -507,8 +538,11 @@ def build(page):
         out += '<div id="stage" class="stage">' + body + "</div>\n"
     if slug in ARTWORKS:
         out = out.replace(f'<body class="page-{slug}"', f'<body class="page-{slug} art-page" data-fab-hide="520"')
-        out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
-        out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
+        out = out.replace("</head>", f"<style>{build_art.CSS}{CONTACT_CSS}</style>\n</head>")
+        out += (f'{FAB}\n<button class="ar-top" type="button" data-top aria-label="Back to top">{build_art.ARR_UP}TO TOP</button>\n'
+                f"{popup()}\n<script>{build_art.JS}</script>\n<script>{CONTACT_JS}</script>\n")
+    if slug not in ARTWORKS and 'class="ar-btn' in out:
+        out = out.replace("</head>", f"<style>{build_art.CSS}</style>\n</head>")
     if slug == "about-me":
         # About: just the photo in the grid; contact is the floating button, like on the Portfolio page.
         out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
@@ -547,9 +581,9 @@ PREVIEWS = {
     "297:304": [("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:319": [("img", "assets/img/preview-mazor.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:345": [("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
-    "683:1767": [("box", "background:#000"),
+    "683:1767": [("box", "background:#363636"),
                  ("video", V + "stil-artifact.mp4", "left:47.9px;top:112px;width:383.5px;height:348.9px;object-fit:cover;transform:rotate(1deg)")],
-    "298:372": [("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000")],
+    "298:372": [("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#363636")],
     "298:397": [("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:418": [("img", "assets/img/preview-unmask.webp",
                  crop_style([[0.8828, 0, 0.0843], [0, 0.8878, 0.0525]]))],
@@ -562,12 +596,12 @@ REEL = [
     ("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-2.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
-    ("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000"),
+    ("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#363636"),
     ("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-6.webp", "left:-9.55%;top:-5.91%;width:113.28%;height:112.64%;object-fit:cover"),
     ("img", "assets/img/reel-7.webp", "left:-1.01%;top:-9.45%;width:106.47%;height:122.19%;object-fit:cover"),
     ("img", "assets/img/reel-8.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
-    ("img", P + "sorora-film.webp", "left:-9.83px;top:0;width:499.03px;height:100%;object-fit:cover;border-radius:10px"),
+    ("img", P + "sorora-film.webp", "left:-9.83px;top:0;width:499.03px;height:100%;object-fit:cover"),
 ]
 
 
