@@ -101,7 +101,7 @@ HEAD = """<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="stylesheet" href="assets/css/snap.css">
-<script>(function(d){{var z=Math.max(d.clientWidth||innerWidth,320)/1480;d.style.setProperty('--z',z);}})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<script>(function(d){{var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);}})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 </head>
 <body class="page-{slug}" data-page="{slug}">
 """
@@ -185,8 +185,8 @@ def media_html(soup, kind, name):
 
 
 # Pages that always fit the window (no scroll). About shows down to its last rule.
-FIT = {"about-me": ' data-fit="769"', "work-with-me": ' data-fit="769"'}
-FIT_JOINTS = {"about-me": [1390], "work-with-me": [87, 933, 1226]}
+FIT = {"about-me": ' data-fit="709"', "work-with-me": ' data-fit="709"'}
+FIT_JOINTS = {"about-me": [87, 932, 1390], "work-with-me": [87, 933, 1226, 1479]}
 
 # Work With Me on one screen: shorter copy, the three values stacked closer together.
 WWM_TEXT = {
@@ -197,10 +197,10 @@ WWM_TEXT = {
     "580:12283": "Care in every detail, so the final work feels refined and built to last.",
 }
 # node id -> new top (design px). Each value: icon, heading, text.
-WWM_TOP = {"629:13345": 205, "580:12248": 300,
-           "580:12268": 441, "580:12271": 450, "580:12273": 479,
-           "580:12280": 556, "580:12278": 565, "580:12275": 594,
-           "580:12287": 674, "580:12285": 680, "580:12283": 709}
+WWM_TOP = {"629:13345": 196, "580:12248": 282,
+           "580:12268": 416, "580:12271": 420, "580:12273": 448,
+           "580:12280": 520, "580:12278": 524, "580:12275": 552,
+           "580:12287": 624, "580:12285": 628, "580:12283": 656}
 
 
 def set_top(el, y):
@@ -476,6 +476,9 @@ def build(page):
     if slug == "work-with-me":
         compact_work_with_me(soup)
     if slug in ARTWORKS:
+        # Videos start when you reach them (site.js), not on load.
+        for v in soup.find_all("video"):
+            del v["autoplay"]
         # Top bar fixed like the Portfolio page (paper strip + its lines behind it).
         hdr = soup.find(attrs={"data-name": "Header Title"})
         if hdr:

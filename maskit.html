@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Kulim+Park:wght@300;400;600&display=swap">
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="stylesheet" href="assets/css/snap.css">
-<script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480;d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 <style>
 .page-art .stage { overflow: visible; }
 .ar .hl { position: absolute; left: 0; width: 1480px; height: 1px; background: var(--ink); }
@@ -253,11 +253,8 @@ We deconstructed Maskit’s original logo into five shapes, then recombined them
 <script>
 (function () {
   var z = function () { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1; };
-  // Videos play only while on screen; the speaker button turns the sound on.
+  // Videos start when you reach them (site.js, with pause and restart); the speaker button turns the sound on.
   var vids = [].slice.call(document.querySelectorAll('.ar video'));
-  var io = new IntersectionObserver(function (es) { es.forEach(function (e) {
-    if (e.isIntersecting) e.target.play().catch(function () {}); else e.target.pause(); }); }, { threshold: 0.25 });
-  vids.forEach(function (v) { io.observe(v); });
   [].forEach.call(document.querySelectorAll('.ar-snd'), function (b) {
     b.addEventListener('click', function () {
       var v = b.parentNode.querySelector('video'), on = v.muted;

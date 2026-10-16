@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="stylesheet" href="assets/css/snap.css">
 <link rel="stylesheet" href="assets/css/intro.css">
-<script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480;d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
+<script>(function(d){var z=Math.max(d.clientWidth||innerWidth,320)/1480,f=+d.dataset.fit;if(f)z=Math.min(z,innerHeight/f);d.style.setProperty('--z',z);})(document.documentElement);document.documentElement.classList.add('js');if('onpagereveal' in window&&CSS.supports('view-transition-name: a'))document.documentElement.classList.add('vt');</script>
 <style>
 .sc-fab { position: fixed; z-index: 70; right: calc(120px * var(--z)); bottom: calc(36px * var(--z)); zoom: var(--z);
   display: flex; align-items: center; gap: 14px; height: 58px; padding: 0 26px 0 30px; border-radius: 40px;

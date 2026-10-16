@@ -115,11 +115,8 @@ CSS = """
 JS = """
 (function () {
   var z = function () { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1; };
-  // Videos play only while on screen; the speaker button turns the sound on.
+  // Videos start when you reach them (site.js, with pause and restart); the speaker button turns the sound on.
   var vids = [].slice.call(document.querySelectorAll('.ar video'));
-  var io = new IntersectionObserver(function (es) { es.forEach(function (e) {
-    if (e.isIntersecting) e.target.play().catch(function () {}); else e.target.pause(); }); }, { threshold: 0.25 });
-  vids.forEach(function (v) { io.observe(v); });
   [].forEach.call(document.querySelectorAll('.ar-snd'), function (b) {
     b.addEventListener('click', function () {
       var v = b.parentNode.querySelector('video'), on = v.muted;

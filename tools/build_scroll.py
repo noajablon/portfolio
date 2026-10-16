@@ -117,8 +117,10 @@ CSS = """
 .sc-links a:hover { border-color: var(--ink); }
 .dz-w { display: inline-block; white-space: nowrap; }
 .dz { display: inline-block; white-space: pre; text-align: center; transition: opacity .55s ease-out, filter .55s ease-out; }
+.dz-hide { opacity: 0; filter: blur(6px); }
 .dz-mid { opacity: .55; filter: blur(3px); }
-.dz-soft { opacity: .35; filter: blur(5px); }
+.dz-now, .dz-done { transition: none; }
+.dz-soft { opacity: .35; filter: blur(5px); transition: opacity .55s ease-out, filter .55s ease-out; }
 """
 
 JS = """
@@ -153,42 +155,72 @@ JS = """
   // Text dissolves in as each work arrives: every letter blurs into place through a random letter or two,
   // like the header titles. Works still waiting below stay soft and faded.
   var ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var texts = rows.map(function () { return []; }), on = rows.map(function () { return null; }), timers = rows.map(function () { return []; });
-  function split(el, out) {
+  var texts = rows.map(function () { return []; }), boxes = rows.map(function () { return []; });
+  var on = rows.map(function () { return null; }), timers = rows.map(function () { return []; });
+  // Titles and facts dissolve letter by letter; the longer About text word by word (lighter while scrolling).
+  function split(el, out, words) {
     [].slice.call(el.childNodes).forEach(function (n) {
-      if (n.nodeType === 1) { if (n.tagName !== 'SMALL') split(n, out); return; }
+      if (n.nodeType === 1) { if (n.tagName !== 'SMALL') split(n, out, words); return; }
       if (n.nodeType !== 3 || !n.textContent.trim()) return;
       var f = document.createDocumentFragment();
       n.textContent.split(/(\\s+)/).forEach(function (w) {
         if (!w) return;
         if (/^\\s+$/.test(w)) { f.appendChild(document.createTextNode(w)); return; }
         var word = document.createElement('span'); word.className = 'dz-w';
+        if (words) { word.className = 'dz'; word.textContent = w; word.dataset.c = w; f.appendChild(word); out.push(word); return; }
         [].forEach.call(w, function (ch) { var s = document.createElement('span'); s.className = 'dz'; s.textContent = ch; s.dataset.c = ch; word.appendChild(s); out.push(s); });
         f.appendChild(word);
       });
       n.parentNode.replaceChild(f, n);
     });
   }
+  // Waiting works are softened as a whole block (a handful of layers, cheap while scrolling);
+  // only the work that arrives animates letter by letter, and its letters carry no filter once settled.
+  // All letter changes happen in one animation frame loop, so the page lays out once per frame however many letters move.
+  var plays = [], raf = 0;
+  function tick(now) {
+    raf = 0;
+    plays = plays.filter(function (pl) {
+      var t = now - pl.t0, busy = false;
+      pl.ls.forEach(function (s, n) {
+        var c = pl.cue[n], st;
+        if (t < c.start) { st = 0; busy = true; }
+        else if (t < c.end) { st = 1 + Math.floor((t - c.start) / 110); busy = true; }
+        else st = -1;
+        if (s._st === st) return;
+        s._st = st;
+        if (st === 0) return;
+        if (st === -1) { s.textContent = s.dataset.c; s.className = 'dz'; }
+        else { s.textContent = c.swap ? ABC[(Math.random() * 26) | 0] : s.dataset.c; s.className = 'dz dz-mid'; }
+      });
+      if (!busy && t > 1400) pl.ls.forEach(function (s) { s.className = 'dz dz-done'; });
+      return busy || t <= 1400;
+    });
+    if (plays.length) raf = requestAnimationFrame(tick);
+  }
   function setOn(i, v) {
     if (reduce || on[i] === v || !texts[i].length) return;
     on[i] = v;
-    timers[i].forEach(clearTimeout); timers[i] = [];
+    plays = plays.filter(function (pl) { return pl.i !== i; });
     var ls = texts[i];
-    if (!v) { ls.forEach(function (s) { s.textContent = s.dataset.c; s.className = 'dz dz-soft'; }); return; }
-    ls.forEach(function (s, n) {
-      var ch = s.dataset.c, start = Math.random() * 380 + Math.min(n, 120) * 2, swaps = 1 + ((Math.random() * 2) | 0);
-      if (!/[A-Za-z]/.test(ch)) { timers[i].push(setTimeout(function () { s.className = 'dz'; }, start)); return; }
-      timers[i].push(setTimeout(function () { s.textContent = ABC[(Math.random() * 26) | 0]; s.className = 'dz dz-mid'; }, start));
-      for (var m = 1; m <= swaps; m++) (function (last) {
-        timers[i].push(setTimeout(function () { s.textContent = last ? ch : ABC[(Math.random() * 26) | 0]; if (last) s.className = 'dz'; }, start + m * 110));
-      })(m === swaps);
+    boxes[i].forEach(function (b) { b.classList.toggle('dz-soft', !v); });
+    if (!v) { ls.forEach(function (s) { s.textContent = s.dataset.c; s.className = 'dz'; s._st = null; }); return; }
+    ls.forEach(function (s) { s.className = 'dz dz-hide dz-now'; s._st = 0; });
+    void ls[0].offsetWidth;
+    ls.forEach(function (s) { s.classList.remove('dz-now'); });
+    var cue = ls.map(function (s, n) {
+      var start = Math.random() * 380 + Math.min(n, 120) * 2, swap = /^[A-Za-z]$/.test(s.dataset.c);
+      return { start: start, end: start + (swap ? 110 * (1 + ((Math.random() * 2) | 0)) : 0), swap: swap };
     });
+    plays.push({ i: i, ls: ls, cue: cue, t0: performance.now() });
+    if (!raf) raf = requestAnimationFrame(tick);
   }
   function prepare() {
     rows.forEach(function (r, i) {
-      [].forEach.call(r.querySelectorAll('.sc-title, .sc-f, .sc-about, .sc-count'), function (el) { split(el, texts[i]); });
+      boxes[i] = [].slice.call(r.querySelectorAll('.sc-title, .sc-f, .sc-about, .sc-count'));
+      boxes[i].forEach(function (el) { split(el, texts[i], el.classList.contains('sc-about')); });
       // Random letters never shift the line: each letter keeps the width of its own.
-      texts[i].forEach(function (s) { s.style.width = s.getBoundingClientRect().width / z + 'px'; });
+      texts[i].forEach(function (s) { if (s.dataset.c.length === 1) s.style.width = s.getBoundingClientRect().width / z + 'px'; });
     });
     place();
   }

@@ -12,15 +12,15 @@
   let Z = 1;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
-    doc.style.setProperty("--z", Z);
-    // About / Work With Me: full width like the Portfolio page, one window tall (scrolls only if the window is shorter than the content).
+    // About / Work With Me: full width like the Portfolio page and never scrolled; the page ends on its last rule.
+    // A window too short for that (very wide and low) scales the page down to its height instead.
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
-      // The page ends on its last rule, like a row on the Portfolio page; nothing runs on below it.
-      const screen = innerHeight / Z, fits = screen >= fit;
+      Z = Math.min(Z, innerHeight / fit);
       stage.style.height = fit + "px";
-      doc.classList.toggle("fit-one", fits);
+      doc.classList.add("fit-one");
     }
+    doc.style.setProperty("--z", Z);
   };
   setZoom();
   addEventListener("resize", () => { setZoom(); onScroll(); });
@@ -370,7 +370,37 @@
     const v = e.target;
     if (e.isIntersecting) { v.play().catch(() => {}); } else if (!v.closest(".reel, .pv")) v.pause();
   }), { rootMargin: "200px 0px" });
-  vids.forEach((v) => { v.muted = true; vio.observe(v); });
+  // ---------- Artwork pages: each video starts when you reach it, with pause and restart buttons ----------
+  const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv")) : [];
+  const PAUSE = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx=".6"/><rect x="11.8" y="4" width="3.2" height="12" rx=".6"/></svg>';
+  const PLAY = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.5 4.2v11.6L16 10z"/></svg>';
+  const AGAIN = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4.6 10a5.4 5.4 0 1 0 1.6-3.85"/><path d="M5.6 2.9v3.5h3.5"/></svg>';
+  artVids.forEach((v) => {
+    v.removeAttribute("autoplay");
+    v.autoplay = false;
+    v.muted = true;
+    v.pause();
+    const host = v.parentElement;
+    if (getComputedStyle(host).position === "static") host.style.position = "relative";
+    const bar = document.createElement("div");
+    bar.className = "vc";
+    bar.innerHTML = `<button type="button" aria-label="Pause">${PAUSE}</button><button type="button" aria-label="Play from the start">${AGAIN}</button>`;
+    host.appendChild(bar);
+    const pb = bar.firstChild;
+    const sync = () => { pb.innerHTML = v.paused ? PLAY : PAUSE; pb.setAttribute("aria-label", v.paused ? "Play" : "Pause"); };
+    v.addEventListener("play", sync);
+    v.addEventListener("pause", sync);
+    sync();
+    // A video you paused stays paused, even when you scroll away and back.
+    pb.addEventListener("click", () => { if (v.paused) { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } });
+    bar.lastChild.addEventListener("click", () => { delete v.dataset.held; v.currentTime = 0; v.play().catch(() => {}); });
+  });
+  const aio = new IntersectionObserver((es) => es.forEach((e) => {
+    const v = e.target;
+    if (e.isIntersecting) { if (!v.dataset.held) v.play().catch(() => {}); } else v.pause();
+  }), { threshold: 0.5 });
+  artVids.forEach((v) => aio.observe(v));
+  vids.forEach((v) => { v.muted = true; if (!artVids.includes(v)) vio.observe(v); });
 
   // ---------- To Top ----------
   const frame = $(".frame");
@@ -423,7 +453,7 @@
   // ---------- Work with Me: the image strip drifts on its own, and wheel/drag scroll it too ----------
   const strip = $('[data-name="Strip"]');
   if (strip) {
-    const cycle = 1603; // one "Part" of the strip; Part 2 repeats it
+    const cycle = 2287; // the strip's pictures repeat every 2287px (Part 2 starts two pictures in), so wrapping there is seamless
     const box = strip.parentElement;
     let y = 0, last = performance.now(), drag = null, push = 0;
     const speed = reduce ? 0 : 30; // px per second
