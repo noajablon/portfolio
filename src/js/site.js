@@ -55,31 +55,36 @@
     const saved = new Map();
     [...Object.values(icons), ...Object.values(titles)].forEach((el) => el && saved.set(el, el.getAttribute("style") || ""));
     Object.values(titles).forEach((ti) => ti && (ti.dataset.txt = ti.textContent));
-    // Letters fade in slowly, each flickering through random letters before it settles.
+    // Letters dissolve in: each one blurs and fades into place, passing through a random letter or two on the way.
     const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let timers = [];
-    const stopScramble = () => { timers.forEach(clearInterval); timers.forEach(clearTimeout); timers = []; };
+    const stopScramble = () => { timers.forEach(clearTimeout); timers = []; };
     const scramble = (ti) => {
       const txt = ti.dataset.txt;
       ti.textContent = "";
       const spans = [...txt].map((ch) => {
         const s = document.createElement("span");
         s.textContent = ch;
-        s.style.cssText = "display:inline-block;white-space:pre;opacity:0;transition:opacity 1.1s ease-in-out";
+        s.style.cssText = "display:inline-block;white-space:pre;opacity:0;filter:blur(6px);transition:opacity .55s ease-out,filter .55s ease-out";
         ti.appendChild(s);
         return s;
       });
       spans.forEach((s) => (s.style.width = s.getBoundingClientRect().width / Z + "px")); // random letters never shift the word
       spans.forEach((s, i) => {
         const ch = txt[i];
-        if (ch === " " || reduce) { s.style.opacity = "1"; return; }
-        const start = Math.random() * 700, settle = start + 450 + Math.random() * 650;
+        if (ch === " " || reduce) { s.style.opacity = "1"; s.style.filter = "none"; return; }
+        const start = Math.random() * 280, swaps = 1 + ((Math.random() * 2) | 0);
         timers.push(setTimeout(() => {
-          s.style.opacity = "1";
-          const flick = setInterval(() => { s.textContent = ABC[(Math.random() * 26) | 0]; }, 75);
-          timers.push(flick);
-          timers.push(setTimeout(() => { clearInterval(flick); s.textContent = ch; }, settle - start));
+          s.textContent = ABC[(Math.random() * 26) | 0];
+          s.style.opacity = ".55"; s.style.filter = "blur(3px)";
         }, start));
+        for (let n = 1; n <= swaps; n++) {
+          const last = n === swaps;
+          timers.push(setTimeout(() => {
+            s.textContent = last ? ch : ABC[(Math.random() * 26) | 0];
+            if (last) { s.style.opacity = "1"; s.style.filter = "blur(0)"; }
+          }, start + n * 110));
+        }
       });
     };
     let current = null;

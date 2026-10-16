@@ -15,7 +15,7 @@ const { chromium } = require("/opt/node22/lib/node_modules/playwright");
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : [
-  "maskit.html", "mazor.html", "mnemo.html", "stil.html", "lifta.html", "explainer.html",
+  "maskit-classic.html", "mazor.html", "mnemo.html", "stil.html", "lifta.html", "explainer.html",
   "unmask-qatar.html", "voices-from-the-desert.html", "miansi.html", "sorora.html",
   "about.html", "work-with-me.html", "portfolio-classic.html", "index.html",
 ];
@@ -63,6 +63,49 @@ const measure = async () => {
   const set = (e, k, v) => { if (!fix.has(e)) fix.set(e, {}); fix.get(e)[k] = v; };
   const cs = (e) => getComputedStyle(e);
 
+  // 0. Artwork pages: one grid like the Portfolio page. Figma draws the outer columns twice (87 + 103,
+  // 1377 + 1390) and the top rule twice (180 + 193); keep the outer line of each pair, put the left rule
+  // on 87 like the Portfolio page, and send whatever touched a removed line to the kept one.
+  const aliasV = [], aliasH = [];
+  if (document.body.classList.contains("art-page")) {
+    const ov = (p, q) => Math.min(p.z, q.z) - Math.max(p.a, q.a);
+    for (const v of V) for (const w of V) {
+      if (v === w || v.dead || w.dead) continue;
+      const d = w.x - v.x;
+      if (d > 10 && d < 16 && ov(v, w) > 0.6 * Math.min(v.z - v.a, w.z - w.a)) {
+        const inner = v.x < 740 ? w : v, outer = inner === w ? v : w;
+        inner.dead = true;
+        aliasV.push({ from: inner.x, to: outer.x, a: inner.a, z: inner.z });
+      }
+    }
+    for (const h of H) if (h.y > 189 && h.y < 197 && H.some((k) => k !== h && k.y > 176 && k.y < 184 && ov(k, h) > 200)) {
+      h.dead = true;
+      aliasH.push({ from: h.y, to: H.find((k) => k !== h && k.y > 176 && k.y < 184).y, a: h.a, z: h.z });
+    }
+    for (const l of [...V, ...H]) if (l.dead) set(l.e, "display", "none");
+    V.splice(0, V.length, ...V.filter((l) => !l.dead));
+    H.splice(0, H.length, ...H.filter((l) => !l.dead));
+    // the left rule sits on 87 (centre 87.5), as on the Portfolio page
+    for (const v of V) if (v.x > 88 && v.x < 94) {
+      const d = 87.5 - v.x;
+      set(v.e, "left", parseFloat(cs(v.e).left) + d);
+      for (const al of aliasV) if (Math.abs(al.to - v.x) < 0.6) al.to = 87.5;
+      v.x = 87.5;
+    }
+    const mapX = (x, y) => { for (const al of aliasV) if (Math.abs(x - al.from) <= 6 && y >= al.a - 8 && y <= al.z + 8) return al.to; return x; };
+    const mapY = (y, x) => { for (const al of aliasH) if (Math.abs(y - al.from) <= 6 && x >= al.a - 8 && x <= al.z + 8) return al.to; return y; };
+    for (const h of H) {
+      const l = mapX(h.a, h.y), r = mapX(h.z, h.y);
+      if (l !== h.a || r !== h.z) { set(h.e, "left", parseFloat(cs(h.e).left) + (l - h.a)); set(h.e, "width", r - l); set(h.e, "right", "auto"); h.a = l; h.z = r; }
+    }
+    for (const v of V) {
+      const t = mapY(v.a, v.x), b = mapY(v.z, v.x);
+      if (t !== v.a || b !== v.z) { set(v.e, "top", parseFloat(cs(v.e).top) + (t - v.a)); set(v.e, "height", b - t); set(v.e, "bottom", "auto"); v.a = t; v.z = b; }
+    }
+    window.__alias = { mapX, mapY };
+  }
+  const mapX = window.__alias ? window.__alias.mapX : (x) => x, mapY = window.__alias ? window.__alias.mapY : (y) => y;
+
   // 1. Line ends reach the perpendicular line.
   const near = (v, list, key, lo, hi, tol) => {
     let best = null;
@@ -97,7 +140,7 @@ const measure = async () => {
   // 2. Joints sit on the crossing.
   const stray = [];
   for (const j of ided.filter((e) => e.dataset.name === "Joint")) {
-    const g = box(j), cx = g.x + g.w / 2, cy = g.y + g.h / 2;
+    const g = box(j), cx0 = g.x + g.w / 2, cy0 = g.y + g.h / 2, cx = mapX(cx0, cy0), cy = mapY(cy0, cx0);
     let bx = null, by = null;
     for (const v of V) if (cy >= v.a - JOINT && cy <= v.z + JOINT && Math.abs(v.x - cx) <= JOINT && (bx === null || Math.abs(v.x - cx) < Math.abs(bx))) bx = v.x - cx;
     for (const h of H) if (cx >= h.a - JOINT && cx <= h.z + JOINT && Math.abs(h.y - cy) <= JOINT && (by === null || Math.abs(h.y - cy) < Math.abs(by))) by = h.y - cy;
@@ -109,8 +152,9 @@ const measure = async () => {
       if (best !== null) bx = best;
     }
     if (bx === null || by === null) { set(j, "display", "none"); stray.push(j.dataset.nodeId); continue; }
-    if (bx !== null && Math.abs(bx) > 0.05) set(j, "left", parseFloat(cs(j).left) + bx);
-    if (by !== null && Math.abs(by) > 0.05) set(j, "top", parseFloat(cs(j).top) + by);
+    bx += cx - cx0; by += cy - cy0;
+    if (Math.abs(bx) > 0.05) set(j, "left", parseFloat(cs(j).left) + bx);
+    if (Math.abs(by) > 0.05) set(j, "top", parseFloat(cs(j).top) + by);
     set(j, "z-index", 3);
   }
 
@@ -126,8 +170,9 @@ const measure = async () => {
     return best;
   };
   for (const { e, g } of media) {
-    const dl = frame(g.x, V, "x", g.y, g.b), dr = frame(g.r, V, "x", g.y, g.b);
-    const dt = frame(g.y, H, "y", g.x, g.r), db = frame(g.b, H, "y", g.x, g.r);
+    const al = (v, m) => { const t = m(v); return t !== v ? t - v : null; };
+    const dl = al(g.x, (x) => mapX(x, (g.y + g.b) / 2)) ?? frame(g.x, V, "x", g.y, g.b), dr = al(g.r, (x) => mapX(x, (g.y + g.b) / 2)) ?? frame(g.r, V, "x", g.y, g.b);
+    const dt = al(g.y, (y) => mapY(y, (g.x + g.r) / 2)) ?? frame(g.y, H, "y", g.x, g.r), db = al(g.b, (y) => mapY(y, (g.x + g.r) / 2)) ?? frame(g.b, H, "y", g.x, g.r);
     const L = g.x + (dl ?? 0), R = g.r + (dr ?? 0), T = g.y + (dt ?? 0), B = g.b + (db ?? 0);
     if ([L - g.x, R - g.r, T - g.y, B - g.b].every((d) => Math.abs(d) <= 0.05)) continue;
     const c = cs(e);

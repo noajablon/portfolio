@@ -15,6 +15,9 @@ import sys
 
 from bs4 import BeautifulSoup
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from contact import CONTACT_CSS, CONTACT_JS, FAB, MASK, popup  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRAG = os.path.join(ROOT, "src", "fragments")
 
@@ -32,7 +35,7 @@ PAGES = [
         "580:11907", "580:11913", "580:11919", "580:11925", "580:11926", "580:11927", "647:1856",
         "623:879", "623:881", "623:883"]),
     ("work-with-me.html", "work-with-me", "Work With Me", 1083, []),  # shown 820 tall (FIT); % insets need 1083
-    ("maskit.html", "maskit", "Maskit", 6165, ["462:878"]),
+    ("maskit-classic.html", "maskit", "Maskit", 6165, ["462:878"]),
     ("mazor.html", "mazor", "Mazor", 4081, ["462:982"]),
     ("mnemo.html", "mnemo", "Mnemo", 4081, []),
     ("stil.html", "stil", "Stil", 3263, []),
@@ -471,14 +474,32 @@ def build(page):
         cls_add(root, "entrance")
     if slug == "work-with-me":
         compact_work_with_me(soup)
+    if slug in ARTWORKS:
+        # Top bar fixed like the Portfolio page (paper strip + its lines behind it).
+        hdr = soup.find(attrs={"data-name": "Header Title"})
+        if hdr:
+            cls_add(hdr, "fx")
+        # Voices: the taped notes in the opening picture stay inside its column.
+        if slug == "voices-from-the-desert":
+            clip = soup.new_tag("div", attrs={"class": "absolute", "style": "inset:0;clip-path:inset(193px 103px calc(100% - 676px) 1149px)"})
+            first = find_id(soup, "462:3321")[0]
+            first.insert_before(clip)
+            for nid in ("462:3321", "462:3313"):
+                clip.append(find_id(soup, nid)[0].extract())
 
     body = str(soup)
+    if slug in ARTWORKS:
+        body += MASK
     out = HEAD.format(title=("Noa Jablon · " + title) if title != "Noa Jablon" else "Noa Jablon · Designer", slug=slug,
                       fit=FIT.get(slug, ""))
     if slug == "entrance-main":
         out += '<div id="scrolly"><div id="stage" class="stage sticky">' + body + "</div></div>\n"
     else:
         out += '<div id="stage" class="stage">' + body + "</div>\n"
+    if slug in ARTWORKS:
+        out = out.replace(f'<body class="page-{slug}"', f'<body class="page-{slug} art-page" data-fab-hide="520"')
+        out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
+        out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
     out += '<script src="assets/js/site.js" defer></script>\n</body>\n</html>\n'
     with open(os.path.join(ROOT, fname), "w") as f:
         f.write(out)

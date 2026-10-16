@@ -205,3 +205,20 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 
 /* Header: the right icon a touch smaller (scale, so the hover transform still applies). */
 .hdr [data-name^="ChatGPT"] { scale: .88; }
+
+/* About: View My Resume turns negative under the mouse (the whole box is the link). */
+.page-about-me [data-node-id="632:870"] { left: 186px !important; top: 643px !important; width: 262px !important; height: 45px !important; z-index: 2; }
+.page-about-me [data-node-id="580:11732"] > div > div, .page-about-me [data-node-id="580:11734"] p { transition: background-color .45s ease-in-out, color .45s ease-in-out; }
+.page-about-me .frame:has([data-node-id="632:870"]:is(:hover, :focus-visible)) [data-node-id="580:11732"] > div > div { background-color: #363636; }
+.page-about-me .frame:has([data-node-id="632:870"]:is(:hover, :focus-visible)) [data-node-id="580:11734"] p { color: #f5f3f1; }
+
+/* Artwork pages: the top bar stays put like on the Portfolio page; a paper strip with its lines sits behind it. */
+.ar-mask { position: fixed; left: 0; top: 0; width: 1480px; height: 181px; background: var(--paper); z-index: 39; pointer-events: none; }
+.ar-mask .hl { position: absolute; left: 0; width: 1480px; height: 1px; background: #363636; }
+.ar-mask .vl { position: absolute; width: 1px; background: #363636; }
+.ar-mask .j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: #363636; z-index: 3; }
+.page-art [data-name="Joint Marker"], .art-page [data-name="Joint Marker"] { display: none; }
+/* Mnemo: the long note label fits its column. */
+.page-mnemo [data-node-id="566:6419"] { letter-spacing: 2.4px; white-space: nowrap; }
+/* Artwork pages: Figma's second top rule (193, drawn as a rotated 90px box) goes; the 180 rule is the one. */
+.art-page .frame > [class~="top-[193.09px]"][class~="w-[1413px]"][class~="h-[90px]"] { display: none; }

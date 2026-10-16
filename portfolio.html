@@ -64,6 +64,17 @@
 .grid-on .sc-grid { display: block; }
 .sc-grid i { position: absolute; background: rgba(255, 64, 64, .55); }
 .sc-grid b { position: absolute; font: 600 10px/1 "Outfit", sans-serif; color: #e03030; background: rgba(255,255,255,.85); padding: 2px 3px; }
+.sc-contact .sc-media { align-items: center; }
+.sc-big { display: flex; align-items: center; justify-content: center; gap: 36px; width: 100%; height: 100%; background: var(--ink);
+  color: var(--paper); font: 500 64px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 19px; text-transform: uppercase; text-decoration: none;
+  transition: background .5s var(--soft), color .5s var(--soft); }
+.sc-big svg { width: 54px; height: 48px; transition: transform .5s var(--soft); }
+.sc-big:hover, .sc-big:focus-visible { background: var(--paper); color: var(--ink); }
+.sc-big:hover svg { transform: translateX(10px); }
+.sc-links { position: absolute; left: 137px; top: 271px; font: 400 15px/2.1 "Gilroy", "Outfit", sans-serif; }
+.sc-links a { color: var(--ink); text-decoration: none; display: block; width: max-content; border-bottom: 1px solid transparent; line-height: 1.4; margin-bottom: 10px; }
+.sc-links a:hover { border-color: var(--ink); }
+
 .sc-fab { position: fixed; z-index: 70; right: calc(120px * var(--z)); bottom: calc(36px * var(--z)); zoom: var(--z);
   display: flex; align-items: center; gap: 14px; height: 58px; padding: 0 26px 0 30px; border-radius: 40px;
   background: var(--ink); color: var(--paper); text-decoration: none; font: 500 14px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 4.4px;
@@ -104,16 +115,8 @@
 .sc-fab { cursor: pointer; }
 .sc-fab[aria-expanded="true"] { background: var(--paper); color: var(--ink); }
 .sc-fab[aria-expanded="true"] svg { transform: rotate(-90deg); }
-.sc-contact .sc-media { align-items: center; }
-.sc-big { display: flex; align-items: center; justify-content: center; gap: 36px; width: 100%; height: 100%; background: var(--ink);
-  color: var(--paper); font: 500 64px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 19px; text-transform: uppercase; text-decoration: none;
-  transition: background .5s var(--soft), color .5s var(--soft); }
-.sc-big svg { width: 54px; height: 48px; transition: transform .5s var(--soft); }
-.sc-big:hover, .sc-big:focus-visible { background: var(--paper); color: var(--ink); }
-.sc-big:hover svg { transform: translateX(10px); }
-.sc-links { position: absolute; left: 137px; top: 271px; font: 400 15px/2.1 "Gilroy", "Outfit", sans-serif; }
-.sc-links a { color: var(--ink); text-decoration: none; display: block; width: max-content; border-bottom: 1px solid transparent; line-height: 1.4; margin-bottom: 10px; }
-.sc-links a:hover { border-color: var(--ink); }
+.sc-fab.away { opacity: 0; transform: translateY(24px); pointer-events: none; }
+.sc-fab { transition: background .5s var(--soft), color .5s var(--soft), transform .6s var(--soft), box-shadow .5s var(--soft), opacity .6s var(--soft); }
 </style>
 </head>
 <body class="page-scroll" data-page="scroll">
@@ -308,6 +311,13 @@
     });
   }
   if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
+  addEventListener('resize', size);
+  addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
+  size();
+})();
+</script>
+<script>
+(function () {
   var fab = document.querySelector('.sc-fab'), pop = document.getElementById('sc-pop');
   function openPop(on) {
     fab.setAttribute('aria-expanded', on); if (on) { pop.hidden = false; requestAnimationFrame(function () { pop.classList.add('on'); }); pop.querySelector('input').focus({ preventScroll: true }); }
@@ -321,14 +331,21 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.checkValidity()) { st.textContent = 'Please fill in all three fields.'; return; }
-    st.textContent = 'Sending…';
+    st.textContent = 'Sending\u2026';
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw 0; form.reset(); st.textContent = 'Thank you, message sent.'; })
       .catch(function () { st.textContent = 'Could not send. Please email me instead.'; });
   });
-  addEventListener('resize', size);
-  addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
-  size();
+  // Artwork pages: the button shows only at the start and slips away once you scroll past the opening section.
+  var away = +document.body.dataset.fabHide;
+  if (away) {
+    var check = function () {
+      var z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1, gone = scrollY / z > away;
+      fab.classList.toggle('away', gone);
+      if (gone && fab.getAttribute('aria-expanded') === 'true') openPop(false);
+    };
+    addEventListener('scroll', check, { passive: true }); check();
+  }
 })();
 </script>
 <script src="assets/js/site.js" defer></script>
