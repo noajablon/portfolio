@@ -170,3 +170,19 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .frame [data-name="Joint"], .frame [data-name^="Joint "] { scale: calc(5 / 6); border-radius: 1.92px !important; background-color: #363636 !important; z-index: 3; }
 .page-entrance-main .frame div[class~="size-[8px]"] { scale: .625; z-index: 3; }
 .page-entrance-main .frame div[class~="size-[8px]"][class~="bg-[#363636]"] { border-radius: 2.56px; }
+
+/* Work With Me: one grid like the Portfolio page. Single 1px #363636 lines (no doubled 103 / 193 lines). */
+.page-work-with-me [data-node-id="580:12095"], .page-work-with-me [data-node-id="580:12105"] { display: none; }
+.page-work-with-me [data-node-id="711:3575"] { top: 180px; height: 931px; }
+.page-work-with-me :is([data-node-id="580:12094"], [data-node-id="580:12103"], [data-node-id="580:12096"], [data-node-id="580:12097"],
+  [data-node-id="580:12289"], [data-node-id="580:12100"], [data-node-id="580:12101"], [data-node-id="580:12102"]) { width: 1px !important; background: #363636; }
+.page-work-with-me :is([data-node-id="580:12098"], [data-node-id="580:12099"], [data-node-id="580:12209"], [data-node-id="580:12210"],
+  [data-node-id="580:12211"]) { height: 1px !important; background: #363636; }
+.page-work-with-me :is([data-node-id="580:12094"], [data-node-id="580:12103"], [data-node-id="580:12096"], [data-node-id="580:12097"],
+  [data-node-id="580:12289"], [data-node-id="580:12100"], [data-node-id="580:12101"], [data-node-id="580:12102"], [data-node-id="580:12098"],
+  [data-node-id="580:12099"], [data-node-id="580:12209"], [data-node-id="580:12210"], [data-node-id="580:12211"]) > img { display: none; }
+
+/* Work With Me: the three value shapes grow a little under the mouse. */
+.page-work-with-me :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]) {
+  pointer-events: auto; cursor: default; transition: scale .6s var(--soft); }
+.page-work-with-me :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]):hover { scale: 1.08; }
