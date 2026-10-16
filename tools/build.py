@@ -247,7 +247,7 @@ def build(page):
             mq = new
         if mq is not None:
             # On artwork pages the bar scrolls away with the page; elsewhere it stays put.
-            if slug not in ARTWORKS and slug != "about-me":
+            if slug != "about-me":
                 mark_fixed(mq)
             cls_add(mq, "marquee")
     for nid in fixed:

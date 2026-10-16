@@ -273,9 +273,9 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
   [data-node-id="580:12153"], [data-node-id="580:12158"]),
 .page-work-with-me a[data-node-id="647:1856"]:not([href^="mailto"]) { translate: 0 -51px; }
 
-/* Artwork pages: the top bar scrolls away with the page. */
-:is(.art-page, .page-art) :is(.hdr, .marquee).fx { position: absolute !important; }
-:is(.art-page, .page-art) .ar-mask { position: absolute; }
+/* Artwork pages: the top bar slips away while you scroll down and comes back when you scroll up. */
+:is(.art-page, .page-art) :is(.hdr, .marquee).fx, :is(.art-page, .page-art) .ar-mask { transition: translate .5s var(--soft), opacity .5s var(--soft); }
+.bar-away :is(.hdr, .marquee).fx, .bar-away .ar-mask { translate: 0 -200px; opacity: 0; }
 /* Artwork videos: pause / play and play-from-the-start buttons, bottom left of each video. */
 .vc { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 10px; z-index: 5; pointer-events: auto; }
 .vc button { width: 40px; height: 40px; padding: 0; border-radius: 50%; border: 1px solid #fff; background: rgba(0,0,0,.15); color: #fff;

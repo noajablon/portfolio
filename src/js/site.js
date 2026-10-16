@@ -370,6 +370,17 @@
     const v = e.target;
     if (e.isIntersecting) { v.play().catch(() => {}); } else if (!v.closest(".reel, .pv")) v.pause();
   }), { rootMargin: "200px 0px" });
+  // ---------- Artwork pages: the top bar hides while you scroll down, and returns when you scroll up ----------
+  if (body.matches(".art-page, .page-art")) {
+    let lastY = scrollY;
+    addEventListener("scroll", () => {
+      const y = scrollY, d = y - lastY;
+      if (Math.abs(d) < 4) return;
+      body.classList.toggle("bar-away", d > 0 && y > 60);
+      lastY = y;
+    }, { passive: true });
+  }
+
   // ---------- Artwork pages: each video starts when you reach it, with pause and restart buttons ----------
   const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv")) : [];
   const PAUSE = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx=".6"/><rect x="11.8" y="4" width="3.2" height="12" rx=".6"/></svg>';
@@ -398,7 +409,7 @@
   const aio = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;
     if (e.isIntersecting) { if (!v.dataset.held) v.play().catch(() => {}); } else v.pause();
-  }), { threshold: 0.5 });
+  }), { threshold: 0.4 });
   artVids.forEach((v) => aio.observe(v));
   vids.forEach((v) => { v.muted = true; if (!artVids.includes(v)) vio.observe(v); });
 
