@@ -21,7 +21,7 @@ FRAG = os.path.join(ROOT, "src", "fragments")
 # page file, fragment, title, design height, fixed node ids (besides the Marquee)
 PAGES = [
     ("index.html", "entrance-main", "Noa Jablon", 2056, []),
-    ("portfolio.html", "home-main2", "Portfolio", 2724, [
+    ("portfolio-classic.html", "home-main2", "Portfolio", 2724, [
         "309:400", "309:385", "362:2093", "362:2097", "362:2101", "362:2107", "362:2123", "362:2131",
         "362:2132", "362:2134", "620:13343", "362:2143", "362:2151", "307:528", "362:2109", "362:2116",
         "362:2136", "362:2144", "362:2152", "362:2124", "307:444", "434:575", "286:5229", "301:353",

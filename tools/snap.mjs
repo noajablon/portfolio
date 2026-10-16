@@ -17,7 +17,7 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : [
   "maskit.html", "mazor.html", "mnemo.html", "stil.html", "lifta.html", "explainer.html",
   "unmask-qatar.html", "voices-from-the-desert.html", "miansi.html", "sorora.html",
-  "about.html", "work-with-me.html", "portfolio.html", "index.html",
+  "about.html", "work-with-me.html", "portfolio-classic.html", "index.html",
 ];
 const OUT = path.join(ROOT, "assets", "css", "snap.css");
 

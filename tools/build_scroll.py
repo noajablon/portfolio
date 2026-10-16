@@ -2,7 +2,8 @@
 """Preview of the Portfolio page as one full-screen row per work (Home New Sketch grid).
 
 Usage: python3 tools/build_scroll.py   (after tools/build.py)
-Writes portfolio-scroll.html. The header (marquee + logos) is copied from the built portfolio.html;
+Writes portfolio.html (the main Portfolio page). The header (marquee + logos) is copied from the built
+portfolio-classic.html (the earlier Figma-converted Portfolio page, still built by tools/build.py);
 the rows, their growing-on-scroll behaviour and styles are self-contained in this file.
 """
 import html
@@ -78,18 +79,24 @@ CSS = """
 .sc-h { position: absolute; left: 87px; width: 470px; height: 1px; background: var(--ink); }
 .sc-f { position: absolute; top: 143px; height: 81px; padding: 18px 0 0 50px; }
 .sc-f small, .sc-about small { display: block; font: 400 9.8px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3px; opacity: .55; margin-bottom: 13px; }
+.sc-about small { margin-bottom: 9.4px; } /* 13px minus the half-leading of the 1.45 body line, so About sits as close to its text as Field does */
+.joint-hidden, .page-scroll [data-name="Joint Marker"] { display: none; }
 .sc-f span { font: 400 16px/1 "Gilroy", "Outfit", sans-serif; }
 .sc-about { position: absolute; left: 137px; top: 268px; width: 370px; font: 300 16px/1.45 "Gilroy", "Outfit", sans-serif; }
 .sc-media { position: absolute; top: 0; bottom: 0; left: 557px; width: 833px; display: flex; justify-content: center; overflow: hidden; }
 .sc-media .box { height: 100%; width: calc(833px * var(--g, 1)); position: relative; overflow: hidden; background: #000; }
 .sc-media .box > * { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sc-side { position: absolute; left: 1390px; width: 90px; top: 0; bottom: 0; }
-.sc-count { position: absolute; left: 0; right: 0; top: 62px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
-.sc-go { position: absolute; left: 13px; top: calc(var(--F) / 2 - 33px); width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
-  color: var(--ink); border-radius: 50%; border: 1px solid var(--ink); transition: background .5s var(--soft), color .5s var(--soft); }
-.sc-arrow { width: 32px; height: 28px; transition: transform .5s var(--soft); }
-.sc-go:hover, .sc-go:focus-visible { background: var(--ink); color: var(--paper); }
-.sc-go:hover .sc-arrow, .sc-go:focus-visible .sc-arrow { transform: translateX(4px); }
+.sc-count { position: absolute; left: 0; right: 0; top: 73px; text-align: center; font: 400 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.4px; }
+.sc-go { position: absolute; left: 12px; top: calc(var(--F) / 2 - 33px); width: 66px; height: 66px; display: block;
+  color: var(--ink); border-radius: 50%; transition: background .5s var(--soft), color .5s var(--soft); }
+.sc-arrow { width: 66px; height: 66px; display: block; overflow: visible; }
+.sc-arrow circle { fill: transparent; stroke: currentColor; transition: fill .5s var(--soft); }
+.sc-arrow path { stroke: currentColor; transition: transform .5s var(--soft); }
+.sc-go:hover .sc-arrow circle, .sc-go:focus-visible .sc-arrow circle { fill: var(--ink); }
+.sc-go:hover, .sc-go:focus-visible { color: var(--paper); }
+.sc-go:hover .sc-arrow circle { stroke: var(--ink); }
+.sc-go:hover .sc-arrow path, .sc-go:focus-visible .sc-arrow path { transform: translateX(2px); }
 .sc-row .box > * { transition: transform 1.2s var(--soft); }
 .sc-row:has(.sc-go:hover) .box > * { transform: scale(1.03); }
 .sc-grid { position: absolute; inset: 0; z-index: 80; pointer-events: none; display: none; }
@@ -107,6 +114,35 @@ CSS = """
 .sc-fab:hover, .sc-fab:focus-visible { background: var(--paper); color: var(--ink); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.22); }
 .sc-fab:hover .e, .sc-fab:focus-visible .e { max-width: 220px; opacity: 1; }
 .sc-fab:hover svg { transform: translateX(6px); }
+.sc-pop { position: fixed; z-index: 71; right: calc(120px * var(--z)); bottom: calc(108px * var(--z)); zoom: var(--z); width: 300px;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--ink); font-family: "Gilroy", "Outfit", sans-serif;
+  box-shadow: 0 18px 50px rgba(0,0,0,.16); opacity: 0; transform: translateY(14px); transition: opacity .45s var(--soft), transform .45s var(--soft); }
+.sc-pop.on { opacity: 1; transform: none; }
+.sc-pop[hidden] { display: none; }
+.sc-pop h2 { margin: 0; height: 66px; display: flex; align-items: center; justify-content: center; font: 400 20px/1 "Gilroy", "Outfit", sans-serif;
+  letter-spacing: 6.2px; text-transform: uppercase; border-bottom: 1px solid var(--ink); }
+.sc-x { position: absolute; right: 8px; top: 6px; width: 28px; height: 28px; border: 0; background: none; color: var(--ink); font: 300 22px/1 "Outfit", sans-serif; cursor: pointer; opacity: .6; }
+.sc-x:hover { opacity: 1; }
+.sc-intro { margin: 18px 21px 16px; font: 400 13px/1.35 "Gilroy", "Outfit", sans-serif; }
+.sc-form { display: flex; flex-direction: column; gap: 19px; padding: 0 21px; }
+.sc-form input, .sc-form textarea { width: 100%; box-sizing: border-box; border: 1px solid rgba(54,54,54,.6); background: transparent; color: var(--ink);
+  font: 400 13px/1.3 "Gilroy", "Outfit", sans-serif; padding: 10px 8px; border-radius: 0; outline: none; transition: border-color .3s; }
+.sc-form textarea { height: 113px; resize: none; }
+.sc-form input:focus, .sc-form textarea:focus { border-color: var(--ink); }
+.sc-form ::placeholder { color: rgba(54,54,54,.55); }
+.sc-send { display: flex; justify-content: space-between; align-items: center; margin-top: -9px; }
+.sc-send button { font: 400 9.8px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); background: none;
+  border: 1px solid rgba(54,54,54,.6); padding: 8px 12px; cursor: pointer; transition: background .3s, color .3s; }
+.sc-send button:hover { background: var(--ink); color: var(--paper); }
+.sc-status { margin: 0; font-size: 11px; opacity: .7; }
+.sc-mail { display: flex; align-items: center; gap: 12px; margin-top: 22px; padding: 16px 21px; border-top: 1px solid var(--ink); color: var(--ink); text-decoration: none; font-size: 13px; }
+.sc-mail small { display: block; font-size: 9.8px; letter-spacing: 3px; opacity: .55; margin-bottom: 5px; }
+.sc-soc { display: flex; justify-content: center; gap: 16px; padding: 16px; border-top: 1px solid var(--ink); }
+.sc-soc a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--ink); display: flex; align-items: center; justify-content: center; transition: background .3s; }
+.sc-soc a:hover { background: rgba(54,54,54,.1); }
+.sc-fab { cursor: pointer; }
+.sc-fab[aria-expanded="true"] { background: var(--paper); color: var(--ink); }
+.sc-fab[aria-expanded="true"] svg { transform: rotate(90deg); }
 .sc-contact .sc-media { align-items: center; }
 .sc-big { display: flex; align-items: center; justify-content: center; gap: 36px; width: 100%; height: 100%; background: var(--ink);
   color: var(--paper); font: 500 64px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 19px; text-transform: uppercase; text-decoration: none;
@@ -148,14 +184,34 @@ JS = """
     });
   }
   if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
+  var fab = document.querySelector('.sc-fab'), pop = document.getElementById('sc-pop');
+  function openPop(on) {
+    fab.setAttribute('aria-expanded', on); if (on) { pop.hidden = false; requestAnimationFrame(function () { pop.classList.add('on'); }); pop.querySelector('input').focus({ preventScroll: true }); }
+    else { pop.classList.remove('on'); setTimeout(function () { if (!pop.classList.contains('on')) pop.hidden = true; }, 450); }
+  }
+  fab.addEventListener('click', function () { openPop(fab.getAttribute('aria-expanded') !== 'true'); });
+  pop.querySelector('.sc-x').addEventListener('click', function () { openPop(false); fab.focus(); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && fab.getAttribute('aria-expanded') === 'true') { openPop(false); fab.focus(); } });
+  document.addEventListener('click', function (e) { if (fab.getAttribute('aria-expanded') === 'true' && !pop.contains(e.target) && !fab.contains(e.target)) openPop(false); });
+  var form = pop.querySelector('form'), st = pop.querySelector('.sc-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { st.textContent = 'Please fill in all three fields.'; return; }
+    st.textContent = 'Sending\u2026';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw 0; form.reset(); st.textContent = 'Thank you, message sent.'; })
+      .catch(function () { st.textContent = 'Could not send. Please email me instead.'; });
+  });
   addEventListener('resize', size);
   addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
   size();
 })();
 """
 
-ARROW = ('<svg class="sc-arrow" viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6">'
-         '<path d="M0 17h36M20 1l16 16-16 16"/></svg>')
+ARROW = ('<svg class="sc-arrow" viewBox="0 0 50 50" fill="none" aria-hidden="true">'
+         '<circle cx="25" cy="25" r="24.5" stroke-width="1"/>'
+         '<path d="M14 24.2H36L27.8 13.8" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round"/>'
+         '<path d="M33.9 30.3L27.9 36.3" stroke-width="2.2" stroke-linecap="square"/></svg>')
 
 
 def joints(xs):
@@ -223,15 +279,39 @@ def grid():
     return f'<div class="sc-grid" aria-hidden="true">{out}</div>'
 
 
+ICONS = [("Behance", "https://www.behance.net/noajablon", "assets/img/1a710c2d6f4a60.svg", 22, 14),
+         ("Instagram", "https://www.instagram.com/noaj.creative/", "assets/img/d0d99ff10c0164.svg", 23, 23),
+         ("LinkedIn", "https://www.linkedin.com/in/noajablon/", "assets/img/373fad069254eb.svg", 21, 20)]
+
+
+def popup():
+    soc = "".join(f'<a href="{u}" target="_blank" rel="noopener" aria-label="{t}"><img src="{src}" alt="" width="{w}" height="{h}"></a>'
+                  for t, u, src, w, h in ICONS)
+    return f"""<div class="sc-pop" id="sc-pop" role="dialog" aria-modal="false" aria-labelledby="sc-pop-h" hidden>
+<button class="sc-x" type="button" aria-label="Close">&times;</button>
+<h2 id="sc-pop-h">Contact me</h2>
+<p class="sc-intro">Have a project in mind? Get in touch \u2014 I\u2019ll be happy to discuss the details of our cooperation.</p>
+<form class="sc-form" action="https://formspree.io/f/mgaoayek" method="POST" novalidate>
+<input name="name" type="text" placeholder="Name and Surname" aria-label="Name and Surname" autocomplete="name" required>
+<input name="email" type="email" placeholder="Email" aria-label="Email" autocomplete="email" required>
+<textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
+<div class="sc-send"><p class="sc-status" aria-live="polite"></p><button type="submit">Send</button></div>
+</form>
+<a class="sc-mail" href="mailto:noajablon@gmail.com"><img src="assets/img/3f7ea14da518cf.webp" alt="" width="44" height="44"><span><small>EMAIL</small>noajablon@gmail.com</span></a>
+<div class="sc-soc">{soc}</div>
+</div>"""
+
+
 def main():
-    src = open(os.path.join(ROOT, "portfolio.html")).read()
+    src = open(os.path.join(ROOT, "portfolio-classic.html")).read()
     soup = BeautifulSoup(src, "html.parser")
     head = src[:src.find("<body")]
-    head = head.replace("<title>Portfolio</title>", "<title>Portfolio (scroll preview)</title>")
-    head = head.replace("</head>", f'<meta name="robots" content="noindex">\n<style>{CSS}</style>\n</head>')
+    head = head.replace("page-home-main2", "page-scroll")
+    head = head.replace("</head>", f'<style>{CSS}</style>\n</head>')
     hdr = "".join(str(soup.find(attrs={"data-node-id": nid})) for nid in ("286:5418", "434:575"))
     letters = "".join(f"<span>{c}</span>" for c in "PORTFOLIO")
     rows = "\n".join(row(i, w) for i, w in enumerate(WORKS))
+    body_popup = popup()
     body = f"""<body class="page-scroll" data-page="scroll">
 <div id="stage" class="stage"><div class="frame" style="position:relative">
 {hdr}
@@ -242,14 +322,15 @@ def main():
 {rows}
 </div>{grid()}</div></div>
 </div></div>
-<a class="sc-fab" href="work-with-me.html"><span class="t">Contact me</span><span class="e">noajablon@gmail.com</span><svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></a>
+<button class="sc-fab" type="button" aria-haspopup="dialog" aria-controls="sc-pop" aria-expanded="false"><span class="t">Contact me</span><svg viewBox="0 0 38 34" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 17h36M20 1l16 16-16 16"/></svg></button>
+{body_popup}
 <script>{JS}</script>
 </body>
 </html>
 """
-    with open(os.path.join(ROOT, "portfolio-scroll.html"), "w") as f:
+    with open(os.path.join(ROOT, "portfolio.html"), "w") as f:
         f.write(head + body)
-    print("wrote portfolio-scroll.html")
+    print("wrote portfolio.html")
 
 
 if __name__ == "__main__":
