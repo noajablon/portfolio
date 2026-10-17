@@ -336,3 +336,10 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .xl-h { position: absolute; left: 0; width: 1480px; height: 1px; background: var(--ink); z-index: 2; }
 .xl-v { position: absolute; width: 1px; background: var(--ink); z-index: 2; }
 .xl-j { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: var(--ink); z-index: 3; }
+
+/* Text dissolve (About, Work With Me; the Portfolio page has its own copy). */
+.dz-w { display: inline-block; white-space: nowrap; }
+.dz { display: inline-block; white-space: pre; text-align: center; transition: opacity .55s ease-out, filter .55s ease-out; }
+.dz-hide { opacity: 0; filter: blur(6px); }
+.dz-mid { opacity: .55; filter: blur(3px); }
+.dz-done { transition: none; }

@@ -406,15 +406,11 @@ def build(page):
         for b in soup.find_all(class_="sound"):
             b.decompose()
 
-    # Sound buttons Figma left hidden behind a section: point them at their video and bring them
-    # to the front, 64px above the section's bottom edge.
-    for top, (nid, new_top) in {"stil": {1975: ("650:18218", 2312)}}.get(slug, {}).items():
+    # Stil 4.3 has no sound: its hidden sound button goes, and the film stays muted.
+    if slug == "stil":
         for b in soup.find_all(class_="sound"):
-            if f"top-[{top}px]" in b["class"]:
-                b["data-for"] = nid
-                b["class"] = [c for c in b["class"] if not c.startswith("top-[")] + [f"top-[{new_top}px]"]
-                soup.find(class_="frame").append(b.extract())
-                break
+            if "top-[1975px]" in b["class"]:
+                b.decompose()
 
     # Films whose sound button Figma left out get a copy of the page's button, 64px above the film's bottom edge.
     for top in {"stil": [1256]}.get(slug, []):
@@ -581,9 +577,9 @@ PREVIEWS = {
     "297:304": [("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:319": [("img", "assets/img/preview-mazor.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:345": [("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover")],
-    "683:1767": [("box", "background:#363636"),
+    "683:1767": [("box", "background:#000"),
                  ("video", V + "stil-artifact.mp4", "left:47.9px;top:112px;width:383.5px;height:348.9px;object-fit:cover;transform:rotate(1deg)")],
-    "298:372": [("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#363636")],
+    "298:372": [("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000")],
     "298:397": [("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover")],
     "298:418": [("img", "assets/img/preview-unmask.webp",
                  crop_style([[0.8828, 0, 0.0843], [0, 0.8878, 0.0525]]))],
@@ -596,7 +592,7 @@ REEL = [
     ("video", V + "maskit-film.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-2.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", P + "mnemo-reel.webp", "inset:0;width:100%;height:100%;object-fit:cover"),
-    ("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#363636"),
+    ("video", V + "lifta-logo.mp4", "inset:0;width:100%;height:100%;object-fit:contain;background:#000"),
     ("video", V + "salt-pour.mp4", "inset:0;width:100%;height:100%;object-fit:cover"),
     ("img", "assets/img/reel-6.webp", "left:-9.55%;top:-5.91%;width:113.28%;height:112.64%;object-fit:cover"),
     ("img", "assets/img/reel-7.webp", "left:-1.01%;top:-9.45%;width:106.47%;height:122.19%;object-fit:cover"),

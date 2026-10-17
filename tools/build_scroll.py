@@ -274,7 +274,7 @@ def row(i, w):
 <span class="sc-f" style="left:257px;width:129px"><small>YEAR</small><span>{year}</span></span>
 <span class="sc-f" style="left:386px;width:171px"><small>PLACE</small><span>{place}</span></span>
 <span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
-<span class="sc-media"><span class="box">{media(m, fit)}</span></span>
+<span class="sc-media"><span class="box"{' style="background:#000"' if fit == "contain" else ""}>{media(m, fit)}</span></span>
 <span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span><a class="sc-go" href="{slug}.html" aria-label="Open {html.escape(title)}">{ARROW}</a></span>
 </div>
 </div>"""

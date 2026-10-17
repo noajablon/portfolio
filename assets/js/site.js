@@ -381,6 +381,61 @@
     }, { passive: true });
   }
 
+  // ---------- About / Work With Me: the text dissolves in as on the Portfolio page ----------
+  // Headings letter by letter through a random letter or two, longer text word by word, top to bottom.
+  if ((page === "about-me" || page === "work-with-me") && !reduce) {
+    const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const els = $$(".frame p").filter((p) => !p.closest(".hdr, .fx, .marquee, form, [data-name='Header Title']") && p.textContent.trim());
+    const split = (el, out, words) => {
+      [...el.childNodes].forEach((n) => {
+        if (n.nodeType === 1) { split(n, out, words); return; }
+        if (n.nodeType !== 3 || !n.textContent.trim()) return;
+        const f = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach((w) => {
+          if (!w) return;
+          if (/^\s+$/.test(w)) { f.appendChild(document.createTextNode(w)); return; }
+          if (words) { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = w; s.dataset.c = w; f.appendChild(s); out.push(s); return; }
+          const word = document.createElement("span"); word.className = "dz-w";
+          [...w].forEach((ch) => { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = ch; s.dataset.c = ch; word.appendChild(s); out.push(s); });
+          f.appendChild(word);
+        });
+        n.parentNode.replaceChild(f, n);
+      });
+    };
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+      const z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--z")) || 1;
+      const items = els.map((el) => ({ el, y: el.getBoundingClientRect().top, ls: [] })).sort((a, b) => a.y - b.y);
+      items.forEach((it) => {
+        split(it.el, it.ls, it.el.textContent.trim().length > 40);
+        // Random letters never shift the line: each letter keeps the width of its own.
+        it.ls.forEach((s) => { if (s.dataset.c.length === 1) s.style.width = s.getBoundingClientRect().width / z + "px"; });
+      });
+      const y0 = items.length ? items[0].y : 0, cue = [];
+      items.forEach((it) => {
+        const base = 250 + (it.y - y0) / z * 0.9;
+        it.ls.forEach((s, n) => {
+          const start = base + Math.random() * 380 + Math.min(n, 120) * 2, swap = /^[A-Za-z]$/.test(s.dataset.c);
+          cue.push({ s, start, end: start + (swap ? 110 * (1 + ((Math.random() * 2) | 0)) : 0), swap });
+        });
+      });
+      const last = cue.reduce((m, c) => Math.max(m, c.end), 0) + 700, t0 = performance.now();
+      const tick = (now) => {
+        const t = now - t0;
+        cue.forEach((c) => {
+          if (t < c.start) return;
+          const st = t < c.end ? 1 + Math.floor((t - c.start) / 110) : -1;
+          if (c.s._st === st) return;
+          c.s._st = st;
+          if (st === -1) { c.s.textContent = c.s.dataset.c; c.s.className = "dz"; }
+          else { c.s.textContent = c.swap ? ABC[(Math.random() * 26) | 0] : c.s.dataset.c; c.s.className = "dz dz-mid"; }
+        });
+        if (t < last) requestAnimationFrame(tick);
+        else cue.forEach((c) => { c.s.className = "dz dz-done"; });
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
   // ---------- Artwork pages: each video starts when you reach it, with pause and restart buttons ----------
   const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv")) : [];
   const PAUSE = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx=".6"/><rect x="11.8" y="4" width="3.2" height="12" rx=".6"/></svg>';
