@@ -32,7 +32,7 @@ WORKS = [
      ("video", V + "stil-artifact.mp4"), "contain"),
     ("lifta", "Lifta", "Poster", "2025", "Bezalel",
      "Posters and logo inspired by the contested village of Lifta in Jerusalem. Both designs feature both Hebrew and Arabic, highlighting the site's historical significance.",
-     ("video", V + "lifta-logo.mp4"), "cover;scale:1.75;transform-origin:47.5% 51%"),  # wide black margins: zoom onto the building
+     ("video", V + "lifta-logo.mp4"), "cover;scale:1.15;transform-origin:47.5% 51%"),  # wide black margins: a slight zoom onto the building
     ("explainer", "Explainer", "Video", "2026", "Bezalel",
      "A visual storytelling project investigating Jerusalem's ghost stories and spiritual beliefs through the history of my home in Nachlaot, combining animation and interviews.",
      ("video", V + "salt-pour.mp4"), "cover"),

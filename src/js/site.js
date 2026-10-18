@@ -38,12 +38,15 @@
   let Z = 1;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
-    // About / Work With Me: always full width, like the Portfolio page; the page ends on its last rule, and a window
-    // too short for the whole page scrolls instead of shrinking it.
+    // About / Work With Me: one screen, never scrolled. Full width when the window is tall enough for the page;
+    // otherwise the page shrinks to the window height.
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
-      stage.style.height = Math.max(fit, innerHeight / Z) + "px";
-      doc.classList.toggle("fit-one", fit * Z <= innerHeight + 1);
+      Z = Math.min(Z, innerHeight / fit);
+      stage.style.height = innerHeight / Z + "px";
+      // On a taller window the closing rule and the picture column grow with it, up to Noa's Figma 790.
+      doc.style.setProperty("--fe", Math.min(innerHeight / Z - 3, 790) + "px");
+      doc.classList.add("fit-one");
     }
     doc.style.setProperty("--z", Z);
   };

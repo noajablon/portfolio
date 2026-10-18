@@ -206,7 +206,7 @@ def extra_html(items):
 
 
 # Pages that always fit the window (no scroll). About shows down to its last rule.
-FIT = {"about-me": ' data-fit="793"', "work-with-me": ' data-fit="793"'}
+FIT = {"about-me": ' data-fit="723"', "work-with-me": ' data-fit="723"'}
 FIT_JOINTS = {"about-me": [87, 932, 1390], "work-with-me": [87, 933, 1390]}
 
 # Work With Me on one screen: shorter copy, the three values stacked closer together.
@@ -221,10 +221,10 @@ WWM_TEXT = {
     "580:12283": ["Craft lives in the details and the care behind every decision."],
 }
 # node id -> new top (design px), from Noa's "Work with Me NEW" frame. Each value: icon, heading, text.
-WWM_TOP = {"629:13345": 236, "580:12248": 326,
-           "580:12268": 474, "580:12271": 484, "580:12273": 511,
-           "580:12280": 573, "580:12278": 575, "580:12275": 602,
-           "580:12287": 685, "580:12285": 689, "580:12283": 716}
+WWM_TOP = {"629:13345": 205, "580:12248": 292,
+           "580:12268": 435, "580:12271": 445, "580:12273": 471,
+           "580:12280": 521, "580:12278": 523, "580:12275": 549,
+           "580:12287": 620, "580:12285": 624, "580:12283": 650}
 
 
 def set_top(el, y):
