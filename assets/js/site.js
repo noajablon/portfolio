@@ -128,6 +128,9 @@
       hit.addEventListener("focus", () => show(k));
       hit.addEventListener("blur", restore);
     });
+    // Draft entrance (portfolio.html?intro): the three icons appear in the middle of an empty page,
+    // then glide up into their places in the bar while the page fades in under them.
+    if (/[?&]intro\b/.test(location.search) && !reduce) iconIntro(["L", "M", "R"].map((k) => icons[k]).filter(Boolean));
   }
 
   // ---------- Fit text: the web font runs a little wider than Gilroy ----------
@@ -768,5 +771,53 @@
       hint.classList.toggle("gone", prog > 0.02);
       if (!raf) raf = requestAnimationFrame(tick);
     };
+  }
+  function iconIntro(list) {
+    if (!list.length) return;
+    scrollTo(0, 0);
+    const cover = document.createElement("div");
+    cover.style.cssText = "position:fixed;inset:0;background:#f5f3f1;z-index:9998";
+    body.appendChild(cover);
+    const ends = list.map((el) => el.getBoundingClientRect());
+    // Start: a centred, evenly spaced row, each icon about three times its bar size.
+    const S = Math.min(3, (innerWidth * 0.6) / ends.reduce((a, r) => a + r.width, 0));
+    const step = Math.max(...ends.map((r) => r.width)) * S * 1.6;
+    const ghosts = list.map((el, i) => {
+      const r = ends[i], g = el.cloneNode(true);
+      g.removeAttribute("data-node-id");
+      g.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;z-index:9999;transform-origin:0 0;pointer-events:none`;
+      const cx = innerWidth / 2 + (i - (list.length - 1) / 2) * step;
+      const dx = cx - (r.width * S) / 2 - r.left, dy = innerHeight / 2 - (r.height * S) / 2 - r.top;
+      g.dataset.to = getComputedStyle(el).opacity;
+      g.dataset.from = `translate(${dx}px,${dy}px) scale(${S})`;
+      body.appendChild(g);
+      el.style.visibility = "hidden";
+      return g;
+    });
+    const ease = "cubic-bezier(.65,0,.25,1)", anims = [];
+    ghosts.forEach((g, i) => {
+      const from = g.dataset.from;
+      // Fade in at the centre, hold, then glide into the bar with a soft ease.
+      anims.push(g.animate([
+        { transform: `${from} scale(.7)`, opacity: 0, filter: "blur(10px)", offset: 0, easing: "cubic-bezier(.2,.7,.2,1)" },
+        { transform: from, opacity: 1, filter: "blur(0)", offset: 0.3 },
+        { transform: from, opacity: 1, filter: "blur(0)", offset: 0.62 - i * 0.03, easing: ease },
+        { transform: "none", opacity: +g.dataset.to, filter: "blur(0)", offset: 1 },
+      ], { duration: 3200, delay: i * 180, fill: "both" }));
+    });
+    anims.push(cover.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 2700, easing: "ease-out", fill: "both" }));
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      list.forEach((el) => (el.style.visibility = ""));
+      ghosts.forEach((g) => g.remove());
+      cover.remove();
+    };
+    Promise.all(anims.map((a) => a.finished)).then(finish, finish);
+    // Any click or key skips straight to the page.
+    const skip = () => anims.forEach((a) => a.finish());
+    addEventListener("pointerdown", skip, { once: true });
+    addEventListener("keydown", skip, { once: true });
   }
 })();
