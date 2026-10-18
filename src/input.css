@@ -28,8 +28,12 @@ body { overflow-x: clip; -webkit-font-smoothing: antialiased; }
 .frame a, .frame a *, .frame button, .frame button *, .frame input, .frame textarea, .frame p { pointer-events: auto; }
 .frame .neg { pointer-events: none; }
 .marquee { z-index: 60; }
-.marquee [data-name="Track"] { animation: marquee 16.1s linear infinite; will-change: transform; }
-@keyframes marquee { to { transform: translateX(-883px); } }
+.marquee [data-name="Track"] { animation: marquee 50s linear infinite; will-change: transform; }
+@keyframes marquee { to { transform: translateX(calc(var(--mq-w, 883) * -1px)); } }
+/* The bar's words (rebuilt by site.js with NOA JABLON first): one row, a small square between each. */
+.mq-seq { display: flex; align-items: center; gap: 21px; padding-right: 21px; height: 58px; flex-shrink: 0; }
+.mq-w { color: #f5f3f1; font-size: 20px; line-height: 38px; white-space: nowrap; }
+.mq-dot { width: 4.85px; height: 4.85px; border-radius: 1.2px; background: #f5f3f1; flex-shrink: 0; }
 
 a { color: inherit; text-decoration: none; }
 a, button { -webkit-tap-highlight-color: transparent; }
@@ -126,7 +130,7 @@ html.js.vt body { opacity: 1; transition: none; }
 html.js body.leaving { opacity: 0; transition-duration: 0.8s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee [data-name="Track"] { animation-duration: 60s; }
+  .marquee [data-name="Track"] { animation-duration: 150s; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   html.js body { transition: none; opacity: 1; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
@@ -386,8 +390,3 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-work-with-me [data-node-id="711:3575"] { left: 933px !important; top: 180px !important; width: 457px !important; height: 610px !important; }
 .page-work-with-me [data-node-id="711:3529"] { zoom: 1.5597; left: -7px !important; height: 392px !important; width: 306px !important; }
 
-/* Preview without the moving line (?nobar): the line is gone and everything moves up into its place. */
-.no-mq :is(.marquee, [data-name="Marquee"]) { display: none !important; }
-.no-mq .stage > .frame { margin-top: -58px; }
-.no-mq :is(.hdr.fx, .ar-mask) { margin-top: -58px; }
-.no-mq .sc-view > :is(.sc-mask, .sc-col) { margin-top: -58px; }

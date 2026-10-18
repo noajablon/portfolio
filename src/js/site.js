@@ -8,12 +8,31 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const byId = (id, r = document) => r.querySelector(`[data-node-id="${id}"], [data-node-id$=";${id}"]`);
 
-  // Preview without the moving line at the top: open any page with ?nobar (it stays off while you click around; ?bar brings it back).
-  try {
-    if (/[?&]nobar\b/.test(location.search)) sessionStorage.setItem("nobar", "1");
-    if (/[?&]bar\b/.test(location.search)) sessionStorage.removeItem("nobar");
-    if (sessionStorage.getItem("nobar")) doc.classList.add("no-mq");
-  } catch (e) { /* storage blocked: the line stays */ }
+  // ---------- Top bar: NOA JABLON first, then the Figma words, drifting slowly ----------
+  $$(".marquee [data-name='Track']").forEach((track) => {
+    const seqs = $$("[data-name='Sequence']", track);
+    if (!seqs.length) return;
+    const first = $("p", seqs[0]);
+    const words = ["NOA JABLON", ...$$("p", seqs[0]).map((p) => p.textContent.trim()).filter((t) => t && t !== "NOA JABLON")];
+    const c = first && getComputedStyle(first);
+    const font = c ? `font-family:${c.fontFamily};font-weight:${c.fontWeight};letter-spacing:${c.letterSpacing}` : ""; // read before the p is removed
+    seqs.forEach((seq) => {
+      seq.textContent = "";
+      seq.className = "mq-seq";
+      words.forEach((w) => {
+        const t = document.createElement("span");
+        t.className = "mq-w";
+        t.textContent = w;
+        t.style.cssText = font;
+        const dot = document.createElement("i");
+        dot.className = "mq-dot";
+        seq.append(t, dot);
+      });
+    });
+    const sync = () => track.style.setProperty("--mq-w", seqs[0].offsetWidth);
+    sync();
+    if (document.fonts) document.fonts.ready.then(sync);
+  });
 
   // ---------- Scale the 1480px design to the window ----------
   let Z = 1;
@@ -21,7 +40,7 @@
     Z = Math.max(doc.clientWidth, 320) / 1480;
     // About / Work With Me: full width like the Portfolio page and never scrolled; the page ends on its last rule.
     // A window too short for that (very wide and low) scales the page down to its height instead.
-    const fit = +doc.dataset.fit - (doc.classList.contains("no-mq") ? 58 : 0), stage = fit > 0 && $(".stage");
+    const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
       Z = Math.min(Z, innerHeight / fit);
       stage.style.height = fit + "px";
