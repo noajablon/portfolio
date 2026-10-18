@@ -255,11 +255,11 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 /* Artwork pages (NEW format): Field / Year / Place in one row, dividers capped with joints. */
 .ar-facts { position: absolute; display: flex; }
 .ar-facts { translate: -50% 0; }
-.ar-facts span { position: relative; padding: 0 32px 0 45px; white-space: nowrap; }
-.ar-facts span:first-child { padding-left: 0; }
-.ar-facts span:last-child { padding-right: 0; }
-.ar-facts span + span::before { content: ""; position: absolute; left: 0; top: 2px; height: 36px; width: 1px; background: var(--ink); }
-.ar-facts span + span::after { content: ""; position: absolute; left: -2px; top: 0; width: 5px; height: 40px;
+.ar-facts > span { position: relative; padding: 0 32px 0 45px; white-space: nowrap; }
+.ar-facts > span:first-child { padding-left: 0; }
+.ar-facts > span:last-child { padding-right: 0; }
+.ar-facts > span + span::before { content: ""; position: absolute; left: 0; top: 2px; height: 36px; width: 1px; background: var(--ink); }
+.ar-facts > span + span::after { content: ""; position: absolute; left: -2px; top: 0; width: 5px; height: 40px;
   background: linear-gradient(var(--ink) 0 5px, transparent 5px 35px, var(--ink) 35px); border-radius: 1.6px; }
 .ar-facts small { display: block; font: 400 9.45px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 2.9px; opacity: .55; margin-bottom: 9px; }
 .ar-facts b { font: 500 15.75px/1 "Gilroy", "Outfit", sans-serif; }
@@ -356,6 +356,7 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .dz-hide { opacity: 0; filter: blur(6px); }
 .dz-mid { opacity: .55; filter: blur(3px); }
 .dz-done { transition: none; }
+.sc-f :is(small, span) :is(.dz, .dz-w) { font: inherit; } /* the Portfolio facts style their own spans */
 
 /* About and Work With Me: type and spacing from Noa's "About Me NEW" / "Work with Me NEW" frames.
    Both pages now end on a rule at 790. */
@@ -365,17 +366,22 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 :is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])) * { font-size: 16px !important; line-height: 24.96px !important; }
 .page-about-me [data-node-id="573:10478"] { width: 508px !important; }
 .page-work-with-me [data-node-id="580:12248"] { width: 549px !important; height: auto !important; }
-.page-work-with-me [data-node-id="580:12273"] { width: 611px !important; }
-.page-work-with-me :is([data-node-id="580:12275"], [data-node-id="580:12283"]) { width: 579px !important; height: auto !important; }
+/* The three values: label 12.26px, text 15.09px on 23.54px, both starting at 268 (Noa's Figma, round 2). */
+.page-work-with-me :is([data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"]),
+.page-work-with-me :is([data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"]) * { font-size: 15.09px !important; line-height: 23.54px !important; }
+.page-work-with-me :is([data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"]) { left: 268px !important; width: 576px !important; height: auto !important; }
+.page-work-with-me :is([data-node-id="580:12271"], [data-node-id="580:12278"], [data-node-id="580:12285"]) { left: 268px !important; }
+.page-work-with-me :is([data-node-id="580:12271"], [data-node-id="580:12278"], [data-node-id="580:12285"]),
+.page-work-with-me :is([data-node-id="580:12271"], [data-node-id="580:12278"], [data-node-id="580:12285"]) * { font-size: 12.26px !important; letter-spacing: 3.8px !important; }
 .page-about-me [data-node-id="580:11721"] { top: 256px !important; }
 .page-about-me [data-node-id="573:10478"] { top: 362px !important; }
 .page-about-me :is([data-node-id="580:11732"], [data-node-id="632:870"]) { top: 641px !important; } /* + the 22px nudge above = 663 */
 .page-about-me [data-node-id="580:11733"] > * { translate: 0 21px !important; }
 .page-about-me [data-node-id="575:11715"] { height: 610px !important; }
 /* Value icons where Noa placed them. */
-.page-work-with-me [data-node-id="580:12268"] { left: 196px !important; }
-.page-work-with-me [data-node-id="580:12280"] { left: 191px !important; }
-.page-work-with-me [data-node-id="580:12287"] { left: 194px !important; }
+.page-work-with-me [data-node-id="580:12268"] { left: 191px !important; }
+.page-work-with-me :is([data-node-id="580:12280"], [data-node-id="580:12287"]) { left: 186px !important; }
+.page-work-with-me :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]) { scale: .69 !important; }
 /* Work With Me: no contact column; the drifting pictures take the same column as the About photo (933-1390),
    and contact is the floating button, as on About. */
 .page-work-with-me :is([data-node-id="580:12096"], [data-node-id="580:12136"], [data-node-id="580:12149"], [data-node-id="580:12153"],

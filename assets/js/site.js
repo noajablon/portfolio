@@ -38,13 +38,12 @@
   let Z = 1;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
-    // About / Work With Me: full width like the Portfolio page and never scrolled; the page ends on its last rule.
-    // A window too short for that (very wide and low) scales the page down to its height instead.
+    // About / Work With Me: always full width, like the Portfolio page; the page ends on its last rule, and a window
+    // too short for the whole page scrolls instead of shrinking it.
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
-      Z = Math.min(Z, innerHeight / fit);
-      stage.style.height = fit + "px";
-      doc.classList.add("fit-one");
+      stage.style.height = Math.max(fit, innerHeight / Z) + "px";
+      doc.classList.toggle("fit-one", fit * Z <= innerHeight + 1);
     }
     doc.style.setProperty("--z", Z);
   };
@@ -67,6 +66,7 @@
     setTimeout(() => { location.href = url.href; }, 800);
   });
 
+  let introIcons = [];
   // ---------- Header: hover shows that page's title, icon grows in place ----------
   const hdr = $(".hdr");
   if (hdr) {
@@ -156,7 +156,7 @@
     });
     // Entrance (index.html, or any page with ?intro): the three icons appear in the middle of an empty page,
     // then glide up into their places in the bar while the page fades in under them.
-    if ((body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce) iconIntro(["L", "M", "R"].map((k) => icons[k]).filter(Boolean));
+    introIcons = ["L", "M", "R"].map((k) => icons[k]).filter(Boolean); // played once the text effect below is set up
   }
 
   // ---------- Fit text: the web font runs a little wider than Gilroy ----------
@@ -410,60 +410,79 @@
     }, { passive: true });
   }
 
-  // ---------- About / Work With Me: the text dissolves in as on the Portfolio page ----------
-  // Headings letter by letter through a random letter or two, longer text word by word, top to bottom.
-  if ((page === "about-me" || page === "work-with-me") && !reduce) {
-    const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const els = $$(".frame p").filter((p) => !p.closest(".hdr, .fx, .marquee, form, [data-name='Header Title']") && p.textContent.trim());
-    const split = (el, out, words) => {
-      [...el.childNodes].forEach((n) => {
-        if (n.nodeType === 1) { split(n, out, words); return; }
-        if (n.nodeType !== 3 || !n.textContent.trim()) return;
-        const f = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach((w) => {
-          if (!w) return;
-          if (/^\s+$/.test(w)) { f.appendChild(document.createTextNode(w)); return; }
-          if (words) { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = w; s.dataset.c = w; f.appendChild(s); out.push(s); return; }
-          const word = document.createElement("span"); word.className = "dz-w";
-          [...w].forEach((ch) => { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = ch; s.dataset.c = ch; word.appendChild(s); out.push(s); });
-          f.appendChild(word);
-        });
-        n.parentNode.replaceChild(f, n);
+  // ---------- Text dissolves in on every page, as on the Portfolio page ----------
+  // Each piece of text waits until it scrolls into view, then its letters blur in through a random letter or two
+  // (longer text word by word), top to bottom. The Portfolio rows' titles and text have their own copy of this.
+  const DZ_ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const dzSplit = (el, out, words) => {
+    [...el.childNodes].forEach((n) => {
+      if (n.nodeType === 1) { if (!n.matches("svg, .dz, .dz-w")) dzSplit(n, out, words); return; }
+      if (n.nodeType !== 3 || !n.textContent.trim()) return;
+      const f = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach((w) => {
+        if (!w) return;
+        if (/^\s+$/.test(w)) { f.appendChild(document.createTextNode(w)); return; }
+        if (words) { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = w; s.dataset.c = w; f.appendChild(s); out.push(s); return; }
+        const word = document.createElement("span"); word.className = "dz-w";
+        [...w].forEach((ch) => { const s = document.createElement("span"); s.className = "dz dz-hide"; s.textContent = ch; s.dataset.c = ch; word.appendChild(s); out.push(s); });
+        f.appendChild(word);
       });
-    };
+      n.parentNode.replaceChild(f, n);
+    });
+  };
+  const dzCue = [];
+  let dzRaf = 0;
+  const dzTick = (now) => {
+    dzRaf = 0;
+    for (let i = dzCue.length - 1; i >= 0; i--) {
+      const c = dzCue[i];
+      if (now < c.start) continue;
+      const st = now < c.end ? 1 + Math.floor((now - c.start) / 110) : -1;
+      if (c.s._st !== st) {
+        c.s._st = st;
+        if (st === -1) { c.s.textContent = c.s.dataset.c; c.s.className = "dz"; }
+        else { c.s.textContent = c.swap ? DZ_ABC[(Math.random() * 26) | 0] : c.s.dataset.c; c.s.className = "dz dz-mid"; }
+      }
+      if (st === -1 && now > c.end + 700) { c.s.className = "dz dz-done"; dzCue.splice(i, 1); }
+    }
+    if (dzCue.length) dzRaf = requestAnimationFrame(dzTick);
+  };
+  // Plays the letters (spans from dzSplit) of a group of elements that came into view together.
+  const dzPlay = (items, delay = 250) => {
+    const now = performance.now();
+    items.sort((a, b) => a.y - b.y);
+    const y0 = items.length ? items[0].y : 0;
+    items.forEach((it) => {
+      it.ls.forEach((s) => { if (s.dataset.c.length === 1) s.style.width = s.getBoundingClientRect().width / (it.z || Z) + "px"; }); // swaps never shift the line
+      const base = now + delay + Math.min(900, (it.y - y0) / Z * 0.9);
+      it.ls.forEach((s, n) => {
+        const start = base + Math.random() * 380 + Math.min(n, 120) * 2, swap = /^[A-Za-z]$/.test(s.dataset.c);
+        dzCue.push({ s, start, end: start + (swap ? 110 * (1 + ((Math.random() * 2) | 0)) : 0), swap });
+      });
+    });
+    if (!dzRaf) dzRaf = requestAnimationFrame(dzTick);
+  };
+  const introOn = (body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce;
+  if (!reduce && page !== "entrance-main") {
+    const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count), .ar-end a").filter((el) =>
+      !el.closest(".hdr, .fx, .marquee, form, [data-name='Header Title'], .sc-title, .sc-pop, .sc-fab, .dz, .vc") &&
+      !el.querySelector(":scope p, :scope h3") && el.textContent.trim() && getComputedStyle(el).display !== "none");
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-      const z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--z")) || 1;
-      const items = els.map((el) => ({ el, y: el.getBoundingClientRect().top, ls: [] })).sort((a, b) => a.y - b.y);
-      items.forEach((it) => {
-        split(it.el, it.ls, it.el.textContent.trim().length > 40);
-        // Random letters never shift the line: each letter keeps the width of its own.
-        it.ls.forEach((s) => { if (s.dataset.c.length === 1) s.style.width = s.getBoundingClientRect().width / z + "px"; });
+      const items = new Map();
+      els.forEach((el) => {
+        if (el.querySelector(".dz")) return; // already handled (Portfolio rows)
+        const ls = [];
+        dzSplit(el, ls, el.textContent.trim().length > 40);
+        if (ls.length) items.set(el, { el, ls, y: 0 });
       });
-      const y0 = items.length ? items[0].y : 0, cue = [];
-      items.forEach((it) => {
-        const base = 250 + (it.y - y0) / z * 0.9;
-        it.ls.forEach((s, n) => {
-          const start = base + Math.random() * 380 + Math.min(n, 120) * 2, swap = /^[A-Za-z]$/.test(s.dataset.c);
-          cue.push({ s, start, end: start + (swap ? 110 * (1 + ((Math.random() * 2) | 0)) : 0), swap });
-        });
-      });
-      const last = cue.reduce((m, c) => Math.max(m, c.end), 0) + 700, t0 = performance.now();
-      const tick = (now) => {
-        const t = now - t0;
-        cue.forEach((c) => {
-          if (t < c.start) return;
-          const st = t < c.end ? 1 + Math.floor((t - c.start) / 110) : -1;
-          if (c.s._st === st) return;
-          c.s._st = st;
-          if (st === -1) { c.s.textContent = c.s.dataset.c; c.s.className = "dz"; }
-          else { c.s.textContent = c.swap ? ABC[(Math.random() * 26) | 0] : c.s.dataset.c; c.s.className = "dz dz-mid"; }
-        });
-        if (t < last) requestAnimationFrame(tick);
-        else cue.forEach((c) => { c.s.className = "dz dz-done"; });
-      };
-      requestAnimationFrame(tick);
+      const io = new IntersectionObserver((es) => {
+        const batch = es.filter((e) => e.isIntersecting).map((e) => { io.unobserve(e.target); const it = items.get(e.target); it.y = e.boundingClientRect.top; return it; });
+        if (batch.length) dzPlay(batch, introOn && performance.now() < 4000 ? 2700 : 250); // under the intro, wait for it
+      }, { rootMargin: "0px 0px -4% 0px", threshold: 0.01 });
+      items.forEach((it) => io.observe(it.el));
     });
   }
+  if (introOn) iconIntro(introIcons);
 
   // ---------- Artwork pages: each video starts when you reach it, with pause and restart buttons ----------
   const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv")) : [];
@@ -801,44 +820,78 @@
   function iconIntro(list) {
     if (!list.length) return;
     scrollTo(0, 0);
-    const cover = document.createElement("div");
-    cover.style.cssText = "position:fixed;inset:0;background:#f5f3f1;z-index:9998";
-    body.appendChild(cover);
+    const made = [];
+    const fixed = (css) => { const d = document.createElement("div"); d.style.cssText = "position:fixed;margin:0;pointer-events:none;" + css; body.appendChild(d); made.push(d); return d; };
+    const cover = fixed("inset:0;background:#f5f3f1;z-index:9998");
     const ends = list.map((el) => el.getBoundingClientRect());
-    // Start: a centred, evenly spaced row, each icon about three times its bar size.
+    // Noa's "Entrance NEW" frame: NOA • JABLON over the three icons (each three times its bar size), small squares between them.
     const S = Math.min(3, (innerWidth * 0.6) / ends.reduce((a, r) => a + r.width, 0));
-    const step = Math.max(...ends.map((r) => r.width)) * S * 1.6;
-    const ghosts = list.map((el, i) => {
-      const r = ends[i], g = el.cloneNode(true);
+    const u = Z * S / 3; // one Figma px of that frame, on screen
+    const step = Math.max(...ends.map((r) => r.width)) * S * 1.6, cy = innerHeight / 2;
+    const cxs = list.map((_, i) => innerWidth / 2 + (i - (list.length - 1) / 2) * step);
+    const T = 3500, ms = (t) => Math.min(1, Math.max(0, t / T));
+    const MID = { opacity: 0.55, filter: "blur(3px)" }, ON = { opacity: 1, filter: "blur(0px)" }, OFF = { opacity: 0, filter: "blur(6px)" };
+    const anims = [];
+    // Shown like a letter of the text effect: blurred in, half there, then sharp.
+    const appear = (el, at, out, extra = {}) => anims.push(el.animate([
+      { ...OFF, offset: 0 }, { ...OFF, offset: ms(at) }, { ...MID, offset: ms(at) + 0.0001, easing: "ease-out" },
+      { ...ON, offset: ms(at + 550) }, { ...ON, offset: ms(out) }, { ...OFF, offset: ms(out + 450) }, { ...OFF, offset: 1 },
+    ], { duration: T, fill: "both", ...extra }));
+    // The name, letter by letter.
+    const name = fixed(`left:50%;top:${cy - 119 * u}px;transform:translate(-50%,-50%);z-index:9999`);
+    const inner = document.createElement("div");
+    inner.style.cssText = `zoom:${u};font:400 31.44px/1 "Gilroy","Outfit",sans-serif;letter-spacing:40.24px;padding-left:40.24px;color:#363636;white-space:nowrap`;
+    inner.innerHTML = 'NOA<i style="display:inline-block;width:7px;height:7px;border-radius:1.6px;background:#363636;vertical-align:middle;margin:0 40.24px 0 0"></i>JABLON';
+    name.appendChild(inner);
+    const nameLs = [];
+    dzSplit(inner, nameLs, false);
+    dzPlay([{ el: inner, ls: nameLs, y: 0, z: u }], 100);
+    anims.push(name.animate([{ ...ON, offset: 0 }, { ...ON, offset: ms(1900) }, { ...OFF, offset: ms(2400) }, { ...OFF, offset: 1 }], { duration: T, fill: "both" }));
+    appear(inner.querySelector("i"), 500, 1900);
+    // The squares between the icons.
+    cxs.slice(0, -1).forEach((cx, i) => {
+      const d = fixed(`left:${(cx + cxs[i + 1]) / 2 - 3.5 * u}px;top:${cy - 3.5 * u}px;width:${7 * u}px;height:${7 * u}px;border-radius:${1.6 * u}px;background:#363636;z-index:9999`);
+      appear(d, 900 + i * 150, 1900);
+    });
+    // The icons: each passes through one or two of the others, like a letter through random letters, then glides into the bar.
+    const ghosts = [];
+    const clone = (el, r) => {
+      const g = el.cloneNode(true);
       g.removeAttribute("data-node-id");
-      g.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;z-index:9999;transform-origin:0 0;pointer-events:none`;
-      const cx = innerWidth / 2 + (i - (list.length - 1) / 2) * step;
-      const dx = cx - (r.width * S) / 2 - r.left, dy = innerHeight / 2 - (r.height * S) / 2 - r.top;
-      g.dataset.to = getComputedStyle(el).opacity;
-      g.dataset.from = `translate(${dx}px,${dy}px) scale(${S})`;
+      g.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;z-index:9999;transform-origin:0 0;pointer-events:none;opacity:0`;
       body.appendChild(g);
-      el.style.visibility = "hidden";
+      ghosts.push(g);
       return g;
-    });
-    const ease = "cubic-bezier(.65,0,.25,1)", anims = [];
-    ghosts.forEach((g, i) => {
-      const from = g.dataset.from;
-      // Fade in at the centre, hold, then glide into the bar with a soft ease.
+    };
+    const at = (r, cx) => `translate(${cx - (r.width * S) / 2 - r.left}px,${cy - (r.height * S) / 2 - r.top}px) scale(${S})`;
+    list.forEach((el, i) => {
+      const r = ends[i], from = at(r, cxs[i]), start = 350 + i * 180, swaps = 1 + ((Math.random() * 2) | 0);
+      for (let j = 0; j < swaps; j++) {
+        const k = (i + 1 + ((Math.random() * (list.length - 1)) | 0)) % list.length, rk = ends[k], t = start + j * 110;
+        const d = clone(list[k], rk);
+        anims.push(d.animate([
+          { transform: at(rk, cxs[i]), ...OFF, offset: 0 }, { transform: at(rk, cxs[i]), ...OFF, offset: ms(t) },
+          { transform: at(rk, cxs[i]), ...MID, offset: ms(t) + 0.0001 }, { transform: at(rk, cxs[i]), ...MID, offset: ms(t + 110) },
+          { transform: at(rk, cxs[i]), ...OFF, offset: ms(t + 110) + 0.0001 }, { transform: at(rk, cxs[i]), ...OFF, offset: 1 },
+        ], { duration: T, fill: "both" }));
+      }
+      const g = clone(el, r), a = start + swaps * 110, glide = 2000 + i * 90, to = +getComputedStyle(el).opacity;
+      el.style.visibility = "hidden";
       anims.push(g.animate([
-        { transform: `${from} scale(.7)`, opacity: 0, filter: "blur(10px)", offset: 0, easing: "cubic-bezier(.2,.7,.2,1)" },
-        { transform: from, opacity: 1, filter: "blur(0)", offset: 0.3 },
-        { transform: from, opacity: 1, filter: "blur(0)", offset: 0.62 - i * 0.03, easing: ease },
-        { transform: "none", opacity: +g.dataset.to, filter: "blur(0)", offset: 1 },
-      ], { duration: 3200, delay: i * 180, fill: "both" }));
+        { transform: from, ...OFF, offset: 0 }, { transform: from, ...OFF, offset: ms(a) },
+        { transform: from, ...MID, offset: ms(a) + 0.0001, easing: "ease-out" }, { transform: from, ...ON, offset: ms(a + 550) },
+        { transform: from, ...ON, offset: ms(glide), easing: "cubic-bezier(.65,0,.25,1)" },
+        { transform: "none", opacity: to, filter: "blur(0px)", offset: ms(glide + 1100) }, { transform: "none", opacity: to, filter: "blur(0px)", offset: 1 },
+      ], { duration: T, fill: "both" }));
     });
-    anims.push(cover.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 2700, easing: "ease-out", fill: "both" }));
+    anims.push(cover.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 2600, easing: "ease-out", fill: "both" }));
     let done = false;
     const finish = () => {
       if (done) return;
       done = true;
       list.forEach((el) => (el.style.visibility = ""));
       ghosts.forEach((g) => g.remove());
-      cover.remove();
+      made.forEach((d) => d.remove());
     };
     Promise.all(anims.map((a) => a.finished)).then(finish, finish);
     // Any click or key skips straight to the page.
@@ -846,4 +899,5 @@
     addEventListener("pointerdown", skip, { once: true });
     addEventListener("keydown", skip, { once: true });
   }
+
 })();
