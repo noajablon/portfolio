@@ -20,7 +20,7 @@ body { overflow-x: clip; -webkit-font-smoothing: antialiased; }
 /* The 1480px Figma frame, scaled to the window width. */
 .stage { width: 1480px; zoom: var(--z); position: relative; overflow: hidden; overflow: clip; }
 .frame { width: 1480px; }
-[data-fit] .stage { height: 709px; margin-inline: auto; transform: translateZ(0); overflow: hidden; } /* height set by site.js; fixed layers stay inside the page */
+[data-fit] .stage { height: 793px; margin-inline: auto; transform: translateZ(0); overflow: hidden; } /* height set by site.js; fixed layers stay inside the page */
 .fit-one, .fit-one body { overflow: hidden; }
 .fx { position: fixed !important; z-index: 40; pointer-events: none; }
 /* Decorative Figma layers overlap the page; only real controls take the pointer. */
@@ -200,7 +200,16 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
   [data-node-id="580:11926"], [data-node-id="580:11927"]) { height: 1px !important; background: #363636; }
 .page-about-me :is([data-node-id="570:9578"], [data-node-id="570:9587"], [data-node-id="570:9580"], [data-node-id="570:9584"],
   [data-node-id="570:9585"], [data-node-id="570:9586"], [data-node-id="580:11718"], [data-node-id="570:9581"], [data-node-id="570:9582"],
-  [data-node-id="570:9583"], [data-node-id="570:9573"], [data-node-id="580:11925"], [data-node-id="580:11926"], [data-node-id="580:11927"]) > img { display: none; }
+  [data-node-id="570:9583"], [data-node-id="570:9573"], [data-node-id="580:11925"], [data-node-id="580:11926"], [data-node-id="580:11927"]) > * { display: none; }
+/* Work With Me: the same plain 1px rules (the drawn line underneath made them look doubled). */
+.page-work-with-me :is([data-node-id="580:12094"], [data-node-id="580:12103"], [data-node-id="580:12100"], [data-node-id="580:12101"],
+  [data-node-id="580:12102"], [data-node-id="580:12097"], [data-node-id="580:12289"]) { width: 1px !important; background: #363636; }
+.page-work-with-me :is([data-node-id="580:12098"], [data-node-id="580:12099"]) { height: 1px !important; background: #363636; }
+.page-work-with-me :is([data-node-id="580:12094"], [data-node-id="580:12103"], [data-node-id="580:12100"], [data-node-id="580:12101"],
+  [data-node-id="580:12102"], [data-node-id="580:12097"], [data-node-id="580:12289"], [data-node-id="580:12098"], [data-node-id="580:12099"]) > * { display: none; }
+.page-about-me [data-node-id="570:9585"], .page-work-with-me [data-node-id="580:12101"] { left: 698px !important; }
+.page-about-me [data-node-id="570:9586"], .page-work-with-me [data-node-id="580:12102"] { left: 783px !important; }
+.page-about-me [data-node-id="570:9583"], .page-work-with-me [data-node-id="580:12099"] { width: 1480px !important; }
 
 /* About and Work With Me: top bar lines sit where the Portfolio page has them (left rule at 87, full-width rule under the title). */
 .page-about-me :is([data-node-id="570:9578"], [data-node-id="570:9587"]),
@@ -256,8 +265,8 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 /* About and Work With Me: the rule before the right icon runs down through the title row, as on the Portfolio page. */
 .bar-1390 { position: absolute; left: 1390px; top: 130px; width: 1px; height: 50px; background: #363636; z-index: 5; }
 .bar-1390-j { position: absolute; left: 1388px; top: 178px; width: 5px; height: 5px; border-radius: 1.6px; background: #363636; z-index: 5; }
-.fit-end { position: absolute; left: 0; top: 706px; width: 1480px; height: 20px; background: #f5f3f1; border-top: 1px solid #363636; z-index: 6; }
-.fit-j { position: absolute; top: 704px; width: 5px; height: 5px; border-radius: 1.6px; background: #363636; z-index: 7; }
+.fit-end { position: absolute; left: 0; top: 790px; width: 1480px; height: 20px; background: #f5f3f1; border-top: 1px solid #363636; z-index: 6; }
+.fit-j { position: absolute; top: 788px; width: 5px; height: 5px; border-radius: 1.6px; background: #363636; z-index: 7; }
 
 /* About and Work With Me fit one screen: the page ends on a rule at 706 (it was 766). */
 .page-about-me :is([data-node-id="570:9573"], [data-node-id="580:11925"], [data-node-id="665:1415"], [data-node-id="665:1416"],
@@ -344,10 +353,41 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .dz-mid { opacity: .55; filter: blur(3px); }
 .dz-done { transition: none; }
 
-/* About and Work With Me: the heading and body text 17% smaller than in Figma. */
+/* About and Work With Me: type and spacing from Noa's "About Me NEW" / "Work with Me NEW" frames.
+   Both pages now end on a rule at 790. */
 :is(.page-about-me [data-node-id="580:11721"], .page-work-with-me [data-node-id="629:13345"]),
-:is(.page-about-me [data-node-id="580:11721"], .page-work-with-me [data-node-id="629:13345"]) * { font-size: 54px !important; line-height: 58px !important; letter-spacing: -3.2px !important; }
+:is(.page-about-me [data-node-id="580:11721"], .page-work-with-me [data-node-id="629:13345"]) * { font-size: 53.95px !important; line-height: 58.13px !important; letter-spacing: -3.24px !important; }
 :is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])),
-:is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])) * { font-size: 15px !important; line-height: 25px !important; }
-.page-about-me [data-node-id="573:10478"] { width: 450px !important; }
-.page-work-with-me [data-node-id="580:12248"] { width: 430px !important; }
+:is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])) * { font-size: 16px !important; line-height: 24.96px !important; }
+.page-about-me [data-node-id="573:10478"] { width: 508px !important; }
+.page-work-with-me [data-node-id="580:12248"] { width: 549px !important; height: auto !important; }
+.page-work-with-me [data-node-id="580:12273"] { width: 611px !important; }
+.page-work-with-me :is([data-node-id="580:12275"], [data-node-id="580:12283"]) { width: 579px !important; height: auto !important; }
+.page-about-me [data-node-id="580:11721"] { top: 256px !important; }
+.page-about-me [data-node-id="573:10478"] { top: 362px !important; }
+.page-about-me :is([data-node-id="580:11732"], [data-node-id="632:870"]) { top: 641px !important; } /* + the 22px nudge above = 663 */
+.page-about-me [data-node-id="580:11733"] > * { translate: 0 21px !important; }
+.page-about-me [data-node-id="575:11715"] { height: 610px !important; }
+/* Value icons where Noa placed them. */
+.page-work-with-me [data-node-id="580:12268"] { left: 196px !important; }
+.page-work-with-me [data-node-id="580:12280"] { left: 191px !important; }
+.page-work-with-me [data-node-id="580:12287"] { left: 194px !important; }
+/* Work With Me: no contact column; the drifting pictures take the same column as the About photo (933-1390),
+   and contact is the floating button, as on About. */
+.page-work-with-me :is([data-node-id="580:12096"], [data-node-id="580:12136"], [data-node-id="580:12149"], [data-node-id="580:12153"],
+  [data-node-id="580:12158"], [data-node-id="580:12160"], [data-node-id="580:12161"], [data-node-id="580:12162"], [data-node-id="580:12163"],
+  [data-node-id="580:12164"], [data-node-id="580:12165"], [data-node-id="580:12166"], [data-node-id="580:12168"], [data-node-id="580:12169"],
+  [data-node-id="580:12174"], [data-node-id="580:12175"], [data-node-id="580:12180"], [data-node-id="580:12181"], [data-node-id="580:12186"],
+  [data-node-id="580:12187"], [data-node-id="580:12192"], [data-node-id="580:12193"], [data-node-id="580:12198"], [data-node-id="580:12199"],
+  [data-node-id="580:12204"], [data-node-id="580:12205"], [data-node-id="580:12210"], [data-node-id="580:12211"], [data-node-id="623:885"],
+  [data-node-id="623:887"], [data-node-id="623:889"], [data-node-id="647:1856"], [data-node-id="665:1428"], [data-node-id="665:1429"],
+  [data-node-id="665:1434"], [data-node-id="665:1435"]), .page-work-with-me .frame > form, .page-work-with-me .send { display: none !important; }
+.page-work-with-me [data-node-id="580:12097"] { left: 1390px !important; }
+.page-work-with-me [data-node-id="711:3575"] { left: 933px !important; top: 180px !important; width: 457px !important; height: 610px !important; }
+.page-work-with-me [data-node-id="711:3529"] { zoom: 1.5597; left: -7px !important; height: 392px !important; width: 306px !important; }
+
+/* Preview without the moving line (?nobar): the line is gone and everything moves up into its place. */
+.no-mq :is(.marquee, [data-name="Marquee"]) { display: none !important; }
+.no-mq .stage > .frame { margin-top: -58px; }
+.no-mq :is(.hdr.fx, .ar-mask) { margin-top: -58px; }
+.no-mq .sc-view > :is(.sc-mask, .sc-col) { margin-top: -58px; }

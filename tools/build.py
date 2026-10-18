@@ -206,22 +206,25 @@ def extra_html(items):
 
 
 # Pages that always fit the window (no scroll). About shows down to its last rule.
-FIT = {"about-me": ' data-fit="709"', "work-with-me": ' data-fit="709"'}
-FIT_JOINTS = {"about-me": [87, 932, 1390], "work-with-me": [87, 933, 1226, 1479]}
+FIT = {"about-me": ' data-fit="793"', "work-with-me": ' data-fit="793"'}
+FIT_JOINTS = {"about-me": [87, 932, 1390], "work-with-me": [87, 933, 1390]}
 
 # Work With Me on one screen: shorter copy, the three values stacked closer together.
 WWM_TEXT = {
-    "580:12248": "I see client work as a collaborative process built on dialogue, trust, and shared curiosity. "
-                 "It helps me understand not only practical needs, but the character and values behind each project.",
-    "580:12273": "Great collaboration grows from listening, trust, and a shared sense of direction.",
-    "580:12275": "Expressing an idea in a way that feels honest, intentional, and memorable.",
-    "580:12283": "Care in every detail, so the final work feels refined and built to last.",
+    "580:12248": ["I see client work as a collaborative process built on dialogue, trust, and shared curiosity. "
+                  "This exchange allows me to understand not only practical needs, but also the character, values, "
+                  "and aspirations behind each project.",
+                  "My work with clients is grounded in three core values:"],
+    "580:12273": ["Great collaboration grows from listening, trust, and a shared sense of direction."],
+    "580:12275": ["When a design is truly original, it creates a stronger connection and helps the work stand out "
+                  "with meaning rather than decoration."],
+    "580:12283": ["Craft lives in the details and the care behind every decision."],
 }
-# node id -> new top (design px). Each value: icon, heading, text.
-WWM_TOP = {"629:13345": 196, "580:12248": 282,
-           "580:12268": 416, "580:12271": 420, "580:12273": 448,
-           "580:12280": 520, "580:12278": 524, "580:12275": 552,
-           "580:12287": 624, "580:12285": 628, "580:12283": 656}
+# node id -> new top (design px), from Noa's "Work with Me NEW" frame. Each value: icon, heading, text.
+WWM_TOP = {"629:13345": 225, "580:12248": 314,
+           "580:12268": 476, "580:12271": 484, "580:12273": 513,
+           "580:12280": 581, "580:12278": 581, "580:12275": 610,
+           "580:12287": 700, "580:12285": 700, "580:12283": 729}
 
 
 def set_top(el, y):
@@ -233,7 +236,11 @@ def compact_work_with_me(soup):
         for el in find_id(soup, nid):
             el.clear()
             el["class"] = [c for c in el["class"] if not c.startswith(("h-[", "leading-[0]", "whitespace-pre-wrap"))] + ["leading-[30.073px]"]
-            el.append(text)
+            for i, part in enumerate(text):
+                if i:
+                    el.append(soup.new_tag("br"))
+                    el.append(soup.new_tag("br"))
+                el.append(part)
     for nid, y in WWM_TOP.items():
         for el in find_id(soup, nid):
             set_top(el, y)
@@ -539,8 +546,8 @@ def build(page):
                 f"{popup()}\n<script>{build_art.JS}</script>\n<script>{CONTACT_JS}</script>\n")
     if slug not in ARTWORKS and 'class="ar-btn' in out:
         out = out.replace("</head>", f"<style>{build_art.CSS}</style>\n</head>")
-    if slug == "about-me":
-        # About: just the photo in the grid; contact is the floating button, like on the Portfolio page.
+    if slug in ("about-me", "work-with-me"):
+        # About, Work With Me: just the pictures in the grid; contact is the floating button, like on the Portfolio page.
         out = out.replace("</head>", f"<style>{CONTACT_CSS}</style>\n</head>")
         out += f"{FAB}\n{popup()}\n<script>{CONTACT_JS}</script>\n"
     out += '<script src="assets/js/site.js" defer></script>\n</body>\n</html>\n'

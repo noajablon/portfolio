@@ -8,13 +8,20 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const byId = (id, r = document) => r.querySelector(`[data-node-id="${id}"], [data-node-id$=";${id}"]`);
 
+  // Preview without the moving line at the top: open any page with ?nobar (it stays off while you click around; ?bar brings it back).
+  try {
+    if (/[?&]nobar\b/.test(location.search)) sessionStorage.setItem("nobar", "1");
+    if (/[?&]bar\b/.test(location.search)) sessionStorage.removeItem("nobar");
+    if (sessionStorage.getItem("nobar")) doc.classList.add("no-mq");
+  } catch (e) { /* storage blocked: the line stays */ }
+
   // ---------- Scale the 1480px design to the window ----------
   let Z = 1;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
     // About / Work With Me: full width like the Portfolio page and never scrolled; the page ends on its last rule.
     // A window too short for that (very wide and low) scales the page down to its height instead.
-    const fit = +doc.dataset.fit, stage = fit && $(".stage");
+    const fit = +doc.dataset.fit - (doc.classList.contains("no-mq") ? 58 : 0), stage = fit > 0 && $(".stage");
     if (stage) {
       Z = Math.min(Z, innerHeight / fit);
       stage.style.height = fit + "px";
