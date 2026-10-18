@@ -396,3 +396,81 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .page-work-with-me [data-node-id="711:3575"] { left: 933px !important; top: 180px !important; width: 457px !important; height: calc(var(--fe, 760px) - 180px) !important; }
 .page-work-with-me [data-node-id="711:3529"] { zoom: 1.5597; left: -7px !important; height: 392px !important; width: 306px !important; }
 
+
+/* ---------- Phones: one column (site.js moves the content into .mh / .mf and adds html.mob) ---------- */
+html.mob, html.mob body { overflow-x: hidden !important; overflow-y: auto !important; height: auto !important; }
+html.mob .stage { width: 100% !important; zoom: 1 !important; height: auto !important; overflow: visible !important; transform: none !important; margin: 0 !important; }
+html.mob .stage > .frame { position: relative !important; width: 100% !important; height: auto !important; min-height: 0 !important; overflow: visible !important; }
+html.mob .stage > .frame > :not(.mh):not(.mf):not(.sc-track) { display: none !important; }
+html.mob .mh { position: sticky; top: 0; z-index: 50; background: var(--paper); }
+html.mob .mh .marquee { position: relative !important; left: 0 !important; top: 0 !important; zoom: .6; width: calc(100vw / .6) !important; height: 58px !important; display: block !important; }
+html.mob .mh-nav { display: flex; justify-content: space-between; height: 52px; border-bottom: 1px solid var(--ink); }
+html.mob .mh-nav a { width: 58px; display: flex; align-items: center; justify-content: center; }
+html.mob .mh-nav a:nth-child(1) { border-right: 1px solid var(--ink); }
+html.mob .mh-nav a:nth-child(2) { border-left: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+html.mob .mh-nav a:nth-child(3) { border-left: 1px solid var(--ink); }
+html.mob .mh-ic { position: relative; width: 32px; height: 32px; }
+html.mob .mh-ic * { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none; object-fit: contain; }
+html.mob .mh-title { display: flex; justify-content: space-between; align-items: center; height: 38px; padding: 0 22px; border-bottom: 1px solid var(--ink);
+  font: 400 13px/1 "Gilroy", "Outfit", sans-serif; color: var(--ink); background: var(--paper); }
+html.mob .mf { display: block; padding-bottom: 88px; color: var(--ink); }
+html.mob .mf-row { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 28px 20px; border-bottom: 1px solid var(--ink); }
+html.mob .mf .mf-b { position: relative !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important;
+  translate: none !important; transform: none !important; scale: none !important; zoom: 1 !important; margin: 0 !important; height: auto !important; min-height: 0 !important; }
+html.mob .mf .mf-wide { width: 100% !important; }
+html.mob .mf .mf-small:not(.mf-media) { width: auto !important; }
+html.mob .mf .mf-media.mf-wide { width: calc(100% + 40px) !important; margin: 0 -20px !important; }
+html.mob .mf .mf-b, html.mob .mf .mf-b p, html.mob .mf .mf-b div { white-space: normal !important; }
+html.mob .mf .mf-b p { position: relative !important; left: auto !important; top: auto !important; width: auto !important; height: auto !important; inset: auto !important; }
+html.mob .mf .mf-b.mf-media > div:not(.mf-hit) { position: absolute !important; }
+html.mob .mf .mf-hit { position: absolute !important; inset: 0 !important; left: 0 !important; top: 0 !important; width: auto !important; height: auto !important; z-index: 3; }
+html.mob .mf .ar-sym { display: grid !important; grid-template-rows: none !important; grid-template-columns: repeat(7, 1fr) !important; aspect-ratio: auto !important; gap: 6px; }
+html.mob .mf .ar-sym > span { position: relative !important; aspect-ratio: 1; }
+html.mob .mf .ar-end { display: flex !important; justify-content: center; width: 100% !important; }
+html.mob .mf .ar-facts { width: 100% !important; }
+html.mob .sc-fab { right: 16px !important; bottom: 16px !important; zoom: .8 !important; }
+html.mob .sc-pop { right: 16px !important; bottom: 76px !important; zoom: 1 !important; width: calc(100vw - 32px) !important; max-width: 360px; }
+html.mob .ar-top { display: none !important; }
+/* Portfolio rows: title, film, the three facts, about, arrow */
+html.mob .sc-track { height: auto !important; }
+html.mob .sc-view { position: static !important; height: auto !important; overflow: visible !important; }
+html.mob .sc-word, html.mob .sc-mask, html.mob .sc-grid { display: none !important; }
+html.mob .sc-col { position: static !important; overflow: visible !important; }
+html.mob .sc-row { position: relative !important; top: auto !important; height: auto !important; width: 100% !important; border-bottom: 1px solid var(--ink); }
+html.mob .sc-row .in { position: relative !important; inset: auto !important; display: grid !important; grid-template-columns: repeat(3, auto) 1fr; align-items: start;
+  column-gap: 26px; row-gap: 18px; padding: 26px 20px 30px; overflow: visible !important; }
+html.mob .sc-row .in > * { position: relative !important; left: auto !important; top: auto !important; right: auto !important; bottom: auto !important; }
+html.mob .sc-row :is(.hl, .v, .j, .sc-h, .sc-count) { display: none !important; }
+html.mob .sc-title { grid-column: 1 / -1; grid-row: 1; font-size: 24px !important; letter-spacing: 6px !important; white-space: normal !important; flex-wrap: wrap; }
+html.mob .sc-title b { font-size: 16px !important; letter-spacing: 4px !important; margin-right: 10px !important; }
+html.mob .sc-media { grid-column: 1 / -1; grid-row: 2; width: calc(100% + 40px) !important; margin: 0 -20px; height: auto !important; aspect-ratio: 4 / 3; }
+html.mob .sc-media .box { width: 100% !important; }
+html.mob .sc-f { grid-row: 3; height: auto !important; padding: 0 !important; }
+html.mob .sc-about, html.mob .sc-links { grid-column: 1 / -1; grid-row: 4; width: auto !important; font-size: 15px !important; }
+html.mob .sc-side { grid-column: 4; grid-row: 3; width: auto !important; justify-self: end; }
+html.mob .sc-go { position: relative !important; left: auto !important; top: auto !important; width: 44px; height: 44px; }
+html.mob .sc-arrow { width: 44px; height: 44px; }
+html.mob .sc-contact .sc-media { aspect-ratio: auto; height: 110px !important; }
+html.mob .sc-big { font-size: 24px !important; letter-spacing: 7px !important; gap: 16px !important; }
+html.mob .sc-big svg { width: 30px; height: 26px; }
+html.mob .page-about-me .mf [data-node-id="580:11734"] { border: 1px solid var(--ink); padding: 14px 26px; }
+html.mob .page-work-with-me .mf :is([data-node-id="580:12268"], [data-node-id="580:12280"], [data-node-id="580:12287"]) { margin: 10px 0 -6px !important; }
+html.mob .mf .mf-b.ar-facts { translate: none !important; justify-content: flex-start; }
+html.mob .mf .ar-facts > span { padding: 0 18px 0 22px; }
+html.mob .mf .ar-facts > span:first-child { padding-left: 0; }
+html.mob .sc-row .dz, html.mob .sc-row .dz-w { width: auto !important; }
+html.mob .sc-row :is(.dz-soft, .dz-hide, .dz-mid) { opacity: 1 !important; filter: none !important; }
+html.mob .sc-row .sc-f { width: auto !important; }
+html.mob .sc-about { text-align: left !important; }
+html.mob .mf .mf-b.ar-sym { width: 100% !important; aspect-ratio: auto !important; }
+html.mob .mf .ar-sym > span { min-width: 0; }
+html.mob .mf .ar-sym img { width: 100%; height: 100%; object-fit: contain; }
+html.mob .mf .mf-media { overflow: hidden !important; }
+html.mob .mf .mf-media > div:not(.mf-hit) { inset: 0 !important; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; translate: none !important; }
+html.mob .ar-mask { display: none !important; }
+html.mob .mf .mf-grp { position: relative; width: calc(100% + 40px); margin: 0 -20px; overflow: hidden; }
+html.mob .mf .mf-grp-in { position: absolute; left: 0; top: 0; }
+html.mob .mf .ar-end { gap: 18px !important; }
+html.mob .mf .ar-end a { flex: 0 0 96px; width: 96px !important; height: 96px !important; font-size: 12px !important; gap: 6px; }
+html.mob .mf .ar-end a svg { width: 22px; height: 20px; }
+html.mob .mf .mf-media.mf-wide.mf-in, html.mob .mf .mf-grp.mf-in { width: 100% !important; margin: 0 !important; }

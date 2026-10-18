@@ -36,8 +36,15 @@
 
   // ---------- Scale the 1480px design to the window ----------
   let Z = 1;
+  // Phones (and narrow windows) get a one-column layout instead of the scaled 1480px design; decided once per load.
+  const MOB = innerWidth < 700;
   const setZoom = () => {
     Z = Math.max(doc.clientWidth, 320) / 1480;
+    if (doc.classList.contains("mob")) {
+      doc.style.setProperty("--z", (Z = 1)); doc.classList.remove("fit-one");
+      const st = $(".stage"); if (st) st.style.height = "";
+      return;
+    }
     // About / Work With Me: one screen, never scrolled. Full width when the window is tall enough for the page;
     // otherwise the page shrinks to the window height.
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
@@ -51,7 +58,7 @@
     doc.style.setProperty("--z", Z);
   };
   setZoom();
-  addEventListener("resize", () => { setZoom(); onScroll(); });
+  addEventListener("resize", () => { if (MOB !== innerWidth < 700) return location.reload(); setZoom(); onScroll(); });
 
   // ---------- Page transitions: slow, soft dissolve on every internal link ----------
   const nativeVT = "onpagereveal" in window && CSS.supports && CSS.supports("view-transition-name: a");
@@ -465,6 +472,129 @@
     });
     if (!dzRaf) dzRaf = requestAnimationFrame(dzTick);
   };
+
+  // ---------- Phones: the page re-flows into one column ----------
+  // The desktop pages are absolute layouts from Figma. On a phone we measure that layout once, then move its content
+  // into a column in reading order: rows of the design top to bottom, and inside a row each column left to right.
+  if (MOB) {
+    const frame = $(".frame");
+    const mh = document.createElement("header"); mh.className = "mh";
+    const mq = $(".marquee"); if (mq) mh.appendChild(mq);
+    if (hdr) {
+      const nav = document.createElement("nav"); nav.className = "mh-nav";
+      const ttl = $$("p", hdr).find((p) => getComputedStyle(p).opacity !== "0" && getComputedStyle(p).display !== "none");
+      const word = $(".sc-word");
+      introIcons = [];
+      [["Hit L", '[data-name="Untitled-3 1"]'], ["Hit M", '[data-name="shape 2 2"]'], ["Hit R", '[data-name^="ChatGPT"]']].forEach(([h, ic]) => {
+        const hit = $(`[data-name="${h}"]`, hdr), icon = $(ic, hdr);
+        const a = document.createElement("a"); a.href = (hit && hit.getAttribute("href")) || "portfolio.html";
+        a.setAttribute("aria-label", hit ? hit.getAttribute("aria-label") || h : h);
+        if (icon) { const c = icon.cloneNode(true); c.removeAttribute("class"); c.style.cssText = `opacity:${getComputedStyle(icon).opacity}`; c.className = "mh-ic"; a.appendChild(c); introIcons.push(c); }
+        nav.appendChild(a);
+      });
+      mh.appendChild(nav);
+      const t = document.createElement("div"); t.className = "mh-title";
+      const txt = (word ? word.textContent : ttl ? ttl.dataset.txt || ttl.textContent : "").replace(/\s+/g, "");
+      [...txt].forEach((ch) => { const sp = document.createElement("span"); sp.textContent = ch; t.appendChild(sp); });
+      mh.appendChild(t);
+    }
+    const flow = $(".sc-track") ? null : document.createElement("main");
+    if (frame && flow) {
+      flow.className = "mf";
+      const blocks = [], stageR = $(".stage").getBoundingClientRect();
+      const stageB = +doc.dataset.fit ? +doc.dataset.fit + 30 : (stageR.bottom + scrollY) / Z; // one-screen pages end at their rule
+      const skip = (el) => el.matches(".hdr, .marquee, .ar-mask, .ar-btn, .hl, .vl, .j, .fit-end, .fit-j, .bar-1390, .bar-1390-j, script, style") ||
+        el.dataset.name === "Joints";
+      const walk = (box) => [...box.children].forEach((el) => {
+        if (skip(el)) return;
+        const cs = getComputedStyle(el);
+        if (cs.display === "contents" || el.matches(".ar")) return walk(el);
+        if (cs.display === "none" || cs.visibility === "hidden" || +cs.opacity < 0.05) return;
+        const r = el.getBoundingClientRect(), w = r.width / Z, h = r.height / Z;
+        const media = el.querySelector("img, video") || el.matches("img, video");
+        const text = el.textContent.trim();
+        const hit = el.matches("a") && !text && !media;
+        if (!hit && (w < 4 || h < 4 || (w < 12 && h < 12) || (!media && !text))) return;
+        if ((r.top + scrollY) / Z >= stageB - 2 || r.left / Z >= 1478 || r.right <= 0) return; // parked off the page in Figma
+        if (r.bottom / Z < 175 && !el.matches(".ar-end")) return; // the old header strip
+        const y = el.matches(".ar-end") ? 1e6 : (r.top + scrollY) / Z; // the closing links always come last
+        blocks.push({ el, x: r.left / Z, y, w, h, media: !!media && !text, hit });
+      });
+      walk(frame);
+      // Empty link areas lie on top of the thing they open: hand each to the block it covers most.
+      const hits = blocks.filter((b) => b.hit), rest = blocks.filter((b) => !b.hit);
+      const ov = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+      hits.forEach((hb) => { const t = rest.reduce((m, b) => (ov(hb, b) > (m ? ov(hb, m) : 0) ? b : m), null); if (t) (t.hits = t.hits || []).push(hb.el); });
+      // A picture with things laid on top of it (labels, a phone, buttons) stays one composition, scaled to the phone.
+      const inside = (b, m) => b.x >= m.x - 2 && b.y >= m.y - 2 && b.x + b.w <= m.x + m.w + 2 && b.y + b.h <= m.y + m.h + 2;
+      const hosts = rest.filter((m) => m.media && m.w > 300).sort((a, b) => b.w * b.h - a.w * a.h);
+      const put = (el, x, y, w, h) => {
+        ["translate", "transform", "right", "bottom", "inset"].forEach((k) => el.style.removeProperty(k));
+        [["left", x], ["top", y], ["width", w], ["height", h]].forEach(([k, v]) => el.style.setProperty(k, v + "px", "important"));
+        el.style.setProperty("translate", "none", "important"); el.style.setProperty("transform", "none", "important");
+        el.style.setProperty("position", "absolute", "important"); el.style.setProperty("margin", "0", "important");
+      };
+      hosts.forEach((m) => {
+        if (m.gone) return;
+        const guests = rest.filter((b) => b !== m && !b.gone && !b.el.matches(".ar-num") && inside(b, m));
+        if (!guests.length) return;
+        const wrap = document.createElement("div"), inner = document.createElement("div");
+        wrap.className = "mf-grp"; wrap.style.aspectRatio = `${m.w} / ${m.h}`;
+        inner.className = "mf-grp-in"; inner.style.cssText = `width:${m.w}px;height:${m.h}px;zoom:${innerWidth / m.w}`;
+        [m, ...guests].forEach((b) => { put(b.el, b.x - m.x, b.y - m.y, b.w, b.h); inner.appendChild(b.el); b.gone = true; (b.hits || []).forEach((a) => b.el.appendChild(a)); });
+        wrap.appendChild(inner);
+        rest.push({ el: wrap, x: m.x, y: m.y, w: m.w, h: m.h, group: true });
+      });
+      for (let i = rest.length - 1; i >= 0; i--) if (rest[i].gone) rest.splice(i, 1);
+      // The title area (above the first numbered section) keeps its side margins; pictures below run edge to edge.
+      const firstNum = Math.min(...rest.filter((b) => /^\d+\s*\.\s*\d+$/.test(b.el.textContent.trim())).map((b) => b.y), 1e6);
+      rest.forEach((b) => { if (b.y < firstNum - 4) b.intro = true; });
+      // Rows: blocks whose heights overlap belong together. Columns inside a row: blocks whose widths overlap.
+      rest.sort((a, b) => a.y - b.y);
+      const rows = [];
+      rest.forEach((b) => {
+        const row = rows[rows.length - 1];
+        if (row && b.y < row.bottom - 8) { row.items.push(b); row.bottom = Math.max(row.bottom, b.y + b.h); }
+        else rows.push({ items: [b], bottom: b.y + b.h });
+      });
+      rows.forEach((row) => {
+        const cols = [];
+        row.items.forEach((b) => {
+          const hitCols = cols.filter((c) => b.x < c.r - 4 && b.x + b.w > c.l + 4);
+          const c = { l: b.x, r: b.x + b.w, items: [b] };
+          hitCols.forEach((h) => { c.l = Math.min(c.l, h.l); c.r = Math.max(c.r, h.r); c.items.push(...h.items); cols.splice(cols.indexOf(h), 1); });
+          cols.push(c);
+        });
+        cols.sort((a, b) => a.l - b.l);
+        const sec = document.createElement("section"); sec.className = "mf-row";
+        cols.forEach((c) => c.items.sort((a, b) => a.y - b.y || a.x - b.x).forEach((b) => {
+          const el = b.el;
+          if (b.intro) el.classList.add("mf-in");
+          if (b.group) return sec.appendChild(el);
+          el.classList.add("mf-b", b.w > 300 ? "mf-wide" : "mf-small");
+          ["translate", "transform", "scale", "top", "left"].forEach((k) => el.style.setProperty(k, k === "top" || k === "left" ? "auto" : "none", "important"));
+          if (b.media) { el.classList.add("mf-media"); el.style.aspectRatio = `${b.w} / ${b.h}`; if (b.w <= 300) el.style.width = b.w + "px"; }
+          else if (b.w <= 300 && !el.matches(".ar-end, .ar-facts, .ar-notes")) el.style.maxWidth = "100%";
+          // Big display type comes down to phone size.
+          $$("*", el).concat(el).forEach((t) => {
+            if (!t.childNodes.length || ![...t.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) return;
+            const fs = parseFloat(getComputedStyle(t).fontSize);
+            if (fs > 26) { const k = Math.max(26, fs * 0.55) / fs; t.style.setProperty("font-size", fs * k + "px", "important"); t.style.setProperty("line-height", "1.1", "important");
+              const ls = parseFloat(getComputedStyle(t).letterSpacing); if (ls) t.style.setProperty("letter-spacing", ls * k + "px", "important"); }
+          });
+          (b.hits || []).forEach((a) => { a.classList.add("mf-hit"); el.appendChild(a); });
+          sec.appendChild(el);
+        }));
+        flow.appendChild(sec);
+      });
+    }
+    doc.classList.add("mob");
+    setZoom();
+    // Portfolio rows all show at once on a phone: each film plays while it is on screen.
+    const vio = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (e.isIntersecting) { v.muted = true; v.play().catch(() => {}); } else v.pause(); }), { threshold: 0.25 });
+    $$(".sc-row video").forEach((v) => { v.preload = "metadata"; vio.observe(v); });
+    if (frame) { frame.prepend(mh); if (flow) mh.after(flow); }
+  }
   const introOn = (body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce;
   if (!reduce && page !== "entrance-main") {
     const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count), .ar-end a").filter((el) =>
@@ -510,7 +640,8 @@
     }
     // A phone laid over a picture: the picture is a sibling, not a parent. Use the smallest picture around the
     // video that holds no other video.
-    if (host === v.parentElement && vr.width < 600) {
+    if (MOB && v.closest(".mf-b")) host = v.closest(".mf-b"); // phone column: on the video's own block
+    else if (host === v.parentElement && vr.width < 600) {
       let area = Infinity;
       const others = artVidsAll.filter((o) => o !== v).map((o) => o.getBoundingClientRect());
       $$(".frame [data-node-id]").forEach((e) => {
