@@ -343,3 +343,11 @@ html.js:not(.vt) body:not(.ready):not(.leaving) { animation: failsafe 0.6s ease 
 .dz-hide { opacity: 0; filter: blur(6px); }
 .dz-mid { opacity: .55; filter: blur(3px); }
 .dz-done { transition: none; }
+
+/* About and Work With Me: the heading and body text 17% smaller than in Figma. */
+:is(.page-about-me [data-node-id="580:11721"], .page-work-with-me [data-node-id="629:13345"]),
+:is(.page-about-me [data-node-id="580:11721"], .page-work-with-me [data-node-id="629:13345"]) * { font-size: 54px !important; line-height: 58px !important; letter-spacing: -3.2px !important; }
+:is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])),
+:is(.page-about-me [data-node-id="573:10478"], .page-work-with-me :is([data-node-id="580:12248"], [data-node-id="580:12273"], [data-node-id="580:12275"], [data-node-id="580:12283"])) * { font-size: 15px !important; line-height: 25px !important; }
+.page-about-me [data-node-id="573:10478"] { width: 450px !important; }
+.page-work-with-me [data-node-id="580:12248"] { width: 430px !important; }
