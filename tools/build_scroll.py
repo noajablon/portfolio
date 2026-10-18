@@ -2,7 +2,7 @@
 """Preview of the Portfolio page as one full-screen row per work (Home New Sketch grid).
 
 Usage: python3 tools/build_scroll.py   (after tools/build.py)
-Writes portfolio.html (the main Portfolio page). The header (marquee + logos) is copied from the built
+Writes portfolio.html (the main Portfolio page) and index.html (the same page, opening with the icon intro). The header (marquee + logos) is copied from the built
 portfolio-classic.html (the earlier Figma-converted Portfolio page, still built by tools/build.py);
 the rows, their growing-on-scroll behaviour and styles are self-contained in this file.
 """
@@ -336,7 +336,10 @@ def main():
 """
     with open(os.path.join(ROOT, "portfolio.html"), "w") as f:
         f.write(head + body)
-    print("wrote portfolio.html")
+    # The front page: the Portfolio page, opening with the three icons gliding into the bar (site.js).
+    with open(os.path.join(ROOT, "index.html"), "w") as f:
+        f.write(head + body.replace('<body class="page-scroll" data-page="scroll">', '<body class="page-scroll" data-page="scroll" data-intro>', 1))
+    print("wrote portfolio.html, index.html")
 
 
 if __name__ == "__main__":

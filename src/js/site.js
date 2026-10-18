@@ -135,9 +135,9 @@
       hit.addEventListener("focus", () => show(k));
       hit.addEventListener("blur", restore);
     });
-    // Draft entrance (portfolio.html?intro): the three icons appear in the middle of an empty page,
+    // Entrance (index.html, or any page with ?intro): the three icons appear in the middle of an empty page,
     // then glide up into their places in the bar while the page fades in under them.
-    if (/[?&]intro\b/.test(location.search) && !reduce) iconIntro(["L", "M", "R"].map((k) => icons[k]).filter(Boolean));
+    if ((body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce) iconIntro(["L", "M", "R"].map((k) => icons[k]).filter(Boolean));
   }
 
   // ---------- Fit text: the web font runs a little wider than Gilroy ----------
