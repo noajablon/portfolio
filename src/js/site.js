@@ -837,14 +837,29 @@
       { ...OFF, offset: 0 }, { ...OFF, offset: ms(at) }, { ...MID, offset: ms(at) + 0.0001, easing: "ease-out" },
       { ...ON, offset: ms(at + 550) }, { ...ON, offset: ms(out) }, { ...OFF, offset: ms(out + 450) }, { ...OFF, offset: 1 },
     ], { duration: T, fill: "both", ...extra }));
-    // The name, letter by letter.
-    const name = fixed(`left:50%;top:${cy - 119 * u}px;transform:translate(-50%,-50%);z-index:9999`);
+    // The name, letter by letter, centred over the icons and exactly as wide as their row.
+    const name = fixed(`left:0;top:${cy - 119 * u}px;transform:translateY(-50%);z-index:9999`);
     const inner = document.createElement("div");
-    inner.style.cssText = `zoom:${u};font:400 31.44px/1 "Gilroy","Outfit",sans-serif;letter-spacing:40.24px;padding-left:40.24px;color:#363636;white-space:nowrap`;
-    inner.innerHTML = 'NOA<i style="display:inline-block;width:7px;height:7px;border-radius:1.6px;background:#363636;vertical-align:middle;margin:0 40.24px 0 0"></i>JABLON';
+    inner.style.cssText = `zoom:${u};font:400 31.44px/1 "Gilroy","Outfit",sans-serif;letter-spacing:var(--ls);color:#363636;white-space:nowrap`;
+    inner.innerHTML = 'NOA<i style="display:inline-block;width:7px;height:7px;border-radius:1.6px;background:#363636;vertical-align:middle;margin-right:var(--ls)"></i>JABLON';
     name.appendChild(inner);
     const nameLs = [];
     dzSplit(inner, nameLs, false);
+    // The icons' drawn edges sit a little inside their boxes, so the name stops 10px (Figma) inside them.
+    const rowL = cxs[0] - (ends[0].width * S) / 2 + 10 * u, rowR = cxs[cxs.length - 1] + (ends[ends.length - 1].width * S) / 2 - 10 * u;
+    let ls = 40.24;
+    const span = () => { // the letters' own extent on screen (the last letter's trailing spacing left out)
+      const a = nameLs[0].getBoundingClientRect(), b = nameLs[nameLs.length - 1].getBoundingClientRect();
+      return [a.left, b.right - ls * u];
+    };
+    for (let k = 0; k < 3; k++) {
+      inner.style.setProperty("--ls", ls + "px");
+      const [l, r] = span();
+      ls += (rowR - rowL - (r - l)) / u / (nameLs.length); // nameLs.length gaps: between the letters and on both sides of the square
+    }
+    inner.style.setProperty("--ls", ls + "px");
+    const [l0, r0] = span();
+    name.style.left = ((rowL + rowR) / 2 - (l0 + r0) / 2) + "px";
     dzPlay([{ el: inner, ls: nameLs, y: 0, z: u }], 100);
     anims.push(name.animate([{ ...ON, offset: 0 }, { ...ON, offset: ms(1900) }, { ...OFF, offset: ms(2400) }, { ...OFF, offset: 1 }], { duration: T, fill: "both" }));
     appear(inner.querySelector("i"), 500, 1900);
@@ -853,35 +868,24 @@
       const d = fixed(`left:${(cx + cxs[i + 1]) / 2 - 3.5 * u}px;top:${cy - 3.5 * u}px;width:${7 * u}px;height:${7 * u}px;border-radius:${1.6 * u}px;background:#363636;z-index:9999`);
       appear(d, 900 + i * 150, 1900);
     });
-    // The icons: each passes through one or two of the others, like a letter through random letters, then glides into the bar.
+    // The icons: a soft blurred fade-in at the centre, then they glide into the bar.
     const ghosts = [];
-    const clone = (el, r) => {
-      const g = el.cloneNode(true);
+    list.forEach((el, i) => {
+      const r = ends[i], g = el.cloneNode(true), to = +getComputedStyle(el).opacity;
       g.removeAttribute("data-node-id");
-      g.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;z-index:9999;transform-origin:0 0;pointer-events:none;opacity:0`;
+      g.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;margin:0;z-index:9999;transform-origin:0 0;pointer-events:none`;
       body.appendChild(g);
       ghosts.push(g);
-      return g;
-    };
-    const at = (r, cx) => `translate(${cx - (r.width * S) / 2 - r.left}px,${cy - (r.height * S) / 2 - r.top}px) scale(${S})`;
-    list.forEach((el, i) => {
-      const r = ends[i], from = at(r, cxs[i]), start = 350 + i * 180, swaps = 1 + ((Math.random() * 2) | 0);
-      for (let j = 0; j < swaps; j++) {
-        const k = (i + 1 + ((Math.random() * (list.length - 1)) | 0)) % list.length, rk = ends[k], t = start + j * 110;
-        const d = clone(list[k], rk);
-        anims.push(d.animate([
-          { transform: at(rk, cxs[i]), ...OFF, offset: 0 }, { transform: at(rk, cxs[i]), ...OFF, offset: ms(t) },
-          { transform: at(rk, cxs[i]), ...MID, offset: ms(t) + 0.0001 }, { transform: at(rk, cxs[i]), ...MID, offset: ms(t + 110) },
-          { transform: at(rk, cxs[i]), ...OFF, offset: ms(t + 110) + 0.0001 }, { transform: at(rk, cxs[i]), ...OFF, offset: 1 },
-        ], { duration: T, fill: "both" }));
-      }
-      const g = clone(el, r), a = start + swaps * 110, glide = 2000 + i * 90, to = +getComputedStyle(el).opacity;
       el.style.visibility = "hidden";
+      const from = `translate(${cxs[i] - (r.width * S) / 2 - r.left}px,${cy - (r.height * S) / 2 - r.top}px) scale(${S})`;
+      const a = 350 + i * 180, glide = 2000 + i * 90;
       anims.push(g.animate([
-        { transform: from, ...OFF, offset: 0 }, { transform: from, ...OFF, offset: ms(a) },
-        { transform: from, ...MID, offset: ms(a) + 0.0001, easing: "ease-out" }, { transform: from, ...ON, offset: ms(a + 550) },
-        { transform: from, ...ON, offset: ms(glide), easing: "cubic-bezier(.65,0,.25,1)" },
-        { transform: "none", opacity: to, filter: "blur(0px)", offset: ms(glide + 1100) }, { transform: "none", opacity: to, filter: "blur(0px)", offset: 1 },
+        { transform: `${from} scale(.7)`, opacity: 0, filter: "blur(10px)", offset: 0 },
+        { transform: `${from} scale(.7)`, opacity: 0, filter: "blur(10px)", offset: ms(a), easing: "cubic-bezier(.2,.7,.2,1)" },
+        { transform: from, opacity: 1, filter: "blur(0px)", offset: ms(a + 950) },
+        { transform: from, opacity: 1, filter: "blur(0px)", offset: ms(glide), easing: "cubic-bezier(.65,0,.25,1)" },
+        { transform: "none", opacity: to, filter: "blur(0px)", offset: ms(glide + 1100) },
+        { transform: "none", opacity: to, filter: "blur(0px)", offset: 1 },
       ], { duration: T, fill: "both" }));
     });
     anims.push(cover.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 2600, easing: "ease-out", fill: "both" }));
