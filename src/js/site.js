@@ -837,25 +837,26 @@
       { ...OFF, offset: 0 }, { ...OFF, offset: ms(at) }, { ...MID, offset: ms(at) + 0.0001, easing: "ease-out" },
       { ...ON, offset: ms(at + 550) }, { ...ON, offset: ms(out) }, { ...OFF, offset: ms(out + 450) }, { ...OFF, offset: 1 },
     ], { duration: T, fill: "both", ...extra }));
-    // The name, letter by letter, centred over the icons and exactly as wide as their row.
+    // The name, letter by letter, centred over the icons and never wider than their row.
     const name = fixed(`left:0;top:${cy - 119 * u}px;transform:translateY(-50%);z-index:9999`);
     const inner = document.createElement("div");
-    inner.style.cssText = `zoom:${u};font:400 31.44px/1 "Gilroy","Outfit",sans-serif;letter-spacing:var(--ls);color:#363636;white-space:nowrap`;
+    inner.style.cssText = `zoom:${u};font:400 28.7px/1 "Gilroy","Outfit",sans-serif;letter-spacing:var(--ls);color:#363636;white-space:nowrap`;
     inner.innerHTML = 'NOA<i style="display:inline-block;width:7px;height:7px;border-radius:1.6px;background:#363636;vertical-align:middle;margin-right:var(--ls)"></i>JABLON';
     name.appendChild(inner);
     const nameLs = [];
     dzSplit(inner, nameLs, false);
     // The icons' drawn edges sit a little inside their boxes, so the name stops 10px (Figma) inside them.
     const rowL = cxs[0] - (ends[0].width * S) / 2 + 10 * u, rowR = cxs[cxs.length - 1] + (ends[ends.length - 1].width * S) / 2 - 10 * u;
-    let ls = 40.24;
+    let ls = 41.6; // Noa's Figma: 28.7px, 145% tracking
     const span = () => { // the letters' own extent on screen (the last letter's trailing spacing left out)
       const a = nameLs[0].getBoundingClientRect(), b = nameLs[nameLs.length - 1].getBoundingClientRect();
       return [a.left, b.right - ls * u];
     };
-    for (let k = 0; k < 3; k++) {
+    for (let k = 0; k < 3; k++) { // only ever tighter, so it never runs past the icons
       inner.style.setProperty("--ls", ls + "px");
-      const [l, r] = span();
-      ls += (rowR - rowL - (r - l)) / u / (nameLs.length); // nameLs.length gaps: between the letters and on both sides of the square
+      const [l, r] = span(), over = r - l - (rowR - rowL);
+      if (over <= 0) break;
+      ls -= over / u / nameLs.length;
     }
     inner.style.setProperty("--ls", ls + "px");
     const [l0, r0] = span();

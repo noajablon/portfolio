@@ -32,7 +32,7 @@ WORKS = [
      ("video", V + "stil-artifact.mp4"), "contain"),
     ("lifta", "Lifta", "Poster", "2025", "Bezalel",
      "Posters and logo inspired by the contested village of Lifta in Jerusalem. Both designs feature both Hebrew and Arabic, highlighting the site's historical significance.",
-     ("video", V + "lifta-logo.mp4"), "contain"),
+     ("video", V + "lifta-logo.mp4"), "cover;scale:1.75;transform-origin:47.5% 51%"),  # wide black margins: zoom onto the building
     ("explainer", "Explainer", "Video", "2026", "Bezalel",
      "A visual storytelling project investigating Jerusalem's ghost stories and spiritual beliefs through the history of my home in Nachlaot, combining animation and interviews.",
      ("video", V + "salt-pour.mp4"), "cover"),
@@ -274,7 +274,7 @@ def row(i, w):
 <span class="sc-f" style="left:257px;width:129px"><small>YEAR</small><span>{year}</span></span>
 <span class="sc-f" style="left:386px;width:171px"><small>PLACE</small><span>{place}</span></span>
 <span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
-<span class="sc-media"><span class="box"{' style="background:#000"' if fit == "contain" else ""}>{media(m, fit)}</span></span>
+<span class="sc-media"><span class="box"{' style="background:#000"' if fit == "contain" or "scale" in fit else ""}>{media(m, fit)}</span></span>
 <span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span><a class="sc-go" href="{slug}.html" aria-label="Open {html.escape(title)}">{ARROW}</a></span>
 </div>
 </div>"""
