@@ -595,6 +595,12 @@
     $$(".sc-row video").forEach((v) => { v.preload = "metadata"; vio.observe(v); });
     if (frame) { frame.prepend(mh); if (flow) mh.after(flow); }
   }
+  // The closing links keep their label as one block under the arrow (the text effect splits it into word spans).
+  $$(".ar-end a").forEach((a) => {
+    const t = document.createElement("span"); t.className = "ar-end-t";
+    [...a.childNodes].filter((n) => !(n.nodeType === 1 && n.matches("svg"))).forEach((n) => t.appendChild(n));
+    a.appendChild(t);
+  });
   const introOn = (body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce;
   if (!reduce && page !== "entrance-main") {
     const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count), .ar-end a").filter((el) =>
