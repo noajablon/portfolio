@@ -603,7 +603,7 @@
   });
   const introOn = (body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce;
   if (!reduce && page !== "entrance-main") {
-    const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count), .ar-end a").filter((el) =>
+    const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count)").filter((el) =>
       !el.closest(".hdr, .fx, .marquee, form, [data-name='Header Title'], .sc-title, .sc-pop, .sc-fab, .dz, .vc") &&
       !el.querySelector(":scope p, :scope h3") && el.textContent.trim() && getComputedStyle(el).display !== "none");
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
