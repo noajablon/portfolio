@@ -444,7 +444,8 @@ html.mob .sc-row :is(.hl, .v, .j, .sc-h, .sc-count) { display: none !important; 
 html.mob .sc-title { grid-column: 1 / -1; grid-row: 1; font-size: 24px !important; letter-spacing: 6px !important; white-space: normal !important; flex-wrap: wrap; }
 html.mob .sc-title b { font-size: 16px !important; letter-spacing: 4px !important; margin-right: 10px !important; }
 html.mob .sc-media { grid-column: 1 / -1; grid-row: 2; width: calc(100% + 40px) !important; margin: 0 -20px; height: auto !important; aspect-ratio: 4 / 3; }
-html.mob .sc-media .box { width: 100% !important; }
+html.mob .sc-media { position: relative !important; }
+html.mob .sc-media .box { position: absolute !important; inset: 0 !important; width: auto !important; height: auto !important; }
 html.mob .sc-f { grid-row: 3; height: auto !important; padding: 0 !important; }
 html.mob .sc-about, html.mob .sc-links { grid-column: 1 / -1; grid-row: 4; width: auto !important; font-size: 15px !important; }
 html.mob .sc-side { grid-column: 4; grid-row: 3; width: auto !important; justify-self: end; }
