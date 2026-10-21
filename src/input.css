@@ -433,7 +433,7 @@ html.mob .mf .ar-sym { display: grid !important; grid-template-rows: none !impor
 html.mob .mf .ar-sym > span { position: relative !important; aspect-ratio: 1; }
 html.mob .mf .ar-end { display: flex !important; justify-content: center; width: 100% !important; }
 html.mob .mf .ar-facts { width: 100% !important; }
-html.mob .sc-fab { left: 0 !important; right: 0 !important; margin: 0 auto !important; width: max-content; bottom: 16px !important; zoom: .8 !important; }
+html.mob .sc-fab { right: 16px !important; bottom: 16px !important; zoom: .8 !important; }
 html.mob .sc-pop { left: 0 !important; right: 0 !important; margin: 0 auto !important; bottom: 76px !important; zoom: 1 !important; width: calc(100vw - 32px) !important; max-width: 360px; }
 html.mob .ar-top { display: none !important; }
 /* Portfolio rows: title, film, the three facts, about, arrow */
