@@ -143,7 +143,41 @@ JS = """
   function ease(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
   // Phones list the works one under another; each one still grows from small to full size as it scrolls up the screen,
   // its picture from the same 30% as on desktop and its text from 60%.
+  // Phones draw each work's grid like the Figma phone page: the lines around Field / Year / Place, the picture and About,
+  // a double line under each work, and a 4x4 joint wherever two lines cross. Redrawn whenever the layout may have moved.
+  var gridOk = false, swapped = false;
+  function mobGrid() {
+    gridOk = true;
+    if (!swapped) {
+      swapped = true;
+      [].forEach.call(document.querySelectorAll('.sc-row [data-msrc]'), function (m) {
+        if (m.dataset.mposter) m.poster = m.dataset.mposter;
+        m.src = m.dataset.msrc;
+      });
+    }
+    rows.forEach(function (r) {
+      var inn = r.querySelector('.in'), old = inn.querySelector('.mg');
+      if (old) old.remove();
+      var g = document.createElement('div'); g.className = 'mg';
+      var W = inn.offsetWidth, L = 27, R = W - 45;
+      var t = inn.querySelector('.sc-title'), fs = [].slice.call(inn.querySelectorAll('.sc-f')),
+          m = inn.querySelector('.sc-media'), a = inn.querySelector('.sc-about, .sc-links');
+      var T = t.offsetTop + t.offsetHeight, Fb = fs[0].offsetTop + fs[0].offsetHeight,
+          M = m.offsetTop + m.offsetHeight, A = a.offsetTop + a.offsetHeight, D = A + 9;
+      function ln(x, y, w, h) { var e = document.createElement('i'); e.className = 'mg-l'; e.style.cssText = 'left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + h + 'px'; g.appendChild(e); }
+      function jt(x, y) { var e = document.createElement('i'); e.className = 'mg-j'; e.style.cssText = 'left:' + (x - 1.5) + 'px;top:' + (y - 1.5) + 'px'; g.appendChild(e); }
+      [T, Fb, A, D].forEach(function (y) { ln(0, y, W, 1); });
+      ln(0, M, R + 1, 1);
+      ln(L, T, 1, D - T + 1); ln(R, T, 1, D - T + 1);
+      [T, Fb, M, A, D].forEach(function (y) { jt(L, y); jt(R, y); });
+      fs.slice(1).forEach(function (f) { var x = f.offsetLeft; ln(x, T, 1, Fb - T + 1); jt(x, T); jt(x, Fb); });
+      inn.appendChild(g);
+    });
+  }
+  if (document.fonts) document.fonts.ready.then(function () { gridOk = false; place(); });
+  addEventListener('load', function () { gridOk = false; place(); });
   function placeMob() {
+    if (!gridOk) mobGrid();
     var H = innerHeight;
     rows.forEach(function (r, i) {
       var top = r.getBoundingClientRect().top, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), 1));
@@ -243,7 +277,7 @@ JS = """
   }
   if (!reduce) (document.fonts ? document.fonts.ready : Promise.resolve()).then(prepare);
   if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
-  addEventListener('resize', size);
+  addEventListener('resize', function () { gridOk = false; size(); });
   addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
   size();
 })();
@@ -259,14 +293,22 @@ def joints(xs):
     return "".join(f'<i class="j" style="left:{x - 2}px;top:-2px"></i>' for x in xs)
 
 
-def media(m, fit):
+# Works whose phone page shows a different picture from the desktop one (the Figma phone design); the page script swaps them in.
+MOB = {"explainer": V + "explainer-glass.mp4", "unmask-qatar": "assets/img/preview-unmask-street.webp"}
+
+
+def media(m, fit, slug=""):
     kind, src = m
     style = f'object-fit:{fit}'
+    mob = MOB.get(slug)
     if kind == "video":
         poster = P + os.path.basename(src)[:-4] + ".webp"
         pa = f' poster="{poster}"' if os.path.exists(os.path.join(ROOT, poster)) else ""
+        if mob:
+            pa += f' data-msrc="{mob}" data-mposter="{P + os.path.basename(mob)[:-4] + ".webp"}"'
         return f'<video src="{src}"{pa} muted loop playsinline preload="metadata" style="{style}"></video>'
-    return f'<img src="{src}" alt="" decoding="async" style="{style}">'
+    ma = f' data-msrc="{mob}"' if mob else ""
+    return f'<img src="{src}" alt="" decoding="async" style="{style}"{ma}>'
 
 
 def row(i, w):
@@ -288,7 +330,7 @@ def row(i, w):
 <span class="sc-f" style="left:257px;width:129px"><small>YEAR</small><span>{year}</span></span>
 <span class="sc-f" style="left:386px;width:171px"><small>PLACE</small><span>{place}</span></span>
 <span class="sc-about"><small>ABOUT</small>{html.escape(about)}</span>
-<span class="sc-media"><span class="box"{' style="background:#000"' if fit == "contain" or "scale" in fit else ""}>{media(m, fit)}</span></span>
+<span class="sc-media"><span class="box"{' style="background:#000"' if fit == "contain" or "scale" in fit else ""}>{media(m, fit, slug)}</span></span>
 <span class="sc-side"><span class="sc-count">{i + 1:02d} / {n:02d}</span><a class="sc-go" href="{slug}.html" aria-label="Open {html.escape(title)}">{ARROW}</a></span>
 </div>
 </div>"""
