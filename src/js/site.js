@@ -498,7 +498,7 @@
       [...txt].forEach((ch) => { const sp = document.createElement("span"); sp.textContent = ch; t.appendChild(sp); });
       mh.appendChild(t);
     }
-    const flow = $(".sc-track") ? null : document.createElement("main");
+    const flow = $(".sc-track") || $(".frame > .ph") ? null : document.createElement("main");
     if (frame && flow) {
       flow.className = "mf";
       const blocks = [], stageR = $(".stage").getBoundingClientRect();
@@ -604,7 +604,7 @@
   const introOn = (body.hasAttribute("data-intro") || /[?&]intro\b/.test(location.search)) && !reduce;
   if (!reduce && page !== "entrance-main") {
     const els = $$(".frame :is(p, h3, small, b, .ar-label, .ar-num, .sc-f > span, .sc-count)").filter((el) =>
-      !el.closest(".hdr, .fx, .marquee, form, [data-name='Header Title'], .sc-title, .sc-pop, .sc-fab, .dz, .vc") &&
+      !el.closest(".hdr, .fx, .marquee, form, [data-name='Header Title'], .sc-title, .sc-pop, .sc-fab, .dz, .vc, .ph") &&
       !el.querySelector(":scope p, :scope h3") && el.textContent.trim() && getComputedStyle(el).display !== "none");
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
       const items = new Map();
@@ -624,7 +624,7 @@
   if (introOn) iconIntro(introIcons);
 
   // ---------- Artwork pages: each video starts when you reach it, with pause and restart buttons ----------
-  const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv")) : [];
+  const artVids = body.matches(".art-page, .page-art") ? $$("video").filter((v) => !v.closest(".reel, .pv, .ph")) : [];
   const PAUSE = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx=".6"/><rect x="11.8" y="4" width="3.2" height="12" rx=".6"/></svg>';
   const PLAY = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.5 4.2v11.6L16 10z"/></svg>';
   const AGAIN = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4.6 10a5.4 5.4 0 1 0 1.6-3.85"/><path d="M5.6 2.9v3.5h3.5"/></svg>';
@@ -676,6 +676,49 @@
     pb.addEventListener("click", () => { if (v.paused) { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } });
     bar.lastChild.addEventListener("click", () => { delete v.dataset.held; v.currentTime = 0; v.play().catch(() => {}); });
   });
+  // ---------- Artwork pages on a phone (.ph, the Figma phone frame): scaled to the screen; its buttons drive
+  // the videos (pause / play again / sound) and the galleries (next picture) ----------
+  const ph = MOB && $(".frame > .ph");
+  if (ph) {
+    const fit = () => { ph.style.zoom = Math.min(innerWidth, doc.clientWidth) / 390; };
+    fit();
+    addEventListener("resize", fit);
+    const pv = $$("video", ph);
+    const pio = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting) { if (!v.dataset.held) v.play().catch(() => {}); } else v.pause();
+    }), { threshold: 0.3 });
+    pv.forEach((v) => { v.muted = true; pio.observe(v); });
+    $$(".pb", ph).forEach((b) => {
+      const v = pv[+b.dataset.for], a = b.dataset.a;
+      if (a === "play") {
+        const sync = () => b.setAttribute("aria-label", v.paused ? "Play" : "Pause");
+        v.addEventListener("play", sync); v.addEventListener("pause", sync);
+        b.addEventListener("click", () => { if (v.paused) { delete v.dataset.held; v.play().catch(() => {}); } else { v.dataset.held = "1"; v.pause(); } });
+      } else if (a === "again") {
+        b.addEventListener("click", () => { delete v.dataset.held; v.currentTime = 0; v.play().catch(() => {}); });
+      } else if (a === "mute") {
+        // The X on the speaker shows while the video is muted.
+        const marks = $$(".pi", b.parentElement).filter((i) => i.querySelector(".mx") || i.classList.contains("px"))
+          .filter((i) => { const r = i.getBoundingClientRect(), o = b.getBoundingClientRect(); return r.left < o.right && r.right > o.left && r.top < o.bottom && r.bottom > o.top; });
+        b.addEventListener("click", () => {
+          v.muted = !v.muted;
+          if (!v.muted) { pv.forEach((o) => { if (o !== v) o.muted = true; }); v.play().catch(() => {}); }
+          $$(".pi.snd-on", ph).forEach((i) => { if (!marks.includes(i)) i.classList.remove("snd-on"); });
+          marks.forEach((i) => i.classList.toggle("snd-on", !v.muted));
+          b.setAttribute("aria-label", v.muted ? "Sound on" : "Sound off");
+        });
+      } else if (a === "next") {
+        const g = b.closest(".pgal"), slides = $$(".gs", g), dots = $$(".gd", g);
+        let i = 0;
+        const show = () => { slides.forEach((s, k) => s.classList.toggle("on", k === i)); dots.forEach((d, k) => d.classList.toggle("on", k === i % dots.length)); };
+        slides.forEach((s) => { s.loading = "eager"; });
+        show();
+        b.addEventListener("click", () => { i = (i + 1) % slides.length; show(); });
+      }
+    });
+    $$(".totop-ph", ph).forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }));
+  }
   const aio = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;
     if (e.isIntersecting) { if (!v.dataset.held) v.play().catch(() => {}); } else v.pause();
@@ -708,7 +751,7 @@
   if (!reduce && page !== "entrance-main") {
     const targets = new Set();
     $$("img, video.media", frame).forEach((m) => {
-      if (m.closest(".fx, .hdr, .row, .reel, .pv, .marquee, .totop, .neg-host, .sound, .gal-btn")) return;
+      if (m.closest(".fx, .hdr, .row, .reel, .pv, .marquee, .totop, .neg-host, .sound, .gal-btn, .ph")) return;
       const r = m.getBoundingClientRect();
       if (r.width / Z < 110 || r.height / Z < 90) return;
       let el = m;
