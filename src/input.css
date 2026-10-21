@@ -521,3 +521,6 @@ html.mob .ph .mx, html.mob .ph .px { transition: opacity .2s; }
 html.mob .ph .snd-on .mx, html.mob .ph .px.snd-on { opacity: 0; }
 html.mob.has-ph .mh-nav { height: 44.2px; }
 html.mob.has-ph .mh-title { height: 44.8px; }
+/* Phones: text fades in without the blur (blur filters on many letters make scrolling heavy on a phone). */
+html.mob :is(.dz-hide, .dz-mid, .dz-soft) { filter: none !important; }
+html.mob .dz, html.mob .dz-soft { transition-property: opacity !important; }

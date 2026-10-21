@@ -194,8 +194,11 @@ JS = """
       }
       if (r.style.visibility) r.style.visibility = '';
       setOn(i, t > .6);
-      var v = vids[i]; if (v) { if (top < H && b > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
     });
+    // Only the video of the work that fills most of the screen plays, so a phone decodes one video at a time.
+    var best = -1, most = 0;
+    rects.forEach(function (rc, i) { var vis = Math.min(rc.bottom, H) - Math.max(rc.top, 0); if (vids[i] && vis > most) { most = vis; best = i; } });
+    vids.forEach(function (v, i) { if (!v) return; if (i === best) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); });
   }
   function place() {
     if (document.documentElement.classList.contains('mob')) return placeMob();
