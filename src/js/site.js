@@ -73,8 +73,26 @@
     if (url.pathname === location.pathname && url.hash) return;
     e.preventDefault();
     body.classList.add("leaving");
-    setTimeout(() => { location.href = url.href; }, 800);
+    setTimeout(() => { location.href = url.href; }, MOB ? 220 : 800);
   });
+  // Phones: the next page starts downloading as soon as a finger touches its link (and Chrome may fetch it a little earlier),
+  // so moving between pages is quick.
+  if (MOB) {
+    if (HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules")) {
+      const sr = document.createElement("script"); sr.type = "speculationrules";
+      sr.textContent = JSON.stringify({ prefetch: [{ source: "document", where: { href_matches: "/*" }, eagerness: "moderate" }] });
+      document.head.appendChild(sr);
+    }
+    const got = new Set();
+    document.addEventListener("touchstart", (e) => {
+      const a = e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname || got.has(url.pathname)) return;
+      got.add(url.pathname);
+      const l = document.createElement("link"); l.rel = "prefetch"; l.href = url.pathname; document.head.appendChild(l);
+    }, { passive: true });
+  }
 
   let introIcons = [];
   // ---------- Header: hover shows that page's title, icon grows in place ----------
@@ -680,6 +698,7 @@
   // the videos (pause / play again / sound) and the galleries (next picture) ----------
   const ph = MOB && $(".frame > .ph");
   if (ph) {
+    doc.classList.add("has-ph");
     const fit = () => { ph.style.zoom = Math.min(innerWidth, doc.clientWidth) / 390; };
     fit();
     addEventListener("resize", fit);
@@ -718,6 +737,48 @@
       }
     });
     $$(".totop-ph", ph).forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }));
+    // Work With Me: the row of pictures drifts sideways on its own; a swipe pushes it along.
+    const ps = $(".pstrip", ph), psi = ps && $(".pstrip-in", ps);
+    if (psi) {
+      let x = 0, last = performance.now(), drag = null, push = 0;
+      const half = () => psi.scrollWidth / 2 + 3; // the pictures are listed twice; one set plus its gap
+      const step = (t) => {
+        const dt = Math.min(0.1, (t - last) / 1000); last = t;
+        if (!drag) { x += (reduce ? 0 : 24) * dt + push; push *= 0.92; if (Math.abs(push) < 0.05) push = 0; }
+        const H = half(); x = ((x % H) + H) % H;
+        psi.style.transform = `translateX(${-x}px)`;
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      const zx = () => parseFloat(ph.style.zoom) || 1;
+      ps.addEventListener("pointerdown", (e) => { drag = { s: e.clientX, x0: x, l: e.clientX, v: 0 }; });
+      ps.addEventListener("pointermove", (e) => { if (!drag) return; drag.v = (drag.l - e.clientX) / zx(); drag.l = e.clientX; x = drag.x0 + (drag.s - e.clientX) / zx(); });
+      const end = () => { if (drag) { push = drag.v; drag = null; } };
+      ps.addEventListener("pointerup", end); ps.addEventListener("pointercancel", end); ps.addEventListener("pointerleave", end);
+    }
+    // Every picture and video grows from small to full size as it scrolls up the screen, as on the Portfolio page.
+    // Positions are measured once (and again on resize) so scrolling only writes transforms.
+    const grow = reduce ? [] : $$(".pf", ph).filter((el) => el.offsetWidth > 100).map((el) => ({ el, y: 0, k: "" }));
+    if (grow.length) {
+      const measure = () => {
+        grow.forEach((g) => { g.el.style.transform = ""; g.k = ""; });
+        grow.forEach((g) => { g.y = g.el.getBoundingClientRect().top + scrollY; });
+        place();
+      };
+      const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+      const place = () => {
+        const H = innerHeight, y0 = scrollY;
+        grow.forEach((g) => {
+          const t = ease(Math.min(Math.max((H - (g.y - y0)) / (H * 0.6), 0), 1)), k = (0.3 + 0.7 * t).toFixed(3);
+          if (k !== g.k) { g.k = k; g.el.style.transform = k === "1.000" ? "" : `scale(${k})`; }
+        });
+      };
+      let pending = 0;
+      addEventListener("scroll", () => { if (!pending) pending = requestAnimationFrame(() => { pending = 0; place(); }); }, { passive: true });
+      addEventListener("resize", measure);
+      addEventListener("load", measure);
+      measure();
+    }
   }
   const aio = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;

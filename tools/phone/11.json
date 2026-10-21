@@ -1,0 +1,10 @@
+{"h": 1241, "bg": "f5f3f1", "grid": [], "ch": [
+["r",0,1174.6,390,1,{"c":"363636"}],
+["t",20,148.3,253,63,{"al":"L","au":"W","s":[["HI. IM NOA.","GRegular",54,-1.8,0,"363636"]]}],
+["t",20,224.8,353,50,{"al":"L","au":"H","s":[["I'm a graphic designer studying Visual Communication at Bezalel.","GRegular",16,0,25,"363636"]]}],
+["t",20,274.7,353,150,{"al":"L","au":"H","s":[["My work is influenced by international visual culture, with a focus on contemporary Asian design. I value thoughtful collaboration and clear communication, creating visual branding and UX/UI design that is intuitive, personal, and refined.","GRegular",16,0,25,"363636"]]}],
+["t",20,449.4,353,125,{"al":"L","au":"H","s":[["My goal is to create design that connects, communicates, and resonates, translating complex ideas into distinctive visual identities and digital experiences that feel natural to engage with.","GRegular",16,0,25,"363636"]]}],
+["r",20,1097,214.7,1,{"c":"363636"}],["r",233.7,1097,1,45,{"c":"363636"}],["r",20,1141,214.7,1,{"c":"363636"}],["r",20,1097,1,45,{"c":"363636"}],
+["t",47,1111.5,157,15,{"al":"L","au":"W","s":[["VIEW MY RESUME","GMedium",13,4,0,"363636"]]}],
+["f",20,598,350,467.2,{"clip":1,"nm":"clip 20,679.4,350,467.2"},[["i",0,0,350,467.2,{"n":"img:assets/img/355cf3f4b783d1.webp","m":"F","h":"355cf3f4b783"}]]]
+]}

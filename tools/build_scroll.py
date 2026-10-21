@@ -103,7 +103,7 @@ CSS = """
 .sc-go:hover .sc-arrow circle { stroke: var(--ink); }
 .sc-go:hover .sc-arrow path, .sc-go:focus-visible .sc-arrow path { transform: translateX(2px); }
 .sc-row .box > * { transition: transform 1.2s var(--soft); }
-.sc-row:has(.sc-go:hover) .box > * { transform: scale(1.03); }
+@media (hover: hover) { .sc-row:has(.sc-go:hover) .box > * { transform: scale(1.03); } }
 .sc-grid { position: absolute; inset: 0; z-index: 80; pointer-events: none; display: none; }
 .grid-on .sc-grid { display: block; }
 .sc-grid i { position: absolute; background: rgba(255, 64, 64, .55); }
@@ -176,16 +176,25 @@ JS = """
   }
   if (document.fonts) document.fonts.ready.then(function () { gridOk = false; place(); });
   addEventListener('load', function () { gridOk = false; place(); });
+  // Reads every row's position first, then writes only transforms on the picture and the text boxes (not inherited
+  // custom properties, which made the browser restyle every letter on each frame), and only when a value changed.
+  var mobEls = null, mobLast = [];
   function placeMob() {
     if (!gridOk) mobGrid();
+    if (!mobEls) mobEls = rows.map(function (r) { return { box: r.querySelector('.sc-media .box'), txt: [].slice.call(r.querySelectorAll('.sc-title, .sc-f, .sc-about, .sc-links')) }; });
     var H = innerHeight;
+    var rects = rows.map(function (r) { return r.getBoundingClientRect(); });
     rows.forEach(function (r, i) {
-      var top = r.getBoundingClientRect().top, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), 1));
-      r.style.setProperty('--g', (MIN + (1 - MIN) * t).toFixed(4));
-      r.style.setProperty('--gt', (0.6 + 0.4 * t).toFixed(4));
-      r.style.visibility = '';
+      var top = rects[i].top, b = rects[i].bottom, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), 1));
+      var g = (MIN + (1 - MIN) * t).toFixed(3), gt = (0.6 + 0.4 * t).toFixed(3), k = g + '/' + gt;
+      if (mobLast[i] !== k) {
+        mobLast[i] = k;
+        if (mobEls[i].box) mobEls[i].box.style.transform = 'scale(' + g + ')';
+        mobEls[i].txt.forEach(function (e) { e.style.transform = 'scale(' + gt + ')'; });
+      }
+      if (r.style.visibility) r.style.visibility = '';
       setOn(i, t > .6);
-      var v = vids[i], b = r.getBoundingClientRect().bottom; if (v) { if (top < H && b > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
+      var v = vids[i]; if (v) { if (top < H && b > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
     });
   }
   function place() {
@@ -278,7 +287,8 @@ JS = """
   if (!reduce) (document.fonts ? document.fonts.ready : Promise.resolve()).then(prepare);
   if (/[?&]grid/.test(location.search)) document.documentElement.classList.add('grid-on');
   addEventListener('resize', function () { gridOk = false; size(); });
-  addEventListener('scroll', function () { requestAnimationFrame(place); }, { passive: true });
+  var pending = 0;
+  addEventListener('scroll', function () { if (!pending) pending = requestAnimationFrame(function () { pending = 0; place(); }); }, { passive: true });
   size();
 })();
 """

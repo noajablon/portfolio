@@ -19,6 +19,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PH = os.path.join(ROOT, "tools", "phone")
 TOP = 123.8  # the header (marquee, icons, PORTFOLIO) is site.js's .mh; the layout starts under its rule
 
+# About Me and Work With Me (11.json, 12.json) use the same phone layout.
+EXTRA = [("about", "11.json"), ("work-with-me", "12.json")]
+# Links laid over a drawn button: page -> [(x, y, w, h, href, label)]
+LINKS = {"about": [(20, 1097, 214.7, 45, "https://drive.google.com/file/d/1mGYaaXfdkSXDLcc07iWEXfS7u2k7PoNW/view?usp=sharing",
+                    "View my resume")]}
+# Work With Me's picture strip (Figma turns the desktop's vertical strip on its side): the same pictures, upright, in a row
+# that drifts sideways (site.js moves it; a swipe moves it too).
+STRIP = [f"assets/img/wwm-strip-{i}.webp" for i in range(1, 7)]
+
 PAGES = ["maskit", "mazor", "mnemo", "stil", "lifta", "explainer", "unmask-qatar", "voices-from-the-desert", "miansi", "sorora"]
 
 ICONS = json.load(open(os.path.join(PH, "icons.json")))
@@ -222,6 +231,13 @@ class Page:
                 label = {"prev": "Previous design", "top": "To top", "next": "Next design"}[which]
                 out.append(f'<a class="pbt{" totop-ph" if which == "top" else ""}" href="{href}" aria-label="{label}" '
                            f'style="{box(x, y, w, h)}"><img src="assets/phone/btn-{which}.svg" alt=""></a>')
+            elif k == "f" and a.get("nm") == "strip":
+                from PIL import Image
+                imgs = []
+                for f in STRIP + STRIP:  # twice, so the row wraps without a gap
+                    iw, ih = Image.open(os.path.join(ROOT, f)).size
+                    imgs.append(f'<img src="{f}" alt="" decoding="async" style="height:{n(h)}px;width:{n(iw * h / ih)}px">')
+                out.append(f'<div class="pstrip" style="{box(0, y, 390, h)}"><div class="pstrip-in">{"".join(imgs)}</div></div>')
             elif k == "f":
                 key = (self.slug, round(x, 1), round(y, 1))
                 if ctx.get("top") and key in DROP:
@@ -261,6 +277,9 @@ class Page:
                 body.append(f'<i class="pj" style="{box(x, y, w, h)}"></i>')
             else:
                 body.append(f'<i class="pl" style="{box(x, y, w, h)}"></i>')
+        for x, y, w, h, href, label in LINKS.get(self.slug, []):
+            ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+            body.append(f'<a class="plink" href="{html.escape(href)}"{ext} aria-label="{label}" style="{box(x, y, w, h)}"></a>')
         # Each control drives the video it sits on (or the nearest one).
         inner = "".join(body)
         for t, (cx, cy, fid) in enumerate(self.ctrls):
@@ -273,9 +292,9 @@ class Page:
 
 
 def main():
-    for i, slug in enumerate(PAGES):
-        data = json.load(open(os.path.join(PH, f"{i + 1:02d}.json")))
-        nav = (PAGES[i - 1] + ".html", PAGES[(i + 1) % len(PAGES)] + ".html")
+    jobs = [(slug, f"{i + 1:02d}.json", (PAGES[i - 1] + ".html", PAGES[(i + 1) % len(PAGES)] + ".html")) for i, slug in enumerate(PAGES)]
+    for slug, fn, nav in jobs + [(slug, fn, None) for slug, fn in EXTRA]:
+        data = json.load(open(os.path.join(PH, fn)))
         block = Page(slug, data, nav).build()
         path = os.path.join(ROOT, slug + ".html")
         src = open(path).read()

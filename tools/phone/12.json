@@ -1,0 +1,14 @@
+{"h": 1130, "bg": "f5f3f1", "grid": [], "ch": [
+["r",0,1024,390,1,{"c":"363636"}],
+["t",20,152.1,353,112,{"al":"L","au":"H","s":[["LET’S CREATE TOGETHER","GRegular",45,-1.8,56,"363636"]]}],
+["t",28,284,333,175,{"al":"L","au":"H","s":[["I see client work as a collaborative process built on dialogue, trust, and shared curiosity. This exchange allows me to understand not only practical needs, but also the character, values, and aspirations behind each project.My work with clients is grounded in three core values:","GRegular",16,0,25,"363636"]]}],
+["t",94,633,145,14,{"op":0.37,"al":"L","au":"H","s":[["COLLABORATION","GMedium",12.3,3.8,0,"363636"]]}],
+["t",94,657,272,71,{"al":"L","au":"H","s":[["Great collaboration grows from listening, trust, and a shared sense of direction.","GRegular",15.1,0,23.5,"363636"]]}],
+["f",27.6,762,38.7,38,{"clip":1,"nm":"clip 20,679.3,53.8,52.4"},[["i",0,0,38.6,37.6,{"n":"img-fit:assets/img/83615e9d033f15.webp","m":"F","h":"83615e9d033f"}]]],
+["t",94,762,132,14,{"op":0.37,"al":"L","au":"H","s":[["ORIGINALITY","GMedium",12.3,3.8,0,"363636"]]}],
+["t",94,786,259,95,{"al":"L","au":"H","s":[["When a design is truly original, it creates a stronger connection and helps the work stand out with meaning rather than decoration.","GRegular",15.1,0,23.5,"363636"]]}],
+["f",29.4,904,35.3,32,{"clip":1,"nm":"clip 20,868.3,46.9,49"},[["i",-17.6,-4.5,66,42.1,{"n":"img:assets/img/cd48e349064ada.webp","m":"F","h":"cd48e349064a"}]]],
+["t",86,906,81,14,{"op":0.37,"al":"L","au":"H","s":[["CRAFT","GMedium",12.3,3.8,0,"363636"]]}],
+["t",86,928,251,48,{"al":"L","au":"H","s":[["Craft lives in the details and the care behind every decision.","GRegular",15.1,0,23.5,"363636"]]}],
+["f",-7,482,397,107.9,{"rot":90,"nw":107.9,"nh":397,"clip":1,"nm":"strip"},[]]
+]}

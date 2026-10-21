@@ -128,6 +128,9 @@ html.js body { opacity: 0; transition: opacity var(--fade) var(--soft); }
 html.js body.ready { opacity: 1; }
 html.js.vt body { opacity: 1; transition: none; }
 html.js body.leaving { opacity: 0; transition-duration: 0.8s; }
+/* Phones move between pages faster. */
+html.mob { --fade: .45s; }
+html.js.mob body.leaving { transition-duration: .2s; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee [data-name="Track"] { animation-duration: 150s; }
@@ -410,7 +413,9 @@ html.mob .mh-nav a:nth-child(1) { border-right: 1px solid var(--ink); }
 html.mob .mh-nav a:nth-child(2) { border-left: 1px solid var(--ink); border-right: 1px solid var(--ink); }
 html.mob .mh-nav a:nth-child(3) { border-left: 1px solid var(--ink); }
 html.mob .mh-ic { position: relative; width: 32px; height: 32px; }
-html.mob .mh-ic * { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none; object-fit: contain; }
+html.mob .mh-ic > * { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none; object-fit: contain; }
+/* An icon cropped inside its box in Figma (the right one) keeps that crop, so it shows as large as the other two. */
+html.mob .mh-ic > div > img { position: absolute; max-width: none; }
 html.mob .mh-title { display: flex; justify-content: space-between; align-items: center; height: 38px; padding: 0 22px; border-bottom: 1px solid var(--ink);
   font: 400 13px/1 "Gilroy", "Outfit", sans-serif; color: var(--ink); background: var(--paper); }
 html.mob .mf { display: block; padding-bottom: 88px; color: var(--ink); }
@@ -428,8 +433,8 @@ html.mob .mf .ar-sym { display: grid !important; grid-template-rows: none !impor
 html.mob .mf .ar-sym > span { position: relative !important; aspect-ratio: 1; }
 html.mob .mf .ar-end { display: flex !important; justify-content: center; width: 100% !important; }
 html.mob .mf .ar-facts { width: 100% !important; }
-html.mob .sc-fab { right: 16px !important; bottom: 16px !important; zoom: .8 !important; }
-html.mob .sc-pop { right: 16px !important; bottom: 76px !important; zoom: 1 !important; width: calc(100vw - 32px) !important; max-width: 360px; }
+html.mob .sc-fab { left: 0 !important; right: 0 !important; margin: 0 auto !important; width: max-content; bottom: 16px !important; zoom: .8 !important; }
+html.mob .sc-pop { left: 0 !important; right: 0 !important; margin: 0 auto !important; bottom: 76px !important; zoom: 1 !important; width: calc(100vw - 32px) !important; max-width: 360px; }
 html.mob .ar-top { display: none !important; }
 /* Portfolio rows: title, film, the three facts, about, arrow */
 html.mob .sc-track { height: auto !important; }
@@ -447,7 +452,7 @@ html.mob .mf .ar-facts > span { padding: 0 18px 0 22px; }
 html.mob .mf .ar-facts > span:first-child { padding-left: 0; }
 html.mob .sc-row .dz, html.mob .sc-row .dz-w { width: auto !important; }
 html.mob .sc-row .sc-media .box { transform: scale(var(--g, 1)); will-change: transform; }
-html.mob .sc-row :is(.sc-title, .sc-f, .sc-about, .sc-links) { transform: scale(var(--gt, 1)); transform-origin: 0 50%; will-change: transform; }
+html.mob .sc-row :is(.sc-title, .sc-f, .sc-about, .sc-links) { transform: scale(var(--gt, 1)); transform-origin: 0 50%; }
 html.mob .mf .mf-b.ar-sym { width: 100% !important; aspect-ratio: auto !important; }
 html.mob .mf .ar-sym > span { min-width: 0; }
 html.mob .mf .ar-sym img { width: 100%; height: 100%; object-fit: contain; }
@@ -476,7 +481,7 @@ html.mob .sc-media .box { position: absolute !important; inset: 0 !important; wi
 html.mob .sc-side { grid-column: 5; grid-row: 3; width: auto !important; align-self: end; justify-self: center; margin-bottom: 36px; }
 html.mob .sc-go { position: relative !important; left: auto !important; top: auto !important; width: 31px; height: 31px; }
 html.mob .sc-arrow { width: 31px; height: 31px; }
-html.mob .sc-about, html.mob .sc-links { grid-column: 2 / 5; grid-row: 4; width: auto !important; padding: 19px 18px 18px 18px; text-align: left !important; font-size: 10.8px !important; line-height: 1.55 !important; }
+html.mob .sc-about, html.mob .sc-links { grid-column: 2 / 5; grid-row: 4; width: auto !important; padding: 19px 18px 18px 17px; text-align: left !important; font-size: 13px !important; line-height: 16.7px !important; }
 html.mob .sc-about small { font-size: 7.8px; letter-spacing: 4px; margin-bottom: 9px; }
 html.mob .sc-contact .sc-f { grid-column: 2 / 5; }
 html.mob .sc-contact .sc-media { aspect-ratio: auto; height: 110px !important; }
@@ -492,6 +497,10 @@ html.mob .stage > .frame > .ph { display: block; position: relative; width: 390p
 html.mob .ph-in { position: absolute; left: 0; width: 390px; font-family: "Gilroy", "Outfit", "Helvetica Neue", Arial, sans-serif; }
 html.mob .ph-in > *, html.mob .ph .pf > * { position: absolute; margin: 0; }
 html.mob .ph .pf { position: absolute; }
+html.mob .ph .pstrip { overflow: hidden; touch-action: pan-y; }
+html.mob .ph .pstrip-in { position: absolute; left: 0; top: 0; display: flex; gap: 6px; height: 100%; will-change: transform; }
+html.mob .ph .pstrip-in img { display: block; flex: none; object-fit: cover; pointer-events: none; user-select: none; }
+html.mob .ph .plink { display: block; }
 html.mob .ph img, html.mob .ph video { display: block; max-width: none; }
 html.mob .ph video { object-fit: cover; }
 html.mob .ph .pt { margin: 0; }
@@ -510,5 +519,5 @@ html.mob .ph .gd { background: #fff; opacity: .4; transition: opacity .3s; }
 html.mob .ph .gd.on { opacity: 1; }
 html.mob .ph .mx, html.mob .ph .px { transition: opacity .2s; }
 html.mob .ph .snd-on .mx, html.mob .ph .px.snd-on { opacity: 0; }
-html.mob body:has(.frame > .ph) .mh-nav { height: 44.2px; }
-html.mob body:has(.frame > .ph) .mh-title { height: 44.8px; }
+html.mob.has-ph .mh-nav { height: 44.2px; }
+html.mob.has-ph .mh-title { height: 44.8px; }
