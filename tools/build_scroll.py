@@ -141,7 +141,21 @@ JS = """
     place();
   }
   function ease(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+  // Phones list the works one under another; each one still grows from small to full size as it scrolls up the screen,
+  // its picture from the same 30% as on desktop and its text from 60%.
+  function placeMob() {
+    var H = innerHeight;
+    rows.forEach(function (r, i) {
+      var top = r.getBoundingClientRect().top, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), 1));
+      r.style.setProperty('--g', (MIN + (1 - MIN) * t).toFixed(4));
+      r.style.setProperty('--gt', (0.6 + 0.4 * t).toFixed(4));
+      r.style.visibility = '';
+      setOn(i, t > .6);
+      var v = vids[i], b = r.getBoundingClientRect().bottom; if (v) { if (top < H && b > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
+    });
+  }
   function place() {
+    if (document.documentElement.classList.contains('mob')) return placeMob();
     var p = Math.min(Math.max(scrollY / z / (F + GAP), 0), rows.length - 1);
     var k = Math.floor(p), t = p - k, y = -(F + GAP) * t, H = innerHeight / z;
     rows.forEach(function (r, i) {

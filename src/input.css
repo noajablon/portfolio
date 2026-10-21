@@ -460,7 +460,9 @@ html.mob .mf .mf-b.ar-facts { translate: none !important; justify-content: flex-
 html.mob .mf .ar-facts > span { padding: 0 18px 0 22px; }
 html.mob .mf .ar-facts > span:first-child { padding-left: 0; }
 html.mob .sc-row .dz, html.mob .sc-row .dz-w { width: auto !important; }
-html.mob .sc-row :is(.dz-soft, .dz-hide, .dz-mid) { opacity: 1 !important; filter: none !important; }
+html.mob .sc-row .sc-media .box { transform: scale(var(--g, 1)); will-change: transform; }
+html.mob .sc-row :is(.sc-title, .sc-f, .sc-about, .sc-links) { transform: scale(var(--gt, 1)); transform-origin: 0 50%; will-change: transform; }
+html.mob .sc-row .sc-side { transform: scale(var(--gt, 1)); transform-origin: 100% 50%; }
 html.mob .sc-row .sc-f { width: auto !important; }
 html.mob .sc-about { text-align: left !important; }
 html.mob .mf .mf-b.ar-sym { width: 100% !important; aspect-ratio: auto !important; }
