@@ -657,7 +657,7 @@
     // (a phone), at the bottom left of that picture, off the video itself.
     let host = v.parentElement;
     const vr = v.getBoundingClientRect();
-    for (let a = host; a && !a.matches(".frame, .stage, body"); a = a.parentElement) {
+    for (let a = host; a && !host.matches(".ar-media") && !a.matches(".frame, .stage, body, main"); a = a.parentElement) {
       const r = a.getBoundingClientRect(), cs = getComputedStyle(a);
       if (cs.display === "contents" || cs.position === "static") continue;
       if (r.width > vr.width * 1.25 && r.height > vr.height * 1.08) { host = a; break; }

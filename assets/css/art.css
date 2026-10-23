@@ -42,3 +42,4 @@ html:not(.mob) [data-node-id="566:6417"] { top: 2957.9px !important; bottom: aut
 html:not(.mob) [data-node-id="462:5245"] { mix-blend-mode: multiply; }
 html:not(.mob) [data-node-id="608:12590"]::after { content: ""; position: absolute; left: 663.5px; top: -1px; width: 1px; height: 795px; background: #363636; }
 html:not(.mob) [data-node-id="462:5245"] video { position: absolute; inset: auto !important; left: -107px !important; top: -110px !important; width: 785px !important; height: 1047px !important; object-fit: fill !important; }
+html:not(.mob) [data-node-id="462:5247"] video { position: absolute; inset: auto !important; left: -65px !important; top: -27px !important; width: 354px !important; height: 246px !important; object-fit: fill !important; }

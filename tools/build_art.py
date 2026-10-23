@@ -37,7 +37,7 @@ MASKIT = {
                                        "sense of belonging through shared symbols.\n\nWe deconstructed Maskit’s original logo "
                                        "into five shapes, then recombined them into a new symbolic language.")],
          "notes_left": 957, "notes_right": NOTE, "symbols": 7},
-        {"h": 596, "media": ("video", "maskit-film"), "right": 1480},
+        {"h": 596, "media": ("video", "maskit-film"), "right": R},  # white space on the right, like every artwork
         {"h": 847, "media": ("img", I + "ca316056e6d562.webp"), "right": NOTE,
          "notes": [("Geometric patterns", "The symbolic language was further developed into intricate, embroidery-inspired "
                                           "patterns, each composed of the letters spelling its symbol’s name."),
@@ -86,9 +86,9 @@ CSS = """
 .ar-snd svg { width: 20px; height: 16px; }
 .ar-snd .on, .ar-snd[aria-pressed="true"] .off { display: none; }
 .ar-snd[aria-pressed="true"] .on { display: inline; }
-.ar-notes { position: absolute; padding: 31px 20px 0 25px; box-sizing: border-box; }
+.ar-notes { position: absolute; padding: 38px 32px 0 24px; box-sizing: border-box; }
 .ar-notes h3 { margin: 0 0 12px; font: 500 12px/1 "Gilroy", "Outfit", sans-serif; letter-spacing: 3.4px; white-space: nowrap; text-transform: uppercase; opacity: .45; }
-.ar-notes p { margin: 0 0 39px; font: 400 13px/1.54 "Gilroy", "Outfit", sans-serif; white-space: pre-line; }
+.ar-notes p { margin: 0 0 50px; font: 400 13px/1.54 "Gilroy", "Outfit", sans-serif; white-space: pre-line; }
 .ar-sym { position: absolute; display: grid; grid-template-columns: 1fr 1fr; }
 .ar-sym span { display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--ink); }
 .ar-sym span:nth-child(odd) { border-right: 1px solid var(--ink); }
