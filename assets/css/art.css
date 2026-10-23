@@ -43,3 +43,8 @@ html:not(.mob) [data-node-id="462:5245"] { mix-blend-mode: multiply; }
 html:not(.mob) [data-node-id="608:12590"]::after { content: ""; position: absolute; left: 663.5px; top: -1px; width: 1px; height: 795px; background: #363636; }
 html:not(.mob) [data-node-id="462:5245"] video { position: absolute; inset: auto !important; left: -107px !important; top: -110px !important; width: 785px !important; height: 1047px !important; object-fit: fill !important; }
 html:not(.mob) [data-node-id="462:5247"] video { position: absolute; inset: auto !important; left: -65px !important; top: -27px !important; width: 354px !important; height: 246px !important; object-fit: fill !important; }
+/* Voices 8.2: a 13px gap between the poster and the city-light picture, edged by a line, as in Figma. */
+html:not(.mob) [data-node-id="462:3430"] { left: 702px !important; width: 524px !important; }
+html:not(.mob) [data-node-id="462:3430"]::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: #363636; z-index: 2; }
+/* Mazor 2.4: a line between the website video and its text. */
+html:not(.mob) [data-node-id="441:1536"]::after { content: ""; position: absolute; right: 0; top: 0; width: 1px; height: 100%; background: #363636; z-index: 2; }
