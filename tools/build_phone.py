@@ -57,6 +57,7 @@ ADD = {("explainer", 28, 1475.5): [["v", 83.9, 212.8, 156.6, 140.8, {"n": "video
        ("explainer", 28, 2070.3): [["v", 0, 0, 334, 176.9, {"n": "video:poster/salt-pour.webp"}]],
        ("unmask-qatar", 28, 4576.9): [["i", 0, 0, 334, 398, {"n": "img:assets/img/332bb7567c6238.webp"}]]}
 DROP = {("explainer", 111.9, 1688.3)}
+GIFS = ["explainer-process", "explainer-glass", "explainer-clock", "salt-pour"]  # loop like gifs, no buttons
 BLEND = {"explainer-clock", "explainer-process"}  # white-ground animation over the squared paper
 # Text set in capitals in Figma (text case, not the characters)
 UPPER = {("maskit", t) for t in ["01/ Maskit", "The brief", "Secret language", "Geometric patterns", "The bird", "The flower",
@@ -287,6 +288,10 @@ class Page:
                 vx, vy, vw, vh, _, vf = v
                 return (vf != fid) * 1e9 + max(vx - cx, 0, cx - vx - vw) ** 2 + max(vy - cy, 0, cy - vy - vh) ** 2
             inner = inner.replace(f'"@{t}@"', f'"{min(self.videos, key=dist)[4]}"', 1)
+        # Looping gifs get no pause / restart buttons: drop each button with its ring and icon.
+        for vid in re.findall(r'data-v="(\d+)"[^>]*src="assets/video/(?:%s)\.mp4"' % "|".join(GIFS), inner):
+            inner = re.sub(r'(?:<i class="pr"[^>]*></i>)*<span class="pi[^"]*"[^>]*>(?:(?!</span>).)*</span>'
+                           r'<button[^>]*data-for="%s"[^>]*></button>' % vid, "", inner)
         return (f'<!--ph--><div class="ph" style="height:{n(d["h"] - TOP)}px"><div class="ph-in" '
                 f'style="top:{n(-TOP)}px;height:{n(d["h"])}px">{inner}</div></div><!--/ph-->')
 

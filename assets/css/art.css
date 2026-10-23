@@ -1,0 +1,44 @@
+/* Desktop artwork pages: positions taken from the NEW Figma frames (page NEW, file lsVzKKBazhQbJFlZR0NR9X). */
+/* Right-column lines: the short one at x 1390 runs 22 to 689; the long one at x 1454 starts at the 689 line. */
+html:not(.mob) [data-node-id="655:991"],
+html:not(.mob) [data-node-id="656:958"],
+html:not(.mob) [data-node-id="656:2953"],
+html:not(.mob) [data-node-id="656:1024"],
+html:not(.mob) [data-node-id="656:1057"],
+html:not(.mob) [data-node-id="656:1090"],
+html:not(.mob) [data-node-id="656:1123"],
+html:not(.mob) [data-node-id="656:1156"] { top: 22px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="441:1449"],
+html:not(.mob) [data-node-id="462:1133"],
+html:not(.mob) [data-node-id="462:1427"],
+html:not(.mob) [data-node-id="462:5061"],
+html:not(.mob) [data-node-id="462:2728"],
+html:not(.mob) [data-node-id="462:3108"],
+html:not(.mob) [data-node-id="462:3583"],
+html:not(.mob) [data-node-id="462:2336"] { top: 689px !important; bottom: auto !important; }
+/* Right-column body text sits under its label as in Figma. */
+html:not(.mob) [data-node-id="561:5695"] { top: 1664.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="561:5699"] { top: 1909.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="561:5732"] { top: 3250px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:12594"] { top: 753.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:12598"] { top: 1408.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:12560"] { top: 753.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:12564"] { top: 2124.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:12568"] { top: 2875.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="570:8063"] { top: 758.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="570:8338"] { top: 1149.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13141"] { top: 758.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13145"] { top: 2408.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13149"] { top: 1537.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13153"] { top: 758.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13157"] { top: 1542.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13165"] { top: 4239px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="608:13161"] { top: 2473px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="566:6241"] { top: 753.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="566:6245"] { top: 1492.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="566:6249"] { top: 2213.9px !important; bottom: auto !important; }
+html:not(.mob) [data-node-id="566:6417"] { top: 2957.9px !important; bottom: auto !important; }
+/* Explainer 6.2: the drawing animation multiplies over the squared paper, and the two pictures keep their 13px gap. */
+html:not(.mob) [data-node-id="462:5245"] { mix-blend-mode: multiply; }
+html:not(.mob) [data-node-id="608:12590"]::after { content: ""; position: absolute; left: 663.5px; top: -1px; width: 1px; height: 795px; background: #363636; }
+html:not(.mob) [data-node-id="462:5245"] video { position: absolute; inset: auto !important; left: -107px !important; top: -110px !important; width: 785px !important; height: 1047px !important; object-fit: fill !important; }

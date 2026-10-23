@@ -58,6 +58,7 @@ img { user-select: none; -webkit-user-drag: none; }
 .gal-btn[hidden] { display: block; opacity: 0; pointer-events: none; }
 /* Explainer 6.2: the grid paper sits behind the artwork, so the artwork shows at full strength. */
 .page-explainer [data-node-id="608:12590"], .page-explainer [data-node-id="608:12592"] { z-index: -1; }
+.page-explainer .frame { isolation: isolate; } /* keeps that paper above the page colour */
 .page-explainer [data-node-id="462:5247"] { mix-blend-mode: multiply; }
 
 /* Negative hover: an inverted disc, as in the Figma "Negative" variants. */

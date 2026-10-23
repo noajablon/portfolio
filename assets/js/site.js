@@ -652,6 +652,7 @@
     v.autoplay = false;
     v.muted = true;
     v.pause();
+    if (v.closest("[data-gif]")) return; // a looping gif: no pause or restart buttons
     // The buttons sit at the bottom left of the video, or, when the video is a screen inside a picture
     // (a phone), at the bottom left of that picture, off the video itself.
     let host = v.parentElement;

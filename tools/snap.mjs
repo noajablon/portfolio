@@ -21,7 +21,7 @@ const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : [
 ];
 const OUT = path.join(ROOT, "assets", "css", "snap.css");
 // Images Noa wants exactly as placed in Figma (not stretched to the lines): Lifta 5.1 posters keep their gap.
-const KEEP = new Set(["462:2167", "462:2171", "462:2168"]);
+const KEEP = new Set(["462:2167", "462:2171", "462:2168", "608:12590"]);
 
 const measure = async () => {
   const LINE_END = 10, JOINT = 6, EDGE = 8;
