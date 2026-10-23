@@ -786,6 +786,60 @@
   // Section 1.1 marks where the floating button appears.
   const sec = $$("p", frame).find((p) => /^1\.1\b/.test(p.textContent.trim()));
 
+  // ---------- Artwork pages (desktop): no two pictures touch ----------
+  // Pictures side by side or one above the other are kept 13px apart, each edge drawn as a line (as in Figma),
+  // and every crossing of the page's lines gets a joint.
+  if (!MOB && frame && body.matches(".art-page, .page-art")) {
+    const off = (el) => { let x = 0, y = 0; for (let e = el; e && e !== frame; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; } return { x, y, w: el.offsetWidth, h: el.offsetHeight }; };
+    const host = $("main.ar", frame) || frame;
+    const boxes = [...host.children].filter((e) => !e.matches(".ph, .fx, .hdr, nav, a, button, p, span") && e.querySelector("img, video") && !e.closest(".fx"))
+      .map((e) => ({ e, ...off(e) })).filter((b) => b.w >= 120 && b.h >= 120 && b.y > 600);
+    const GAP = 13, H = frame.offsetHeight;
+    const add = (cls, st) => { const i = document.createElement("i"); i.className = cls; Object.assign(i.style, st); frame.appendChild(i); return i; };
+    const line = (x, y, w, h) => add("xl", { left: x + "px", top: y + "px", width: w + "px", height: h + "px" });
+    const lap = (a1, a2, b1, b2) => Math.min(a2, b2) - Math.max(a1, b1);
+    boxes.forEach((a) => boxes.forEach((b) => {
+      if (a === b) return;
+      const ox = lap(a.x, a.x + a.w, b.x, b.x + b.w), oy = lap(a.y, a.y + a.h, b.y, b.y + b.h);
+      if (ox > 20 && oy > 20) return; // laid over one another, not neighbours
+      // b sits to the right of a
+      if (oy > 0.4 * Math.min(a.h, b.h) && b.x >= a.x + a.w - 20 && b.x - (a.x + a.w) < GAP + 8) {
+        const cut = Math.max(0, a.x + a.w + GAP - b.x);
+        if (cut) b.e.style.clipPath = `inset(${b.ct || 0}px 0 0 ${(b.cl = (b.cl || 0) + cut)}px)`;
+        const y1 = Math.min(a.y, b.y), y2 = Math.max(a.y + a.h, b.y + b.h);
+        line(a.x + a.w, y1, 1, y2 - y1); line(a.x + a.w + GAP - 1, y1, 1, y2 - y1);
+      }
+      // b sits below a
+      if (ox > 0.4 * Math.min(a.w, b.w) && b.y >= a.y + a.h - 20 && b.y - (a.y + a.h) < GAP + 8) {
+        const cut = Math.max(0, a.y + a.h + GAP - b.y);
+        if (cut) b.e.style.clipPath = `inset(${(b.ct = (b.ct || 0) + cut)}px 0 0 ${b.cl || 0}px)`;
+        const x1 = Math.min(a.x, b.x), x2 = Math.max(a.x + a.w, b.x + b.w);
+        line(x1, a.y + a.h, x2 - x1, 1); line(x1, a.y + a.h + GAP - 1, x2 - x1, 1);
+      }
+    }));
+    // Joints wherever a vertical and a horizontal line cross or meet.
+    const vs = [], hs = [], js = [];
+    $$("*", frame).forEach((e) => {
+      if (e.closest(".ph, .fx, .marquee, .sc-fab, .sc-pop")) return;
+      const w = e.offsetWidth, h = e.offsetHeight;
+      if (!e.offsetParent && getComputedStyle(e).position !== "fixed") return;
+      if (w <= 2 && h >= 20) { const o = off(e); vs.push({ x: o.x + w / 2, y1: o.y, y2: Math.min(o.y + h, H) }); }
+      else if (h <= 2 && w >= 20) { const o = off(e); hs.push({ y: o.y + h / 2, x1: o.x, x2: o.x + w }); }
+      else if (w >= 3 && w <= 7 && Math.abs(w - h) < 1.5) { const o = off(e); js.push({ x: o.x + w / 2, y: o.y + h / 2 }); }
+    });
+    // A line running under a picture is hidden there: only lines that show next to the crossing count.
+    const under = (x, y) => boxes.some((b) => x > b.x + 1 && x < b.x + b.w - 1 && y > b.y + 1 && y < b.y + b.h - 1);
+    vs.forEach((v) => hs.forEach((l) => {
+      if (v.x < l.x1 - 1.5 || v.x > l.x2 + 1.5 || l.y < v.y1 - 1.5 || l.y > v.y2 + 1.5 || l.y < 120 || l.y > H - 2) return;
+      const vUp = v.y1 <= l.y - 6 && !under(v.x, l.y - 6), vDown = v.y2 >= l.y + 6 && !under(v.x, l.y + 6);
+      const hL = l.x1 <= v.x - 6 && !under(v.x - 6, l.y), hR = l.x2 >= v.x + 6 && !under(v.x + 6, l.y);
+      if (!(vUp || vDown) || !(hL || hR)) return;
+      if (js.some((j) => Math.abs(j.x - v.x) < 4 && Math.abs(j.y - l.y) < 4)) return;
+      js.push({ x: v.x, y: l.y });
+      add("xj", { left: v.x - 2.5 + "px", top: l.y - 2.5 + "px" });
+    }));
+  }
+
   // ---------- Images fade in as they scroll into view ----------
   if (!reduce && page !== "entrance-main") {
     const targets = new Set();

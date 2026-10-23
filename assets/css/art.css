@@ -48,3 +48,5 @@ html:not(.mob) [data-node-id="462:3430"] { left: 702px !important; width: 524px 
 html:not(.mob) [data-node-id="462:3430"]::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 100%; background: #363636; z-index: 2; }
 /* Mazor 2.4: a line between the website video and its text. */
 html:not(.mob) [data-node-id="441:1536"]::after { content: ""; position: absolute; right: 0; top: 0; width: 1px; height: 100%; background: #363636; z-index: 2; }
+/* The paper's multiply has to sit on the outer box: its rotated wrapper would otherwise blend it with nothing. */
+html:not(.mob) :is([data-node-id="608:12590"], [data-node-id="608:12592"]) { mix-blend-mode: multiply; }

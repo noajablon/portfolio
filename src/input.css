@@ -56,9 +56,7 @@ img { user-select: none; -webkit-user-drag: none; }
 .gal-prev:hover { transform: scale(1.1); }
 .gal-next:hover { transform: rotate(180deg) scale(1.1); }
 .gal-btn[hidden] { display: block; opacity: 0; pointer-events: none; }
-/* Explainer 6.2: the grid paper sits behind the artwork, so the artwork shows at full strength. */
-.page-explainer [data-node-id="608:12590"], .page-explainer [data-node-id="608:12592"] { z-index: -1; }
-.page-explainer .frame { isolation: isolate; } /* keeps that paper above the page colour */
+/* Explainer 6.2: the squared paper (multiplied, 32%) lies over the drawings, as in Figma. */
 .page-explainer [data-node-id="462:5247"] { mix-blend-mode: multiply; }
 
 /* Negative hover: an inverted disc, as in the Figma "Negative" variants. */
@@ -525,3 +523,6 @@ html.mob.has-ph .mh-title { height: 44.8px; }
 /* Phones: text fades in without the blur (blur filters on many letters make scrolling heavy on a phone). */
 html.mob :is(.dz-hide, .dz-mid, .dz-soft) { filter: none !important; }
 html.mob .dz, html.mob .dz-soft { transition-property: opacity !important; }
+/* Artwork pages: lines and joints added where pictures meet (site.js). */
+.xl { position: absolute; background: #363636; z-index: 3; pointer-events: none; }
+.xj { position: absolute; width: 5px; height: 5px; border-radius: 1.6px; background: #363636; z-index: 3; pointer-events: none; }
