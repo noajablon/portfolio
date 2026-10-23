@@ -45,15 +45,15 @@
       const st = $(".stage"); if (st) st.style.height = "";
       return;
     }
-    // About / Work With Me: one screen, never scrolled. Full width when the window is tall enough for the page;
-    // otherwise the page shrinks to the window height.
+    // About / Work With Me: always the same width and position as the Portfolio page (the same scale), so moving
+    // between pages nothing shifts. One screen, never scrolled, when the window is tall enough; otherwise it scrolls.
     const fit = +doc.dataset.fit, stage = fit && $(".stage");
     if (stage) {
-      Z = Math.min(Z, innerHeight / fit);
-      stage.style.height = innerHeight / Z + "px";
+      const H = Math.max(innerHeight / Z, fit);
+      stage.style.height = H + "px";
       // On a taller window the closing rule and the picture column grow with it, up to Noa's Figma 790.
-      doc.style.setProperty("--fe", Math.min(innerHeight / Z - 3, 790) + "px");
-      doc.classList.add("fit-one");
+      doc.style.setProperty("--fe", Math.min(H - 3, 790) + "px");
+      doc.classList.toggle("fit-one", innerHeight / Z >= fit);
     }
     doc.style.setProperty("--z", Z);
   };
@@ -756,29 +756,6 @@
       const end = () => { if (drag) { push = drag.v; drag = null; } };
       ps.addEventListener("pointerup", end); ps.addEventListener("pointercancel", end); ps.addEventListener("pointerleave", end);
     }
-    // Every picture and video grows from small to full size as it scrolls up the screen, as on the Portfolio page.
-    // Positions are measured once (and again on resize) so scrolling only writes transforms.
-    const grow = reduce ? [] : $$(".pf", ph).filter((el) => el.offsetWidth > 100).map((el) => ({ el, y: 0, k: "" }));
-    if (grow.length) {
-      const measure = () => {
-        grow.forEach((g) => { g.el.style.transform = ""; g.k = ""; });
-        grow.forEach((g) => { g.y = g.el.getBoundingClientRect().top + scrollY; });
-        place();
-      };
-      const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-      const place = () => {
-        const H = innerHeight, y0 = scrollY;
-        grow.forEach((g) => {
-          const t = ease(Math.min(Math.max((H - (g.y - y0)) / (H * 0.6), 0), 1)), k = (0.3 + 0.7 * t).toFixed(3);
-          if (k !== g.k) { g.k = k; g.el.style.transform = k === "1.000" ? "" : `scale(${k})`; }
-        });
-      };
-      let pending = 0;
-      addEventListener("scroll", () => { if (!pending) pending = requestAnimationFrame(() => { pending = 0; place(); }); }, { passive: true });
-      addEventListener("resize", measure);
-      addEventListener("load", measure);
-      measure();
-    }
   }
   const aio = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;
@@ -816,11 +793,15 @@
       const r = m.getBoundingClientRect();
       if (r.width / Z < 110 || r.height / Z < 90) return;
       let el = m;
+      // A picture cropped by its box: the box is what grows and shrinks.
+      const pb = m.parentElement && m.parentElement.getBoundingClientRect();
+      if (pb && m.parentElement !== frame && getComputedStyle(m.parentElement).overflow === "hidden" && pb.width >= 110 * Z && (pb.width < r.width - 4 || pb.height < r.height - 4)) el = m.parentElement;
       while (el.parentElement && el.parentElement !== frame) {
         const p = el.parentElement, c = p.classList;
         if (c.contains("contents") || p.dataset.name === "Strip") break;
         const pr = p.getBoundingClientRect();
-        if (Math.abs(pr.width - r.width) > 4 || Math.abs(pr.height - r.height) > 4) break;
+        const er = el.getBoundingClientRect();
+        if (Math.abs(pr.width - er.width) > 4 || Math.abs(pr.height - er.height) > 4) break;
         el = p;
       }
       targets.add(el);

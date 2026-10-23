@@ -185,7 +185,8 @@ JS = """
     var H = innerHeight;
     var rects = rows.map(function (r) { return r.getBoundingClientRect(); });
     rows.forEach(function (r, i) {
-      var top = rects[i].top, b = rects[i].bottom, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), 1));
+      // Grows in as it comes up the screen, and shrinks again as it scrolls away off the top.
+      var top = rects[i].top, b = rects[i].bottom, t = ease(Math.min(Math.max((H - top) / (H * 0.6), 0), Math.max(b / (H * 0.6), 0), 1));
       var g = (MIN + (1 - MIN) * t).toFixed(3), gt = (0.6 + 0.4 * t).toFixed(3), k = g + '/' + gt;
       if (mobLast[i] !== k) {
         mobLast[i] = k;
@@ -203,15 +204,18 @@ JS = """
   function place() {
     if (document.documentElement.classList.contains('mob')) return placeMob();
     var p = Math.min(Math.max(scrollY / z / (F + GAP), 0), rows.length - 1);
-    var k = Math.floor(p), t = p - k, y = -(F + GAP) * t, H = innerHeight / z;
+    var k = Math.floor(p), t = p - k, H = innerHeight / z;
+    // The work you scroll away from shrinks back as it leaves, the reverse of the next one growing in;
+    // the next one follows right under it, so it lands at the top exactly when the old one is gone.
+    var gk = 1 - (1 - MIN) * ease(t), y = -(F * gk + GAP) * t;
     rows.forEach(function (r, i) {
-      var g = i <= k ? 1 : i === k + 1 ? MIN + (1 - MIN) * ease(t) : MIN, last = i === rows.length - 1, h = F * g + (last ? PEEK * (i <= k ? 1 : i === k + 1 ? ease(t) : 0) : 0), top;
+      var g = i < k ? 1 : i === k ? gk : i === k + 1 ? MIN + (1 - MIN) * ease(t) : MIN, last = i === rows.length - 1, h = F * g + (last ? PEEK * (i <= k ? 1 : i === k + 1 ? ease(t) : 0) : 0), top;
       if (i < k) { r.style.visibility = 'hidden'; return; }
       top = y; y += h + GAP;
       r.style.visibility = top > H ? 'hidden' : '';
       r.style.top = top + 'px'; r.style.height = h + 'px';
       r.style.setProperty('--g', g.toFixed(4));
-      setOn(i, i <= k || g > .6);
+      setOn(i, i < k || g > .6);
       var v = vids[i]; if (v) { if (top < H - TOP - 40 && top + h > 0) { if (v.paused) v.play().catch(function () {}); } else if (!v.paused) v.pause(); }
     });
   }

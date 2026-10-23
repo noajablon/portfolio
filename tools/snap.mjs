@@ -20,6 +20,8 @@ const PAGES = process.argv.slice(2).length ? process.argv.slice(2) : [
   "about.html", "work-with-me.html", "portfolio-classic.html", "entrance.html",
 ];
 const OUT = path.join(ROOT, "assets", "css", "snap.css");
+// Images Noa wants exactly as placed in Figma (not stretched to the lines): Lifta 5.1 posters keep their gap.
+const KEEP = new Set(["462:2167", "462:2171", "462:2168"]);
 
 const measure = async () => {
   const LINE_END = 10, JOINT = 6, EDGE = 8;
@@ -248,7 +250,7 @@ for (const p of PAGES) {
   const slug = await page.evaluate(() => document.body.className.match(/page-([\w-]+)/)[1]);
   const { rules, counts, missed } = await page.evaluate(measure);
   console.log(p, JSON.stringify(counts), missed.length ? "not redrawn: " + missed.join(" ") : "");
-  css += rules.map((x) => `.page-${slug} ${x}`).join("\n") + "\n";
+  css += rules.filter((x) => ![...KEEP].some((k) => x.startsWith(`[data-node-id="${k}"]`))).map((x) => `.page-${slug} ${x}`).join("\n") + "\n";
 }
 await browser.close();
 fs.writeFileSync(OUT, css);
