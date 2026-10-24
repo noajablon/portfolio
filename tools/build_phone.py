@@ -39,6 +39,7 @@ MUTE = {"921:3723", "921:3804", "921:3845"}           # speaker, X and waves in 
 SOUND = {"932:965", "932:967", "932:961"}              # ring of a three-part sound button
 SOUND_X = {"932:981", "932:983", "932:977"}
 NEXT = {"921:3756", "932:1155", "932:1159"}            # gallery arrows
+FLIP = {"932:1155"}                                    # drawn pointing back; a next arrow points right
 WAVES = {"932:969", "932:973", "932:975"}              # sound waves of a three-part sound button
 # The drawn video buttons differ in size and place from frame to frame; they are left out and every video gets
 # the same set instead: pause and play again at the bottom left of its box, sound at the bottom right.
@@ -237,7 +238,8 @@ class Page:
                     paths = svg.split("<path ")
                     svg = paths[0] + "<path " + paths[1] + '<path class="mx" ' + paths[2] + '<path class="mw" ' + paths[3]
                 cls = "pi px" if sid in SOUND_X else "pi"
-                out.append(f'<span class="{cls}" style="{box(x, y, w, h)}">{svg}</span>')
+                flip = ";transform:scaleX(-1)" if sid in FLIP else ""
+                out.append(f'<span class="{cls}" style="{box(x, y, w, h)}{flip}">{svg}</span>')
                 act = ("play" if sid in PLAY else "again" if sid in AGAIN else "mute" if sid in MUTE | SOUND
                        else "next" if sid in NEXT else None)
                 if act:
@@ -266,6 +268,8 @@ class Page:
                 for f in STRIP + STRIP:  # twice, so the row wraps without a gap
                     iw, ih = Image.open(os.path.join(ROOT, f)).size
                     imgs.append(f'<img src="{f}" alt="" decoding="async" style="height:{n(h)}px;width:{n(iw * h / ih)}px">')
+                    # the gap after each picture, edged by a rule on both sides with joints at their ends
+                    imgs.append('<i class="sg"><b></b><b></b><b></b><b></b></i>')
                 out.append(f'<div class="pstrip" style="{box(0, y, 390, h)}"><div class="pstrip-in">{"".join(imgs)}</div></div>')
             elif k == "f":
                 key = (self.slug, round(x, 1), round(y, 1))

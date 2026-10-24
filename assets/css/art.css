@@ -50,3 +50,5 @@ html:not(.mob) [data-node-id="462:3430"]::before { content: ""; position: absolu
 html:not(.mob) [data-node-id="441:1536"]::after { content: ""; position: absolute; right: 0; top: 0; width: 1px; height: 100%; background: #363636; z-index: 2; }
 /* The paper's multiply has to sit on the outer box: its rotated wrapper would otherwise blend it with nothing. */
 html:not(.mob) :is([data-node-id="608:12590"], [data-node-id="608:12592"]) { mix-blend-mode: multiply; }
+/* Mazor 2.2: the gallery reaches down to the section's rule (it stopped 9px short, leaving a grey strip). */
+html:not(.mob) [data-node-id="561:5722"] { height: 744px !important; }

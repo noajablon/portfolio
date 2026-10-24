@@ -496,8 +496,15 @@ html.mob .stage > .frame > .ph { display: block; position: relative; width: 390p
 html.mob .ph-in { position: absolute; left: 0; width: 390px; font-family: "Gilroy", "Outfit", "Helvetica Neue", Arial, sans-serif; }
 html.mob .ph-in > *, html.mob .ph .pf > * { position: absolute; margin: 0; }
 html.mob .ph .pf { position: absolute; }
-html.mob .ph .pstrip { overflow: hidden; touch-action: pan-y; }
-html.mob .ph .pstrip-in { position: absolute; left: 0; top: 0; display: flex; gap: 6px; height: 100%; will-change: transform; }
+html.mob .ph .pstrip { touch-action: pan-y; }
+html.mob .ph .pstrip-in { position: absolute; left: 0; top: 0; display: flex; height: 100%; will-change: transform; }
+html.mob .ph .pstrip { clip-path: inset(-3px 0); overflow: visible; }
+html.mob .ph .sg { position: relative; flex: none; width: 6px; height: 100%; border-left: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+html.mob .ph .sg b { position: absolute; width: 4px; height: 4px; border-radius: 1.28px; background: var(--ink); }
+html.mob .ph .sg b:nth-child(1) { left: -2.5px; top: -2px; }
+html.mob .ph .sg b:nth-child(2) { right: -2.5px; top: -2px; }
+html.mob .ph .sg b:nth-child(3) { left: -2.5px; bottom: -2px; }
+html.mob .ph .sg b:nth-child(4) { right: -2.5px; bottom: -2px; }
 html.mob .ph .pstrip-in img { display: block; flex: none; object-fit: cover; pointer-events: none; user-select: none; }
 html.mob .ph .plink { display: block; }
 html.mob .ph img, html.mob .ph video { display: block; max-width: none; }
@@ -518,6 +525,9 @@ html.mob .ph .gd { background: #fff; opacity: .4; transition: opacity .3s; }
 html.mob .ph .gd.on { opacity: 1; }
 html.mob .ph .mx, html.mob .ph .px { transition: opacity .2s; }
 html.mob .ph .snd-on .mx, html.mob .ph .px.snd-on { opacity: 0; }
+/* Muted: the speaker with an X; sound on: the speaker with its waves (never both at once). */
+html.mob .ph .mw { opacity: 0; transition: opacity .2s; }
+html.mob .ph .snd-on .mw { opacity: 1; }
 html.mob.has-ph .mh-nav { height: 44.2px; }
 html.mob.has-ph .mh-title { height: 44.8px; }
 /* Phones: text fades in without the blur (blur filters on many letters make scrolling heavy on a phone). */

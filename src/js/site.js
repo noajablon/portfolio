@@ -742,7 +742,7 @@
     const ps = $(".pstrip", ph), psi = ps && $(".pstrip-in", ps);
     if (psi) {
       let x = 0, last = performance.now(), drag = null, push = 0;
-      const half = () => psi.scrollWidth / 2 + 3; // the pictures are listed twice; one set plus its gap
+      const half = () => psi.scrollWidth / 2; // the pictures (each with the ruled gap after it) are listed twice
       const step = (t) => {
         const dt = Math.min(0.1, (t - last) / 1000); last = t;
         if (!drag) { x += (reduce ? 0 : 24) * dt + push; push *= 0.92; if (Math.abs(push) < 0.05) push = 0; }
@@ -876,6 +876,22 @@
   if (strip) {
     const cycle = 2287; // the strip's pictures repeat every 2287px (Part 2 starts two pictures in), so wrapping there is seamless
     const box = strip.parentElement;
+    // The gaps between the pictures get a rule on each edge and joints where the rules meet the side lines.
+    // Gap tops and bottoms, in px down each half of the strip (read from the pictures' transparent rows).
+    const gaps = [[[220, 232], [431.5, 443], [759, 770.5], [1148, 1160], [1356, 1367.5], [1565, 1577]],
+      [[365, 376.5], [672, 683.5], [904.5, 916], [1115.5, 1127.5], [1443, 1455]]];
+    [...strip.children].forEach((part, k) => (gaps[k] || []).forEach(([a, b]) => [a, b - 1].forEach((t) => {
+      const l = document.createElement("i"); l.className = "xl";
+      l.style.cssText = `left:0;width:100%;top:${t}px;height:1px`;
+      part.append(l);
+      [-2.5, part.offsetWidth - 2.5].forEach((x) => {
+        const j = document.createElement("i"); j.className = "xj";
+        j.style.cssText = `left:${x}px;top:${t - 2}px`;
+        part.append(j);
+      });
+    })));
+    // let the joints show past the sides; still cut off above and below
+    [box, box.parentElement].forEach((el) => { el.style.overflow = "visible"; el.style.clipPath = "inset(0 -4px)"; });
     let y = 0, last = performance.now(), drag = null, push = 0;
     const speed = reduce ? 0 : 30; // px per second
     const wrap = (v) => ((v % cycle) + cycle) % cycle;
