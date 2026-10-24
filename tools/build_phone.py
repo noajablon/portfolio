@@ -275,7 +275,10 @@ class Page:
                 if pic and pic.endswith(".svg"):
                     sw, sh = svg_size(pic)
                     vx, vy = svg_origin(pic)
-                    out.append(f'<img style="{box(x + vx, y + vy, sw, sh)}" src="assets/phone/{pic}" alt="">')
+                    # Titles with shadows or blur go out as pictures drawn from the svg (phone browsers draw svg
+                    # filters coarsely, which leaves an outline round the letters).
+                    src = pic[:-4] + ".webp" if os.path.exists(os.path.join(ROOT, "assets", "phone", pic[:-4] + ".webp")) else pic
+                    out.append(f'<img style="{box(x + vx, y + vy, sw, sh)}" src="assets/phone/{src}" alt="">')
                     continue
                 st = [box(x, y, w, h)]
                 if a.get("clip"):
