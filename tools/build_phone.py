@@ -39,6 +39,13 @@ MUTE = {"921:3723", "921:3804", "921:3845"}           # speaker, X and waves in 
 SOUND = {"932:965", "932:967", "932:961"}              # ring of a three-part sound button
 SOUND_X = {"932:981", "932:983", "932:977"}
 NEXT = {"921:3756", "932:1155", "932:1159"}            # gallery arrows
+WAVES = {"932:969", "932:973", "932:975"}              # sound waves of a three-part sound button
+# The drawn video buttons differ in size and place from frame to frame; they are left out and every video gets
+# the same set instead: pause and play again at the bottom left of its box, sound at the bottom right.
+CTRL = PLAY | AGAIN | MUTE | SOUND | SOUND_X | WAVES
+RING, INSET, GAP = 30, 10, 6
+AUDIO = {"explainer-film", "lifta-logo", "maskit-brandbook", "maskit-film", "mnemo-film", "sorora-film", "stil-app",
+         "stil-film", "unmask-film"}  # videos with a sound track get the sound button
 # Vectors exported whole (tools/phone assets): node id -> file
 SVG = {"947:3121": "title-miansi.svg", "932:2458": "title-sorora.svg", "921:3761": "maskit-symbols.svg",
        "921:4265": "stil-artifacts.svg"}
@@ -53,11 +60,11 @@ SWAP = {"assets/img/gal-mazor-1.webp": "assets/img/mazor-gal1-ph.webp",
         "assets/img/unmask-img5063.webp": "assets/img/unmask-img5063-ph.webp"}
 # Grey placeholder boxes in the phone frames, filled with the desktop page's media for that spot:
 # (page, frame x, y) -> extra children drawn first in that frame; frames listed in DROP are left out.
-ADD = {("explainer", 28, 1475.5): [["v", 83.9, 212.8, 156.6, 140.8, {"n": "video:poster/explainer-clock.webp"}]],
-       ("explainer", 28, 2070.3): [["v", 0, 0, 334, 176.9, {"n": "video:poster/salt-pour.webp"}]],
-       ("unmask-qatar", 28, 4576.9): [["i", 0, 0, 334, 398, {"n": "img:assets/img/332bb7567c6238.webp"}]]}
-DROP = {("explainer", 111.9, 1688.3)}
-GIFS = ["explainer-process", "explainer-glass", "explainer-clock", "salt-pour"]  # loop like gifs, no buttons
+ADD = {("explainer", 28, 1806): [["v", 0, 0, 334, 176.9, {"n": "video:poster/salt-pour.webp"}]]}
+# Media drawn last in a frame, over its other contents: the clock sits on the squared paper.
+ADD_TOP = {("explainer", 28, 1476): [["v", 74.9, 72, 174.6, 157.1, {"n": "video:poster/explainer-clock.webp"}]]}
+DROP = set()
+GIFS = ["explainer-process", "explainer-glass", "explainer-clock", "salt-pour", "voices-gif"]  # loop like gifs, no buttons
 BLEND = {"explainer-clock", "explainer-process"}  # white-ground animation over the squared paper
 # Text set in capitals in Figma (text case, not the characters)
 UPPER = {("maskit", t) for t in ["01/ Maskit", "The brief", "Secret language", "Geometric patterns", "The bird", "The flower",
@@ -87,6 +94,21 @@ def svg_size(f):
     return float(re.search(r'width="([\d.]+)"', head).group(1)), float(re.search(r'height="([\d.]+)"', head).group(1))
 
 
+def svg_origin(f):
+    """Where the picture's viewBox starts (a negative origin leaves room for a blur round the drawing)."""
+    m = re.search(r'viewBox="(-?[\d.]+) (-?[\d.]+)', open(os.path.join(ROOT, "assets", "phone", f)).read(300))
+    return float(m.group(1)), float(m.group(2))
+
+
+def strip_ctrls(kids):
+    """Leave out drawn video buttons: their icons and the rings round them."""
+    icons = [(c[1] + c[3] / 2, c[2] + c[4] / 2) for c in kids if c[0] == "s" and c[5]["id"] in CTRL]
+    def ring(c):
+        return (c[0] == "r" and c[3] <= 40 and c[4] <= 40 and
+                any(c[1] <= x <= c[1] + c[3] and c[2] <= y <= c[2] + c[4] for x, y in icons))
+    return [c for c in kids if not (c[0] == "s" and c[5]["id"] in CTRL) and not ring(c)]
+
+
 class Page:
     def __init__(self, slug, data, nav):
         self.slug, self.d, self.nav = slug, data, nav
@@ -109,7 +131,13 @@ class Page:
     def text(self, e):
         _, x, y, w, h, a = e[:6]
         st = []
-        if "rot" in a:
+        if "rot" in a and re.fullmatch(r"\d+\.\d+", "".join(s[0] for s in a["s"])):
+            # Section numbers stand upright and small at the top of their section (Noa's 1.1 in Figma):
+            # 11px under the section's top rule, in the 28px margin.
+            top = max(g[1] for g in self.d["grid"] if not g[4] and g[2] >= 300 and g[1] < y)
+            a = dict(a, au="W", nh=12, s=[[s[0], s[1], 10, 2 if len(s[0]) < 4 else 1, 0, s[5]] for s in a["s"]])
+            st.append(box(6 if len(a["s"][0][0]) < 4 else 4, top + 11, 24, 12))
+        elif "rot" in a:
             nw, nh = a["nw"], a["nh"]
             st.append(box(x + (w - nw) / 2, y + (h - nh) / 2, nw, nh) + f";transform:rotate({-a['rot']:g}deg)")
         else:
@@ -143,7 +171,7 @@ class Page:
 
     def render(self, ch, ax, ay, ctx):
         out, last = [], None
-        for e in ch:
+        for e in strip_ctrls(ch):
             k, x, y, w, h, a = e[:6]
             if k == "r":
                 key = (x, y, w, h, json.dumps(a, sort_keys=True))
@@ -177,7 +205,7 @@ class Page:
                 if kind == "video":
                     if src in BLEND:
                         st.append("mix-blend-mode:multiply")
-                    self.videos.append((ax + x, ay + y, w, h, len(self.videos), ctx.get("id")))
+                    self.videos.append((ax + x, ay + y, w, h, len(self.videos), ctx.get("id"), src))
                     out.append(f'<video class="pvid" data-v="{len(self.videos) - 1}" style="{";".join(st)}" muted loop playsinline '
                                f'preload="none" poster="assets/poster/{src}.webp" src="assets/video/{src}.mp4"></video>')
                 elif ctx.get("gal") and "/gal-" in src:
@@ -246,7 +274,8 @@ class Page:
                 pic = FRAMES.get((self.slug, round(x, 1), round(y, 1))) if ctx.get("top") else None
                 if pic and pic.endswith(".svg"):
                     sw, sh = svg_size(pic)
-                    out.append(f'<img style="{box(x, y, sw, sh)}" src="assets/phone/{pic}" alt="">')
+                    vx, vy = svg_origin(pic)
+                    out.append(f'<img style="{box(x + vx, y + vy, sw, sh)}" src="assets/phone/{pic}" alt="">')
                     continue
                 st = [box(x, y, w, h)]
                 if a.get("clip"):
@@ -258,14 +287,47 @@ class Page:
                 kids = e[6]
                 if ctx.get("top") and key in ADD:  # the media replaces the grey placeholder
                     kids = ADD[key] + [c for c in kids if not (c[0] == "r" and c[5].get("c") == "d9d6d4")]
+                if ctx.get("top") and key in ADD_TOP:
+                    kids = kids + ADD_TOP[key]
                 gal = any(c[0] == "i" and "/gal-" in c[5].get("n", "") for c in kids)
                 inner = []
                 if pic:  # a picture of the frame, then only its buttons on top
                     inner.append(f'<img style="{box(0, 0, w, h)}" src="assets/phone/{pic}" alt="" decoding="async" loading="lazy">')
-                    kids = [c for c in kids if c[0] == "r" and c[3] < 60 or c[0] == "s" and c[5]["id"] in PLAY | AGAIN | MUTE]
+                    kids = []
                 inner += self.render(kids, ax + x, ay + y, {"gal": gal, "baked": bool(pic), "id": id(e)})
                 out.append(f'<div class="pf{" pgal" if gal else ""}" style="{";".join(st)}">{"".join(inner)}</div>')
         return out
+
+    def controls(self):
+        """Pause, play again and (for a video with sound) sound buttons, in the corners of the video's box: the
+        section between the rules above and below it, inside the side rules. Looping gifs get none."""
+        rules = sorted(g[1] for g in self.d["grid"] if not g[4] and g[2] >= 300)
+        out = []
+        for x, y, w, h, i, _, src in self.videos:
+            if src in GIFS:
+                continue
+            cy = y + h / 2
+            bottom = min(r for r in rules if r > cy)
+            by = bottom - INSET - RING
+            spots = [("play", 28 + INSET), ("again", 28 + INSET + RING + GAP)]
+            if src in AUDIO:
+                spots.append(("mute", 362 - INSET - RING))
+            for act, bx in spots:
+                out.append(f'<i class="pr" style="{box(bx, by, RING, RING)};background:rgba(54,54,54,0.3);'
+                           f'border:0.75px solid #fff;border-radius:50%"></i>')
+                out.append(self.icon(act, bx, by))
+                label = {"play": "Pause", "again": "Play from the start", "mute": "Sound on"}[act]
+                out.append(f'<button type="button" class="pb" data-for="{i}" data-a="{act}" aria-label="{label}" '
+                           f'style="{box(bx, by, RING, RING)}"></button>')
+        return out
+
+    def icon(self, act, bx, by):
+        sid, iw, ih = {"play": ("921:4988", 13.5, 13.5), "again": ("921:4995", 13.5, 13.5), "mute": ("921:3723", 15, 12)}[act]
+        svg = re.sub(r'<svg width="[\d.]+" height="[\d.]+"', '<svg aria-hidden="true"', ICONS[sid], count=1)
+        if act == "mute":
+            paths = svg.split("<path ")
+            svg = paths[0] + "<path " + paths[1] + '<path class="mx" ' + paths[2] + '<path class="mw" ' + paths[3]
+        return f'<span class="pi" style="{box(bx + (RING - iw) / 2, by + (RING - ih) / 2, iw, ih)}">{svg}</span>'
 
     def build(self):
         d = self.d
@@ -281,17 +343,14 @@ class Page:
         for x, y, w, h, href, label in LINKS.get(self.slug, []):
             ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
             body.append(f'<a class="plink" href="{html.escape(href)}"{ext} aria-label="{label}" style="{box(x, y, w, h)}"></a>')
+        body += self.controls()
         # Each control drives the video it sits on (or the nearest one).
         inner = "".join(body)
         for t, (cx, cy, fid) in enumerate(self.ctrls):
             def dist(v):
-                vx, vy, vw, vh, _, vf = v
+                vx, vy, vw, vh, _, vf, _s = v
                 return (vf != fid) * 1e9 + max(vx - cx, 0, cx - vx - vw) ** 2 + max(vy - cy, 0, cy - vy - vh) ** 2
             inner = inner.replace(f'"@{t}@"', f'"{min(self.videos, key=dist)[4]}"', 1)
-        # Looping gifs get no pause / restart buttons: drop each button with its ring and icon.
-        for vid in re.findall(r'data-v="(\d+)"[^>]*src="assets/video/(?:%s)\.mp4"' % "|".join(GIFS), inner):
-            inner = re.sub(r'(?:<i class="pr"[^>]*></i>)*<span class="pi[^"]*"[^>]*>(?:(?!</span>).)*</span>'
-                           r'<button[^>]*data-for="%s"[^>]*></button>' % vid, "", inner)
         return (f'<!--ph--><div class="ph" style="height:{n(d["h"] - TOP)}px"><div class="ph-in" '
                 f'style="top:{n(-TOP)}px;height:{n(d["h"])}px">{inner}</div></div><!--/ph-->')
 
